@@ -1,0 +1,179 @@
+\documentclass[a4paper,12pt,portuguese,oneside,final,notitlepage]{article}
+% =============>  Fontes  <========================
+\usepackage{ucs}
+%\usepackage[latin1]{inputenc}  % Antiga codificação padrão
+\usepackage[utf8]{inputenc}     % Atualmente é a codificação padrão
+%\usepackage{indentfirst}       % indenta os primeiros parágrafos
+\usepackage[T1]{fontenc}
+% Altera estrutura do documento
+\usepackage[text={17cm,25.0cm},centering]{geometry}
+\usepackage{caption}
+\usepackage[brazil,brazilian,english,USenglish]{babel}
+% Referências
+%\usepackage[num]{abntcite}
+%\usepackage[alf]{abntcite}
+%\usepackage[num]{abntex2cite}
+\usepackage{cite}
+% Define macros para escrita de equações
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+% Outros
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\usepackage{graphicx}
+% Para obter um documento com hyperlinks
+\usepackage{hyperref}
+%---------------------------------------------------------------------
+ \hypersetup{
+    bookmarks=,            % Mostra os bookmarks
+    bookmarksnumbered=,    % Numera o bookmarks
+    pdfborder={0 0 0},     % Sem caixa em volta da hiperreferência
+    pdftoolbar=true,       % Mostra a barra de ferramentas no Acrobat Reader = true ==> sim
+    pdfmenubar=true,       % Mostra o menu no Acrobat Reader = true ==> sim
+    pdffitwindow=false,    % Ajusta o documento ao tamanho da janela aberta = false==> não
+    pdfstartview={FitH},   % Ajusta a largura da página a da janela aberta 
+    pdfauthor={Salviano A. Le\~{a}o},  % Autor do documento
+    pdftitle={Modelo de artigo},       % Titulo do documento
+    pdfsubject={Modelo},               % Assunto do documento
+    pdfkeywords={Modelo,artigo},       % Palavras chaves do documento
+    pdfproducer={LaTeX},               % O produtor do documento
+    pdfcreator={Salviano A. Le\~{a}o}, % O programa ou quem criou o documento
+    pdfnewwindow=true,   % Abre links em uma nova janela
+    colorlinks=true,     % false: links em uma caixa; true: links coloridos
+    linkcolor=red,       % Cor dos links internos (mude a cor da caixa com linkbordercolor)
+    anchorcolor=black,   % Cor do texto
+    citecolor=green,     % Cor dos links das referências bibliográficas
+    filecolor=magenta,   % Cor dos links dos arquivos
+    urlcolor=cyan        % Cor dos links externos
+}
+%Note que o último item não tem vírgula.
+%--------------------------------------------------------------------
+% Definição de algumas funções matemáticas
+%====================================================================
+\def\limfunc#1{\mathop{\rm #1}}
+\def\func#1{\mathop{\rm #1}\nolimits}
+\def\unit#1{\mathop{\rm #1}\nolimits}
+
+%%====================================================================
+
+\definecolor{Cinza50}{gray}{0.50}
+\definecolor{Cinza10}{gray}{0.10}
+\definecolor{Cinza}{gray}{0.80}
+\definecolor{cinza}{rgb}{0.9,0.9,0.9}
+%-----------------------------------------------------------------------------------
+
+%\newcounter{nota}
+\newcommand{\Nota}[1]{%
+\begin{center}
+   \colorbox{Azul}{\parbox{0.8\linewidth}{\textbf{NOTA:~} #1}}
+\end{center}}%
+
+%-----------------------------------------------------------------------------------
+\usepackage{listings}
+\lstnewenvironment{code}{%
+\lstset{%
+frame=single,
+escapeinside=~~,
+language=bash,
+inputencoding=utf8,
+stringstyle=\footnotesize\ttfamily,
+showstringspaces=false,
+extendedchars=true,
+upquote= true,
+keywordstyle=\color{black}\bfseries,
+backgroundcolor=\color{Cinza},
+basicstyle=\footnotesize\ttfamily}
+}{}
+
+% \lstnewenvironment{shell}{%
+% \lstset{%
+% frame=single,
+% escapeinside=~~,
+% language=bash,
+% inputencoding=utf8,
+% stringstyle=\footnotesize\ttfamily,
+% showstringspaces=false,
+% extendedchars=true,
+% upquote= true,
+% backgroundcolor=\color{Cinza},
+% keywordstyle=\color{blue}\bfseries,
+% basicstyle=\footnotesize\ttfamily}
+% }{}
+
+
+\title{\textbf{Cuidados com a codificação}}
+\author{Salviano A. Leão}
+\date{06-12-2013}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+Nos sistemas Linux, as terminações de um arquivo servem basicamente
+para o usuário, pois o sistema,
+
+
+Em sistemas Linux, encontramos diversos tipos de arquivos, geralmente 
+identificados por suas terminações: 
+
+Esta é a convenção, que nem sempre é usada. Pode-se perfeitamente criar 
+um arquivo texto que não tenha a terminação .txt. O comando `file' nos permite 
+identificar a que categoria um arquivo pertence. Vejamos alguns exemplos: 
+
+
+
+\begin{thebibliography}{99}
+
+   \bibitem{Ref01} \url{http://www.leg.ufpr.br/doku.php/dicas:caracteres}
+
+   \bibitem{Ref02} \url{http://www.dicas-l.com.br/arquivo/gnu_linux_tipos_de_arquivos.php#.UqMvj0Mdx38}
+
+   \bibitem{Ref03} \url{http://latexbr.blogspot.com.br/2011/01/recodificando-seus-arquivos-iso-para.html}
+   
+   \bibitem{Ref04} \url{http://sergioaraujo.pbworks.com/w/page/15863917/iconv}
+   
+   \bibitem{Ref05} \url{http://cosaslibres.com.co/ayuda-en-linux/man-comandos-linux/comando-file-linux/}
+   
+   \bibitem{Ref06} \url{http://pt.wikipedia.org/wiki/File_%28Unix%29}
+   
+   \bibitem{Ref07} \url{http://pt.wikipedia.org/wiki/N%C3%BAmero_m%C3%A1gico_%28inform%C3%A1tica%29}
+
+   \bibitem{Ref08} Neste síto temos alguns comandos linux:
+   \url{http://www.devin.com.br/comandos-manipulacao-de-arquivos/}
+
+   \bibitem{Ref09} Neste síto temos alguns comandos linux:
+   \url{http://www.vivaolinux.com.br/dica/Principais-comandos-do-Linux}
+
+   \bibitem{Ref10} Neste síto temos alguns comandos linux:
+   \url{http://pt.wikipedia.org/wiki/Anexo:Utilit%C3%A1rios_de_Linux/Unix}
+
+   \bibitem{Ref11} Neste síto temos alguns comandos linux:
+   \url{http://www.pixelbeat.org/cmdline.html}
+   
+   \bibitem{Ref12} Neste síto temos alguns comandos linux:
+   \url{http://pt.wikibooks.org/wiki/Guia_do_Linux/Iniciante+Intermedi%C3%A1rio/Comandos_diversos}
+   
+   \bibitem{Ref13} Neste síto temos alguns comandos linux:
+   \url{http://www.gnu.org/software/coreutils/manual/coreutils.html}
+   
+   \bibitem{Ref14} Neste síto temos alguns comandos linux:
+   \url{http://caradoacre.wordpress.com/2009/10/17/pequenos-comandos-que-podem-salvar-o-seu-dia/}
+
+   \bibitem{Ref15} Neste síto temos alguns comandos linux:
+   \url{http://stackoverflow.com/questions/704130/can-i-transpose-a-file-in-vim}
+
+   \bibitem{Ref16} Neste síto temos alguns comandos linux:
+   \url{http://stackoverflow.com/questions/1729824/transpose-a-file-in-bash}
+   
+   \bibitem{Ref17} Neste síto temos alguns exemplos do tikz:
+   \url{http://www.texample.net/tikz/examples/} ou usar \href{http://www.texample.net/tikz/examples/}{Tikz}
+\end{thebibliography}
+
+\end{document}
