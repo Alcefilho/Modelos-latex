@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Presentation using PDFLATEX and FoilTeX class</TITLE>
+<META NAME="description" CONTENT="Presentation using PDFLATEX and FoilTeX class">
+<META NAME="keywords" CONTENT="foilseminar">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+
+</HEAD>
+
+<BODY >
+An example presentation document using the "foils" document class
+<br>
+<a href="foilseminar.tex">original latex file</a>
+&nbsp &nbsp <a href="foilseminar.pdf">pdf format</a>
+
+<hr>
+<P>
+<h1 ALIGN=CENTER>
+Presentation using pdfLaTeX
+and the FoilTeX class
+</h1>
+
+<P>
+<br><br>
+<P>
+<ul>
+
+<li>Why pdfLaTeX?
+<p>
+<UL>
+<LI>PDFLaTex is a version of L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X that generates PDF output
+</LI>
+<LI>PDF is a near-universal format
+</LI>
+<LI>PDF file can be ``full-screen'' displayed
+</LI>
+<LI>PDF has a number of advanced features -- special display effects,
+hyperlinks, and so forth.
+</LI>
+</UL>
+<br>
+</li>
+<br>
+<li>
+Why use <TT>foils</TT> class instead of <TT>seminar</TT> class?
+<br><br>
+<UL>
+<LI>nice centered titles and text in very large fonts
+</LI>
+<LI>easy to rotate either the entire set of foils to landscape mode or to rotate individual
+foils
+</LI>
+<LI>easy to control the header and footer
+</LI>
+<LI>directly produce <TT>pdf</TT> output which can be displayed and printed in ``full-screen'' 
+mode if combined with <TT>pdflatex</TT>
+</LI>
+</UL>
+</li>
+<br><br>
+
+<li>
+To create a simple presentation document using , we
+can use the <FONT COLOR="#ff0000"><TT>foils</TT></FONT> class. 
+The syntax is as follows:
+
+<P>
+<PRE>
+\documentclass[landscape]{foils}
+...
+\begin{document}
+\foilhead[length]{title of page 1}
+...
+\foilhead[length]{title of next page}
+...
+\end{document}
+</PRE>
+where the option <TT>length</TT> specify the vertical space used as a cushion between the header
+and the body of the foil. For example, if you want the body of your foil to sit closer to the
+header, you could use the command
+<PRE>
+  \foilhead[-0.5in]{This is the Header}
+</PRE>
+<br>
+</li>
+<P>
+<li>
+To rotate a foil, simply use <code>\rotatefoilhead</code> instead of
+<code>foilhead</code>
+
+<P>
+
+<UL>
+<LI>everything on the page will be rotate including header and footer.
+</LI>
+<LI>if the default position is portrait, then this foil will be rotated
+to landscape.
+</LI>
+<LI>if the default position is landscape, then it rotates to portrait.
+</LI>
+<LI>if a rotated foil is splitted into several pages, then each of these
+pages will also be rotated. Normal orientation is recovered by the next
+invocation of <code>\foilhead</code>.
+</LI>
+</UL>
+</li>
+<P>
+<li>
+Header and Footer
+
+<P>
+The code for inputting header and footer are
+<PRE>
+  \leftheader{left header}
+  \rightheader{right header}
+  \rightfooter{right footer}
+</PRE>
+
+<P>
+To clear the header and footer, type
+<PRE>
+  \leftheader{}
+  \rightheader{}
+  \rightfooter{}
+</PRE>
+
+<P>
+To add ruler in the header and footer, use the <TT>headrule</TT> and <TT>footrule</TT> class options.
+<PRE>
+\documentclass[landscape, headrule, footrule]{foils}
+</PRE>
+<br>
+</li>
+<br>
+<li>
+Left Footer
+<br><br>
+<UL>
+<LI>The left footer is controlled by <code>\MyLogo</code> and <code>\Restriction</code>
+macro.
+
+<P>
+</LI>
+<LI>By default, the footline consists of the contents of <code>\MyLogo</code>
+followed by the contents of <code>\Restriction</code>.
+
+<P>
+</LI>
+<LI>By default (<code>\MyLogo{}</code> and <code>\Restriction{}</code>), <code>\Restriction</code> is empty and <code>\MyLogo</code> is the
+phrase 
+
+<P>
+``- Typeset by  -''.
+
+<P>
+</LI>
+<LI>You can toggle on and off the logo by macro <code>\LogoOn</code> and
+<code>LogoOff</code>.
+</LI>
+</UL>
+</li>
+<br><br>
+<li>
+Installation of and Compilation of Foil files
+<br><br>
+<ul>
+<li>
+We can download the  package from the following site:
+<P>
+<a href="http://www.ctan.org/tex-archive/macros/latex/contrib/supported/foiltex/">
+http://www.ctan.org/tex-archive/macros/latex/contrib/supported/foiltex/</a>
+</li>
+<P>
+<li>
+After downloading the necessary files, use command <code>latex foiltex.ins</code> for installation.
+</li>
+</ul>
+</li>
+<br><br>
+<li>
+To compile a foil file, you can use command <code>latex filename.tex</code>. 
+<br>
+It's
+better to use command <code>pdflatex filename.tex</code>.
+<br>
+</li>
+<br>
+<li>
+Some Special Display Effects
+<p>
+<ul>
+<li>
+To make the pdf start in full-screen mode, add to the preamble  
+<PRE>
+  \usepackage[pdftex]{geometry}
+</PRE>
+ and use macro <code>\hypersetup</code>. For
+example,
+<PRE>
+\hypersetup{
+  pdftitle={Presentation using pdfLaTeX and \FoilTeX\, class},
+  pdfsubject={How to make presentations with LaTeX},
+  pdfauthor={Eugenia Yu and Weiliang Qiu,
+    Department of Statistics,
+    University of British Columbia},
+  pdfkeywords={Presentations, LaTeX, FoilTeX, pdfTeX},
+  pdfpagemode={FullScreen},   %make the pdf start in full-screen
+                              %   mode
+  linkcolor=cyan,             %make all the links cyan instead
+  citecolor=cyan,             %   of red
+  pagecolor=cyan,
+  urlcolor=cyan
+  }
+</PRE>
+
+</li>
+<br>
+<li>
+To control page layout, use the <TT>geometry</TT> package:
+<p>
+To set dimensions for page layout in L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X is not straightforward. You
+need to adjust several L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X dimensions to place a text area where you
+want. If you want to center the text area in the paper you use, for example,
+you have to use specify L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X dimensions as follows:
+<PRE>
+  \usepackage{calc}
+  \setlength{\textwidth{8in}}
+  \setlength{\textheight{11in}}
+  \setlength\oddsidemargin{(\paperwidth-\textwidth)/2 - 1in}
+  \setlength\topmargin{(\paperheight-\textheight
+                        -headheight-\headsep-\footskip)/2 - 1in}
+</PRE>
+Without <TT>calc</TT> package, the above example would need more tedious
+setting. The <TT>geometry</TT> package provides an easy way to set page layout
+parameters. In this case, what you have to do is just to add to the preamble 
+the following line:
+<PRE>
+  \usepackage[body={8in, 11in}]{geometry}.
+</PRE>
+<P>
+The <TT>geometry</TT> package will be also useful when you have to set page
+layout obeying the following strict instructions: for example:
+
+<BLOCKQUOTE><FONT SIZE="-1">The total allowable width of the text area is 6.5 inches wide by 8.75 inches
+high. The first line on each page should begin 1.2 inches from the top edge
+of the page. The left margin should be 0.4 inch from the left edge.
+</FONT></BLOCKQUOTE>
+In this case, using <TT>geometry</TT> package you can go
+<PRE>
+  \usepackage[body={6.5in, 8.75in},
+                    top=1.2in, left=0.4in, nohead]{geometry}.
+</PRE>
+</li>
+<br>
+<li>
+To add colors to your document, use the <tt>mycolor</tt> color package
+<p>
+<UL>
+<LI>add to the preamble 
+<br><br>
+<code>usepackage[usenames]{color}</code>
+
+<P>
+Here option <TT>[usenames]</TT> causes the definitions for the 3#3 colors
+known to dvips to be preloaded. E.g. <code>\textcolor{red}{red}</code>
+produces <FONT COLOR="#ff0000">red</FONT>.
+</LI>
+<p>
+<LI>You also can define your own custom colors. For example:
+<br>
+<code>\definecolor{DarkGreen}{rgb}{0.5,0.8,0.6}</code>
+<P>
+<FONT COLOR="#80cc99">This is DarkGreen</FONT>
+</LI>
+<p>
+<LI>To add background color and other special dispaly effects of PDF
+such as <TT>pause</TT>, we can use <TT>ppower4</TT>.
+See our <a href="ppower4.html">ppower4 page</a>.
+</LI>
+</UL>
+
+</ul>
+</li>
+<br><br>
+<li>
+Here are <a href="foilseminar.tex">an example tex file</a> using the "foils" document class and the 
+<a href="foilseminar.pdf">output file in pdf format</a> from running
+<code>pdflatex</code>.
+It explains in more detail how to create a presentation document with the "foils" document class.
+</li>
+
+</ul>
+<br>
+<br>
+<hr>
+<font size=-1>
+Last Updated on February 27, 2003.
+</font>
+<br><br>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+%\documentclass[pdf,azure,slideColor,colorBG]{prosper}
+\documentclass[pdf,slideColor,colorBG]{prosper}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{multicol}
+\usepackage[toc,highlight,capsules]{HA-prosper}
+
+\begin{document}
+%==============================================================
+\begin{slide}{Título do slide}
+Aqui vem o texto do slide
+\end{slide}
+
+%==============================================================
+\begin{slide}{Tabela}
+
+\begin{multicols}{2}
+\begin{table}[!htb]
+\caption{A tabela a seguir mostra}
+\begin{center}
+\begin{tabular}{|l|c|l|} \hline
+gato & hoje & irá\\ \hline
+ação & boca & cacho\\
+dado & aviação & kappa\\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{tiger.eps}
+\end{center}
+\end{multicols}
+\end{slide}
+
+%==============================================================
+\overlays{5}{%
+\begin{slide}{Outline of the talk}
+
+\begin{itemstep}
+        \item Introduction
+        \item Statement of the main theorem
+        \item Technical lemmata
+        \item Proof of the main theorem
+        \item Conclusions
+\end{itemstep}
+
+\end{slide}
+}  % closing brace of \overlays
+
+\end{document}

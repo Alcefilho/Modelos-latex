@@ -1,0 +1,32 @@
+% hyperlinks.tex
+%
+% a sample file to illustrate the use of hyperlinks in LaTeX/Prosper/PDF
+%
+% Rouben Rostamian <rostamian@umbc.edu>
+
+\documentclass[pdf,umbc4,slideColor,colorBG]{prosper}
+\hypersetup{colorlinks=true,linkcolor=red}
+\begin{document}
+
+% slide 1
+\begin{slide}{Starting slide}
+Click \hyperlink{mytarget}{here} to go to the target slide.
+\end{slide}
+
+% slide 2
+\begin{slide}{A slide in between}
+A slide in between
+\end{slide}
+
+% slide 3
+\begin{slide}{Another slide in between}
+Another slide in between
+\end{slide}
+
+% slide 4
+\begin{slide}{Target slide}
+\hypertarget{mytarget}{}
+Yup, we are there!
+\end{slide}
+
+\end{document}

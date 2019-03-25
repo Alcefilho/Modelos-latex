@@ -1,1 +1,157 @@
-/home/salviano/Modelos/Seminarios/1304beamer01.tex
+\documentclass{beamer}
+
+\usetheme{Warsaw}
+  % 可供选择的主题参见 beameruserguide.pdf, 第 134 页起
+  % 无导航条的主题: Bergen, Boadilla, Madrid, Pittsburgh, Rochester;
+  % 有树形导航条的主题: Antibes, JuanLesPins, Montpellier;
+  % 有目录竖条的主题: Berkeley, PaloAlto, Goettingen, Marburg, Hannover;
+  % 有圆点导航条的主题: Berlin, Dresden, Darmstadt, Frankfurt, Singapore, Szeged;
+  % 有节与小节导航条的主题: Copenhagen, Luebeck, Malmos, Warsaw
+
+\setbeamercovered{transparent}
+\setbeamersize{text margin left=0.8cm, text margin right=0.6cm}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{amsmath,amssymb,amsfonts,bm}
+\usepackage{graphicx,xcolor}
+\usepackage{times}
+
+\title{There Is No Largest Prime Number}
+
+%\subtitle{}
+
+\author[Euclid]{Euclid of Alexandria \\
+   \texttt{\textcolor{blue}{euclid@alexandria.edu}}}
+\date[ISPN '80]{27th International Symposium of Prime Numbers}
+
+%\institute[]{}
+
+\pgfdeclareimage[height=.8cm]{logo}{math}
+\logo{\pgfuseimage{logo}}
+
+\setbeamertemplate{navigation symbols}{}%
+%    \insertdocnavigationsymbol,
+%    \insertsectionnavigationsymbol}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Motivation}
+\subsection{Problem}
+
+\begin{frame}
+  \frametitle{What Are Prime Numbers?}
+  \begin{definition}
+    A \alert{prime number} is a number that has exactly two divisors.
+  \end{definition}
+\end{frame}
+
+\begin{frame}\transsplithorizontalin
+  \frametitle{What Are Prime Numbers?}
+  \begin{definition}
+    A \alert{prime number} is a number that has exactly two divisors.
+  \end{definition}
+  \begin{example}
+    \begin{itemize}
+    \item 2 is prime (two divisors: 1 and 2).\pause
+    \item 3 is prime (two divisors: 1 and 3).
+    \item 4 is not prime (\alert{three} divisors: 1, 2, and 4).
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+
+\subsection{Proof}
+
+\begin{frame}\transsplitverticalout
+  \frametitle{There Is No Largest Prime Number}
+  \framesubtitle{The proof uses \textit{reductio ad absurdum}.}
+
+  \begin{theorem}
+    There is no largest prime number.
+  \end{theorem}
+  \begin{proof}
+    \begin{enumerate}
+    \item<1> Suppose $p$ were the largest prime number.
+    \item<2-> Let $q$ be the product of the first $p$ numbers.
+    \item<3-> Then $q + 1$ is not divisible by any of them.
+    \item<1-> Thus $q + 1$ is also prime and greater than $p$.\qedhere
+    \end{enumerate}
+  \end{proof}
+  \uncover<4->{The proof used \textit{reductio ad absurdum}.}
+\end{frame}
+
+\begin{frame}\transboxin
+  \frametitle{What's Still To Do?}
+  \begin{block}{Answered Questions}
+    How many primes are there?
+  \end{block}
+  \begin{block}{Open Questions}
+    Is every even number the sum of two primes?
+    \cite{Goldback1742}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{What's Still To Do?}
+  \begin{columns}[t]
+    \column{.32\textwidth}
+      \begin{block}{Answered Questions}
+        How many primes are there?
+      \end{block}
+
+    \column{.36\textwidth}
+      \begin{block}{Answered Questions}
+        How many primes are there?
+      \end{block}
+
+    \column{.32\textwidth}
+      \begin{block}{Open Questions}
+        Is every even number the sum of two primes?
+        \cite{Goldback1742}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{thebibliography}{10}
+  \bibitem{Goldback1742}[Goldback, 1742]
+    Christian Goldback.
+    \newblock A problem we should try to solve before the ISPN '43 deadline,
+    \newblock \emph{Letter to Leonhard Euler}, 1742.
+  \end{thebibliography}
+\end{frame}
+
+\section{Algorithm}
+
+\begin{frame}[fragile]
+  \frametitle{An Algorithm For Finding Primes Numbers.}
+
+\begin{semiverbatim}
+\uncover<1->{\alert<0>{int main (void)}}
+\uncover<1->{\alert<0>{\{}}
+\uncover<1->{\alert<1>{  \alert<4>{std::}vector<bool> is_prime (100, true);}}
+\uncover<1->{\alert<1>{  for (int i = 2; i < 100; i++)}}
+\uncover<2->{\alert<2>{    if (is_prime[i])}}
+\uncover<2->{\alert<0>{      \{}}
+\uncover<3->{\alert<3>{        \alert<4>{std::}cout << i << " ";}}
+\uncover<3->{\alert<3>{        for (int j = i; j < 100;}}
+\uncover<3->{\alert<3>{             is_prime [j] = false, j+=i);}}
+\uncover<2->{\alert<0>{      \}}}
+\uncover<1->{\alert<0>{  return 0;}}
+\uncover<1->{\alert<0>{\}}}
+\end{semiverbatim}
+
+  \visible<4->{Note the use of \alert{\texttt{std::}}.}
+\end{frame}
+
+\end{document}

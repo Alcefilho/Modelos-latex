@@ -1,0 +1,175 @@
+\documentclass[12pt]{article}
+\usepackage{pstricks}
+\usepackage{pst-text}
+\usepackage{pst-node}
+\usepackage{pst-rel-points}
+
+\textheight 10in
+\textwidth 7in
+\begin{document}
+
+%%This is my first document
+%%
+%%\begin{itemize}
+%%\item This is the first list item
+%%	\begin{enumerate}
+%%	\item first item in the numbered list
+%%	\item second item in the numbered list
+%%
+%%	\begin{figure}[h]
+%%	\begin{center}
+%%	\renewcommand{\arraystretch}{2}
+%%		\begin{tabular}{|l|l|}
+%%	\hline
+%%	S. No. & Name \\ \hline \hline
+%%1 & Uday Khedker \\ \hline	
+%%	\end{tabular}
+%%	\end{center}
+%%
+%%	\caption{First Table}
+%%	\label{first.table}
+%%	\end{figure}
+%%	\end{enumerate}
+%%\item This is the second list item
+%%
+%%\item As shown in \ref{first.table}, we can see that...
+%%\end{itemize}
+
+\psset{unit=1mm,arrowsize=1.5mm}
+
+%%\begin{center}
+%%\begin{tabular}{|c|c|}
+%%\hline
+%%\begin{pspicture}(0,0)(50,30)
+%%\putnode{n0}{origin}{2}{15}{}
+%%\putnode{n1}{n0}{8}{0}{\pscirclebox[framesep=1.5]{$x$}}
+%%\putnode{n2}{n1}{20}{0}{\pscirclebox{$l$}}
+%%\putnode{n3}{n2}{10}{0}{\pscirclebox{$l$}}
+%%\putnode{n4}{n3}{10}{0}{\pscirclebox[framesep=1.7]{$r$}}
+%%\putnode{n5}{n3}{5}{-8}{\pscirclebox[framesep=1.7]{$r$}}
+%%%
+%%\ncline[doubleline=true,arrowsize=2]{->}{n0}{n1}
+%%\ncline{->}{n1}{n2}
+%%\aput[1pt](.8){$w$}
+%%\ncline{->}{n2}{n3}
+%%\ncline{->}{n3}{n4}
+%%\ncline[nodesep=-.7]{->}{n3}{n5}
+%%\nccurve[ncurv=1,angleA=45,angleB=135,nodesep=-1]{->}{n4}{n2}
+%%\end{pspicture}
+%%&
+%%\begin{pspicture}(0,0)(50,30)
+%%\putnode{n0}{origin}{2}{15}{}
+%%\putnode{n1}{n0}{8}{0}{\pscirclebox[framesep=1.2]{$y$}}
+%%\putnode{n2}{n1}{10}{5}{\pscirclebox{$l$}}
+%%\putnode{n3}{n2}{10}{0}{\pscirclebox{$l$}}
+%%\putnode{n4}{n3}{10}{-5}{\pscirclebox[framesep=1.7]{$r$}}
+%%%
+%%\putnode{n5}{n1}{10}{-5}{\pscirclebox[framesep=1.5]{$r$}}
+%%\putnode{n6}{n5}{10}{0}{\pscirclebox{$l$}}
+%%
+%%\ncline[doubleline=true,arrowsize=2]{->}{n0}{n1}
+%%\ncline{->}{n1}{n2}
+%%\ncline{->}{n1}{n5}
+%%\ncline{->}{n2}{n3}
+%%\ncline{->}{n3}{n4}
+%%\ncline{->}{n5}{n6}
+%%\ncline[nodesep=-.7]{->}{n6}{n4}
+%%\ncline[nodesep=-.7]{->}{n5}{n3}
+%%\ncline[nodesep=-.7]{->}{n2}{n6}
+%%%\nccurve[ncurv=1,angleA=45,angleB=135,nodesep=-1]{->}{n4}{n2}
+%%\end{pspicture}
+%%\\ \hline
+%%\end{tabular}
+%%\end{center}
+%%
+%%\begin{center}
+%%\begin{pspicture}(0,0)(50,40)
+%%%\psframe(0,0)(50,40)
+%%\putnode{n1}{origin}{10}{35}{\psframebox{$x = y$}}
+%%\putnode{z}{n1}{-9}{0}{1}
+%%\putnode{n2}{n1}{24}{0}{\psframebox{$x = z$}}
+%%\putnode{z}{n2}{-9}{0}{2}
+%%\putnode{n3}{n1}{0}{-12}{\psframebox{$y.n =$ Null}}
+%%\putnode{z}{n3}{-13}{0}{3}
+%%\putnode{n4}{n3}{10}{-12}{\psframebox{print $x.n.n.d$}}
+%%\putnode{z}{n4}{-15}{0}{4}
+%%%
+%%\ncline{->}{n1}{n3}
+%%\nccurve[angleA=270,angleB=60]{->}{n2}{n4}
+%%\ncline{->}{n3}{n4}
+%%\end{pspicture}
+%%\end{center}
+
+
+\begin{pspicture}(0,0)(120,60)
+\putnode{n1}{origin}{20}{35}{\psovalbox[framesep=2,framearc=.5,
+		linecolor=blue,
+		linewidth=1,linestyle=none,
+		fillstyle=solid, fillcolor=yellow]{%
+			x
+			}}
+\putnode{n2}{n1}{0}{-20}{y}
+\ncloop[angleA=90,angleB=270,armB=10,loopsize=-10,linearc=2,
+		nodesepB=1,arrowsize=3]{->}{n1}{n2}
+\bput[1pt](2.5){$w$}
+\putnode[l]{a}{origin}{30}{70}{%
+	\psframebox{%
+	\begin{minipage}{70mm}
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.\footnote{This is a 
+	\rnode{b}{footnote}}
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+	This is a running text.
+
+	
+	\begin{itemize}
+	\setlength{\itemsep}{-2mm}
+	\item one
+	\item two
+	\end{itemize}
+	\end{minipage}
+	}
+	}
+\nccurve[angleA=90,angleB=270]{n2}{b}
+
+
+\end{pspicture}
+
+
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of 
+This is the power of \rnode{c}{\psframebox{pstricks}}!.
+\ncline{n2}{c}
+
+\rule{\textwidth}{.5mm}
+
+\end{document}

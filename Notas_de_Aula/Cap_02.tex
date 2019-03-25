@@ -1,0 +1,48 @@
+
+\chapter{Comando locate}
+
+
+\section{Introdução}
+
+Quando é preciso localizar alguns arquivos no sistema ou em alguns diretórios, 
+pode-se usar o comando \texttt{find} para encontra-los. Embora ele seja 
+um bom utilitário para realizar pesquisas, porém ele é lento.
+
+No entanto o comando \texttt{locate} pode procurar arquivos com muita rapidez. 
+Embora o comando \texttt{locate} seja muito rápido, ele ainda não permite
+que se deixe de lado o comando \texttt{find} porque ele tem algumas limitações,
+como será mostrado.
+
+\section{Como o comando \texttt{locate} funciona? -- updatedb e updatedb.conf}
+
+
+Quando foi dito que o comando \texttt{locate} faz pesquisas muito rapidamente, 
+a primeira questão que surge é o que o comando \texttt{locate} faz para ser tão 
+rápido?
+
+Bem, o comando \texttt{locate} não busca os arquivos no disco, em vez disso, 
+ele procura pelos arquivos em caminhos definidos em um banco de dados ``database''. 
+O banco de dados ``database'' é um arquivo que contém as informações sobre todos
+os arquivos do seu sistema e seus respectivos caminhos. 
+
+O arquivo de banco de dados ``database'' do comando \texttt{locate} está 
+localizada em:
+
+
+A próxima questão lógica é: o que mantém esta base de dados \texttt{mlocate.db} 
+do comando \texttt{locate} atualizada?
+
+Bom o utilitário responsável por essa tarefa é o \texttt{updatedb}, o qual 
+quando o mesmo é executado, ele verifica todo o sistema e atualiza o arquivo 
+do banco de dados \texttt{mlocate.db}. Uma da limitação do comando \texttt{locate}
+é a sua dependência em relação ao banco de dados que pode ser atualizado 
+pelo utilitário \texttt{updatedb}. Portanto, para obter resultados confiáveis e
+atualizados em sua pesquisa com o comando \texttt{locate}, o banco de dados 
+que ele usa para realizar a pesquisa deve estar sempre atualizado e para tal 
+é necessário atualizar o banco de dados \texttt{mlocate.db} com o comando 
+\texttt{updatedb} em intervalos regulares.
+
+Pode-se configurar o utilitário \texttt{updatedb} conforme suas necessidades. 
+Isto pode ser conseguido através da atualização do \texttt{updatedb.conf}. Este é um 
+arquivo de configuração que \texttt{updatedb} lê antes de atualizar o banco de dados. 
+O \texttt{updatedb.conf} está localizado em \texttt{/etc/}:

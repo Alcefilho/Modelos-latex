@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+  <head>
+    <title>Latex-Course-3-Short-Documentation</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="Author" content="Sascha Frank">
+<meta name="Keywords" content=" Latex, Latex Course, Latex  Course Part 3  " >
+
+
+  </head>
+
+
+ <body bgcolor="ffffff" text="000000" >
+<table bgcolor="ffffff" cellspacing="0" cellpadding="2" border="0" width="100%" summary="Navigationsleiste">
+<tr>
+<td  align="center" width="7%"><a href="../../index_en.html"><b>Start</b></a></td>
+<td  align="center" width="12%"><a href="../../lebenslauf_ohne_bild_en.html"><b>Personal record<br> (without picture)</b></a></td>
+<td  align="center" width="12%"><a href="../../lebenslauf_mit_bild_en.html"><b>Personal record<br>(with picture)</b></a></td>
+<td  align="center" width="7%"><a href="../../studium_en.html"><b>Study</b></a></td>
+<td  align="center" width="7%"><a href="../../impressum_en.html"><b>Imprint</b></a></td>
+<td  align="center" width="7%"><a href="../../link_en.html"><b>Further sides</b></a> </td>
+<td align="center" width="7%">
+
+      <a href="../../../latex-kurs/latex-kurs-3/Latex-Kurs-3-Doku.html">
+          <img border="0"
+          src="../../de-flagge.gif"
+          alt="deutsche Seiten" height="31" width="56"></a>
+   
+</td>
+</tr>
+</table>
+
+<br>
+
+<a href="../latex-course-2/shortdocu-2_en.html">Back to short documentation 2 </a> &nbsp;
+<a href="../latex-kurs_en.html">Back to overview</a> &nbsp;
+<a href="latex-course-3_en.html"> Forward to additional examples </a> <br>
+
+<h2>Short documentation for course 3</h2> 
+<menu>
+<li><a href="#1"> term paper</a>
+<menu>
+<li><a href="#1a"> structure</a>
+<li><a href="#1b"> line space</a>
+<li><a href="#1c"> listings with roman numbers</a>
+<li><a href="#1d"> footnotes within tables</a>
+<li><a href="#1e"> bibliography</a>
+</menu>
+<li><a href="#2"> beamer class </a>
+<menu>
+<li><a href="#2a"> commands for beamer</a>
+</menu>
+</menu>
+<hr>
+<h2><a name="1"> term paper</a></h2>
+<h3><a name="1a"> structure</a></h3>
+<pre>
+\begin{document} 
+\input{kap1} 
+\end{document}
+</pre>
+
+To insert single tex files use \input{name}, the name of the file is be quoted 
+without ending .tex. 
+<h3><a name="1b">line space</a></h3>
+<pre>
+\usepackage{setspace} 
+\onehalfspacing 
+\begin{document} 
+\title{...} 
+\renewcommand{\baselinestretch}{1.5} 
+\input{kap1} 
+\end{document}
+</pre>
+<h3><a name="1c">listings with roman numbers</a> </h3> 
+<pre>
+\newpage 
+\pagenumbering{roman} 
+\tableofcontents 
+\newpage 
+\listoffigures 
+\listoftables 
+\newpage 
+\pagenumbering{arabic}
+</pre>
+<h3><a name="1d">footnotes within tables</a></h3>
+<pre>
+\usepackage{setspace}
+\usepackage{threeparttable}
+\begin{table}
+\begin{threeparttable} 
+\begin{tabular}{|l|c|r|} 
+\hline 
+A & B & C \\
+1 & 2 & 3 \tnote{1} \\
+\end{tabular} 
+\begin{tablenotes}\footnotesize 
+\item[1] Prognose 2003 
+\end{tablenotes}
+\end{threeparttable}
+\end{table} 
+</pre>
+The command  \tnote{...} "replace \footnote{...}"
+<h3><a name="1e">bibliography</a></h3>
+entry in .bib file 
+<pre>
+@BOOK{zahl, 
+Year = {1996}, 
+Author = {name of the author}, 
+Title = {title of the book}, 
+publisher = {the name of publisher} 
+}
+
+\bibliography{name of the .bib file} 
+\bibliographystyle{style you use}
+</pre>
+<ol>
+<li> pdflatex term-paper.tex 
+<li> pdflatex term-paper.tex 
+<li> bibtex term-paper  <b> important no ending</b>
+<li> pdflatex term-paper.tex 
+<li> pdflatex term-paper.tex 
+<li> acroread term-paper.pdf 
+</ol> 
+<h2><a name="2">beamer class</a> </h2>
+<pre>
+\documentclass{beamer} 
+\usepackage{beamerthemesplit} 
+\begin{document} 
+\frame{...}
+\frame{\frametitle{Example for beamer class}
+...
+....}
+\end{document}
+</pre>
+ <ol>
+<li> Xemacs beamertest.tex  
+<li> pdflatex beamertest.tex 
+<li> acroread beamertest.tex 
+<li> Strg l 
+<li> Esc 
+</ol>
+<h3><a name="2a">commands for beamer</a></h3>
+ \pause insert an interruption in frames.<br>
+blocks <br>
+The standard block has as color blue.
+<pre>
+\begin{block}{Titel} 
+\end{block}
+</pre>
+Example block has as standard color green
+<pre>
+\begin{exampleblock}{Titel} 
+\end{exampleblock}
+</pre>
+
+With using \usepackage{beamerthemeshadow} you will get a nice border.<br>
+
+ <a href="../latex-course-2/shortdocu-2_en.html">Back to short documentation 2 </a> &nbsp;
+<a href="../latex-kurs_en.html">Back to overview</a> &nbsp;
+<a href="latex-course-3_en.html"> Forward to additional examples </a> <br>
+ <hr>
+    <address>Sascha Frank</address>
+<!-- Created: Tue Jun  7 22:01:41 MEST 2005 -->
+<!-- hhmts start -->
+Last modified: Thu May 25 17:00:19 MEST 2006
+<!-- hhmts end -->
+  </body>
+</html>

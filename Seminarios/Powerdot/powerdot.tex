@@ -1,0 +1,2807 @@
+%% ---------------------------------------------------------------
+%% Copyright (C) 2005-2011 Hendri Adriaens and Christopher Ellison
+%% ---------------------------------------------------------------
+%%
+%% Version 1.4g prepared by Herbert Voss
+%% Additional work for the documentation by Patrice Mégret
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%%
+%% This work has the LPPL maintenance status "unmaintained".
+%%
+\documentclass[a4paper]{ltxdoc}
+
+\usepackage{url}
+\usepackage{fourier}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{pst-text}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{xkeyval}
+\usepackage[section]{placeins}
+\addtolength\textheight{2cm}
+\addtolength\topmargin{-1cm}
+\lstnewenvironment{command}{%
+  \lstset{columns=flexible,frame=single,backgroundcolor=\color{blue!20},%
+    xleftmargin=\fboxsep,xrightmargin=\fboxsep,escapeinside=`',gobble=1}}{}
+\lstnewenvironment{example}[1][]{%
+  \lstset{basicstyle=\footnotesize\ttfamily,columns=flexible,frame=single,%
+    backgroundcolor=\color{yellow!20},xleftmargin=\fboxsep,%
+    xrightmargin=\fboxsep,gobble=1,%
+    language=[LaTeX]TeX,keywordstyle=\color{blue},%
+    moretexcs=[1]{color,ProvidesPackage},%
+    moretexcs=[2]{onslide,pause,pdsetup,maketitle,tableofcontents},%
+    texcsstyle=[2]\color{red}%
+    }\lstset{#1}}{}
+\def\mktitledecor{%
+  \rput[tl]{90}(-5.5,-26.51){%
+    \psline[linewidth=1pt](0,1.5)(\paperheight,1.5)%
+    \rput[lB](.075\paperheight,.5){\pscharpath[linecolor=blue!50,%
+      fillcolor=yellow!20,fillstyle=solid,linewidth=.5pt]%
+      {\Huge\bfseries\sffamily powerdot}%
+    }%
+    \rput[rB](.925\paperheight,.5){\pscharpath[linecolor=blue!50,%
+      fillcolor=yellow!20,fillstyle=solid,linewidth=.5pt]%
+      {\Huge\bfseries Documentation}%
+    }%
+    \psline[linewidth=1pt](0,0)(\paperheight,0)%
+  }%
+}
+\makeatletter
+\def\option#1{%
+  \XKV@for@n{#1}\pd@tempa{%
+    \fcolorbox{black}{red!20}{\texttt\pd@tempa}\quad
+  }%
+  \vspace*{.2cm}%
+}
+\def\tableofcontents{\@starttoc{toc}}
+\renewenvironment{theglossary}{%
+  \section*{Version history}%
+  For more information on bug fixes, typeset the source code
+  documentation (see section~\ref{sec:source}).\par\medskip
+  \GlossaryParms \let\item\@idxitem \ignorespaces
+}{}%
+\def\DescribeMacros{\leavevmode\@bsphack
+  \begingroup\MakePrivateLetters\Describe@Macros}
+\def\Describe@Macros#1{\endgroup\strut
+  \marginpar{\raggedleft
+  \def\@tempa{#1}\count@\z@
+  \XKV@for@o\@tempa\@tempa{%
+    \ifnum\count@>\z@\\\fi\advance\count@\@ne
+    \MacroFont\expandafter\string\@tempa
+    \expandafter\SpecialUsageIndex\expandafter{\@tempa}%
+  }}%
+  \@esphack\ignorespaces
+}
+\def\DescribeOption#1{\leavevmode\@bsphack
+              \marginpar{\raggedleft\PrintDescribeOption{#1}}%
+              \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+\def\PrintDescribeOption#1{\strut\emph{option}\\\MacroFont #1\ }
+\def\SpecialOptionIndex#1{\@bsphack
+    \index{#1\actualchar{\protect\ttfamily#1}
+           (option)\encapchar usage}\@esphack}
+\def\DescribeOptions#1{\leavevmode\@bsphack
+  \marginpar{\raggedleft\strut\emph{options}%
+  \@for\@tempa:=#1\do{%
+    \\\strut\MacroFont\@tempa\SpecialOptionIndex\@tempa
+  }}\@esphack\ignorespaces}
+\def\SpecialEnvIndex#1{\@bsphack
+    \index{#1\actualchar{\protect\ttfamily#1}
+           (environment)\encapchar usage}\@esphack}
+\def\changes@#1#2#3{%
+  \protected@edef\@tempa{%
+    \noexpand\glossary{\textbf{#1}\hfill\emph{(#2)}%
+    \levelchar
+    \ifx\saved@macroname\@empty
+      \space\actualchar\generalname
+    \else
+      \expandafter\@gobble\saved@macroname
+      \actualchar\string\verb\quotechar*%
+      \verbatimchar\saved@macroname\verbatimchar
+    \fi
+    :\levelchar #3}%
+  }%
+  \@tempa\endgroup\@esphack
+}
+\makeatother
+\def\PrintChangesX{%
+  \begingroup
+    \let\efill\relax
+    \PrintChanges
+  \endgroup
+}
+\def\PrintIndexX{%
+  \begingroup
+    \setcounter{IndexColumns}{2}
+    \setlength{\columnsep}{18pt}%
+    \setlength{\columnseprule}{.4pt}%
+    \PrintIndex
+  \endgroup
+}
+\def\larg#1{{\ttfamily\char`\<}\meta{#1}{\ttfamily\char`\>}}
+\def\LyX{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+\def\LyXarrow{\leavevmode\,$\triangleright$\,\allowbreak}
+\let\pf\textsf
+\def\equals{=}
+\setcounter{tocdepth}{2}
+\newcolumntype{d}{c|l}
+\newcolumntype{e}{c|c|c|c}
+\newcolumntype{f}{l|p{8cm}}
+\RecordChanges
+\CodelineIndex
+\newcounter{FAQ}
+\def\question{%
+  \stepcounter{FAQ}%
+  \parskip4pt plus 2pt minus 1pt
+  \itemsep4pt plus 2pt minus 1pt
+  \parsep4pt plus 2pt minus 1pt
+  \item[\textbf{Q\arabic{FAQ}}]%
+}
+\def\answer{%
+  \parskip0pt
+  \itemsep0pt
+  \parsep0pt
+  \item[\textbf{A\arabic{FAQ}}]%
+}
+\def\styleexample#1{%
+  \IfFileExists{powerdot-styleexample-#1.001}{%
+    \IfFileExists{powerdot-styleexample-#1.002}{%
+      \hspace*{\stretch{1}}%
+      \fbox{\includegraphics[scale=.16,angle=-90,clip]%
+        {powerdot-styleexample-#1.001}}%
+      \hspace*{\stretch{2}}%
+      \fbox{\includegraphics[scale=.16,angle=-90,clip]%
+        {powerdot-styleexample-#1.002}}%
+      \hspace*{\stretch{1}}\par
+    }{\textbf{No example files found for style \pf{#1}.}}%
+  }{\textbf{No example files found for style \pf{#1}.}}%
+}
+
+\def\fileversion{v1.4g}
+\def\filedate{2011/04/25}
+
+ \changes{v1.0}{2005/09/04}{Initial release}
+ \changes{v1.1}{2005/09/19}{Fixed some small bugs}
+ \changes{v1.1}{2005/09/19}{Added \texttt{tocsecindent} and
+   \texttt{tocslideindent} options}
+ \changes{v1.1}{2005/09/19}{Added \pf{elcolors}, \pf{aggie}, \pf{husky}
+   and \pf{sailor} styles}
+ \changes{v1.1}{2005/09/19}{Changed \texttt{size\protect\equals 10}
+   to \texttt{size\protect\equals 10pt}}
+ \changes{v1.1}{2005/09/19}{Added \LyX\ layout, description and example}
+ \changes{v1.1}{2005/09/19}{Added graphical examples of styles to documentation}
+ \changes{v1.1}{2005/09/19}{Improved section title handling}
+ \changes{v1.1}{2005/09/19}{\texttt{blackslide} options adds hyperlink
+   to slide and section titles}
+ \changes{v1.1}{2005/09/19}{Extended FAQ}
+ \changes{v1.1}{2005/09/19}{Improved \pf{tycja}, \pf{ciment} and \pf{fyma} styles}
+ \changes{v1.2}{2005/10/09}{Added \pf{upen} and \pf{bframe} styles}
+ \changes{v1.2}{2005/10/09}{Solved some small bugs}
+ \changes{v1.2}{2005/10/09}{Simplified coding of most styles}
+ \changes{v1.2}{2005/10/09}{Speeded up compilations}
+ \changes{v1.3}{2005/12/06}{Solved some small bugs}
+ \changes{v1.3}{2005/12/06}{Improved \texttt{figure} and \texttt{table} handling}
+ \changes{v1.3}{2005/12/06}{Added \pf{horatio}, \pf{paintings}, \pf{klope}, \pf{jefka}
+   and \pf{pazik} styles}
+ \changes{v1.3}{2005/12/06}{Added palettes feature}
+ \changes{v1.3}{2005/12/06}{Added random dots feature}
+ \changes{v1.3}{2005/12/06}{Added optional argument to \cs{maketitle}}
+ \changes{v1.3}{2005/12/06}{Added clock feature}
+ \changes{v1.3}{2005/12/06}{Updated all styles}
+ \changes{v1.3}{2005/12/06}{Added palettes to \pf{default}, \pf{fyma} and \pf{sailor} styles}
+ \changes{v1.3}{2005/12/06}{Revised docs}
+ \changes{v1.3}{2005/12/06}{Updated \LyX\ example and information}
+ \changes{v1.3}{2005/12/06}{Cleaned up options}
+ \changes{v1.3}{2005/12/06}{Added possibility to create horizontal table of contents}
+ \changes{v1.3}{2005/12/06}{Added logo feature}
+ \changes{v1.3}{2005/12/06}{Added examples and example file}
+ \changes{v1.3}{2005/12/06}{Added two slide processing methods to do verbatim on slides easily}
+
+ \changes{v1.4 }{2005/12/10}{Moved \texttt{lf} and \texttt{rf} keys from \texttt{global} to \texttt{glslide} family}
+ \changes{v1.4 }{2005/12/10}{Added \texttt{cf} option}
+ \changes{v1.4 }{2005/12/10}{Updated styles}
+ \changes{v1.4 }{2005/12/10}{Solved some small bugs}
+ \changes{v1.4 }{2005/12/10}{Moved footers out of slide box in handout mode}
+ \changes{v1.4 }{2008/08/24}{Added \texttt{clockformat} and \texttt{clockrefresh} keys to \texttt{global} family}
+ \changes{v1.4 }{2008/08/24}{\texttt{blackslide} replaced by the more general \texttt{pauseslide}}
+ \changes{v1.4 }{2008/08/24}{\texttt{pauseslide} does not get randomdots anymore}
+ \changes{v1.4 }{2008/08/24}{Renames \texttt{nopagebreaks} option to \texttt{nohandoutpagebreaks}}
+ \changes{v1.4 }{2008/08/24}{Added option for no frames in handout mode}
+
+ \changes{v1.4a}{2010/10/07}{fixed bug with geometry 5.x (hv)}
+ \changes{v1.4b}{2010/11/16}{fixed bug with centered footnote (hv)}
+ \changes{v1.4c}{2010/11/16}{fixed bug with missing macros for centered footer (hv)}
+ \changes{v1.4d}{2010/12/03}{fixed misleading comment header of powerdot.cls (hv)}
+ \changes{v1.4e}{2010/12/18}{fixed bugs with enumitem (hv)}
+ \changes{v1.4f}{2011/04/01}{added paper size smartboard (hv)}
+ \changes{v1.4g}{2011/04/25}{load enumitem version 2.2 and younger (hv)}
+
+
+
+\begin{document}
+%\let\Section\section\def\section*#1{\Section*{#1}\addcontentsline{toc}{section}{#1}}
+\title{\vspace*{-2cm}\mktitledecor The \pf{powerdot} class
+\thanks{This class can be downloaded from the CTAN mirrors:
+\texttt{/macros/latex/contrib/powerdot}. See \texttt{powerdot.tex} for
+information on installing \pf{powerdot} into your \LaTeX\
+distribution and for the license of this class.\newline
+This documentation prepared by Herbert Vo\ss}}
+\author{Hendri Adriaens\and Christopher Ellison}
+\date{\fileversion\ (\filedate)}
+\maketitle
+
+\begin{abstract}\noindent
+\pf{powerdot} is a presentation class for \LaTeX\ that allows for
+the quick and easy development of professional presentations. It
+comes with many tools that enhance presentations and aid the
+presenter. Examples are automatic overlays, personal notes and a
+handout mode. To view a presentation, DVI, PS or PDF output can be
+used. A powerful template system is available to easily develop new
+styles. A \LyX\ layout file is provided.
+\end{abstract}
+
+\begin{multicols}{2}
+[\section*{Contents}
+\setlength{\columnseprule}{.4pt}
+\setlength{\columnsep}{18pt}]
+\tableofcontents
+\end{multicols}
+
+\newpage
+\section{Introduction}\label{sec:intro}
+This class gives you the possibility to easily create professionally
+looking slides. The class is designed to make the development of
+presentations as simple as possible so that you can concentrate on
+the actual content instead of keeping yourself busy with technical
+details. Of course, some knowledge of \LaTeX\ is still required
+though.
+
+This class builds on and extends the \pf{prosper} class
+\cite{prosper} and the \pf{HA-prosper} package \cite{HA-prosper}.
+The \pf{HA-prosper} package was initially intended to extend
+\pf{prosper} and correct some bugs and problems of that class. As
+developments on that package progressed, it was found that
+unfortunately, not all of the problems could be overcome with the
+package. That discovery was the start of a new project set up to
+make a new class to replace the \pf{prosper} plus \pf{HA-prosper}
+combination. You're currently reading the result of that project.
+
+The remainder of this section will be devoted to giving a feel of
+what the \pf{powerdot} presentation source looks like and giving an
+overview of this documentation.
+
+The document structure of a presentation is always the same. You can
+find it in the example below.
+
+\begin{example}
+ \documentclass[<class options>]{powerdot}
+ \pdsetup{<presentation options>}
+ \begin{document}
+   \begin{slide}{a slide}
+     Contents of the slide.
+   \end{slide}
+   \section{first section}
+   \begin{slide}[<slide options>]{another slide}
+     Contents of the slide.
+   \end{slide}
+   \begin{note}{personal note}
+     The note.
+   \end{note}
+ \end{document}
+\end{example}
+
+There are several elements that define the document structure. First
+of all, the class accepts some class options that control the output
+of the class, for instance, paper type and style. These class
+options will be discussed in section~\ref{sec:classopts}. Then there
+are presentation specific options which control some of the elements
+of the presentation globally, for instance, the footers. These will
+be discussed in section~\ref{sec:pdsetup}.
+
+Once the setup has been decided on, you can use the slide
+environment to produce slides (see section~\ref{sec:slides}) and the
+note environment to produce notes that go with the slides (see
+section~\ref{sec:notes}). You can use overlays to display material
+in steps. This is described in section~\ref{sec:overlays}. The
+|\section| command provides a way to structure your presentation.
+This is discussed in section~\ref{sec:structure}.
+Section~\ref{sec:styles} will show an overview of the styles that
+come with this class and the characteristics of each style.
+Section~\ref{sec:compiling} will tell you more about how to produce
+output. This section contains important information on required
+packages.
+
+Section~\ref{sec:writestyle} is mostly interesting for people that
+want to develop their own style for this class or want to modify an
+existing style. Section~\ref{sec:lyx} explains how \LyX\
+\cite{LyXWeb} can be used to create \pf{powerdot} presentations.
+This documentation concludes with a section devoted to questions
+(section~\ref{sec:questions}), like `Where can I find examples?'. It
+also tells you where to turn to in case your questions are still not
+solved.
+
+\section{Setting up the presentation}\label{sec:setup}
+This section will describe all options that are available to control
+the output of the presentation and the looks of it.
+
+\subsection{Document class options}\label{sec:classopts} We will
+start with the class options that are typed in the |\documentclass|
+command as a comma-separated list. For each option, the preset
+value\footnote{The value that will be used when you don't use the
+option.} will be mentioned in the description. This is the value
+that will be used if you decide to not give a value to the option or
+not use the option at all.
+
+\DescribeOption{mode}
+This options controls the kind of output that we want to produce.
+The preset value is |present|.
+\begin{description}
+\item\option{mode=present}\\
+This mode is used when you want to create the actual presentation. It
+will enable overlays and transition effects. You can read more about
+overlays in section~\ref{sec:overlays}.
+\item\option{mode=print}\\
+This mode can be used when printing the slides including their visual
+markup, but without any overlay or transition effects.
+\item\option{mode=handout}\\
+This mode will produce a black and white overview of your slides that
+can be used to make personal notes on, for distribution to students,
+a personal guide during your talk, etcetera.
+\begin{description}
+\item\DescribeOption{nohandoutpagebreaks}\option{nohandoutpagebreaks}\\
+By default, the handout mode produces a document with two slides per
+page. If you want to fit more slides on a page, specify this option
+in the |\documentclass| command and \pf{powerdot} will let \LaTeX\
+decide on the places to insert a page break, namely when a page is
+full.
+\item\DescribeOption{nohandoutframes}\option{nohandoutframes}\\
+In handout mode, each slide is contained in a frame by default. This option turns the frames off.
+\end{description}
+\end{description}
+
+\DescribeOption{paper} This option has three possible values. The
+preset value is |screen|.
+\begin{description}
+\item\option{paper=screen}\\
+This is a special format with screen optimized ratio (4/3). The
+actual page dimensions will be 8.25 inch by 11 inch. This paper format
+is not available for print or handout mode. In these modes, \pf{powerdot}
+will switch to a4 paper and put a warning that it did this in the
+log file of your presentation.
+\item\option{paper=a4paper}\\
+A4 paper will be used for the presentation or handout.
+\item\option{paper=letterpaper}\\
+Letter size paper will be used.
+\item\option{paper=smartboard}\\
+smartboard size will be used (\verb|papersize={900pt,1440pt}|).
+\end{description}
+Some important information with respect to paper size, compiling and
+viewing presentations is available in section~\ref{sec:compiling}.
+
+\DescribeOption{orient} This controls the orientation of the
+presentation. The preset value is |landscape|.
+\begin{description}
+\item\option{orient=landscape}\\
+The presentation will be in landscape format. This value is not
+available in handout mode. In that mode, \pf{powerdot} will switch
+to portrait orientation and will warn you about this in the log
+file.
+\item\option{orient=portrait}\\ This produces slides in portrait
+format. Notice that not all styles support portrait orientation. Please
+refer to section~\ref{sec:styles} for information about which styles
+do support the portrait orientation.
+\end{description}
+
+\DescribeOption{display} This controls the production of slides and
+notes. The preset value is |slides|.
+\begin{description}
+\item\option{display=slides}\\
+This will only typeset the slides in your presentation.
+\item\option{display=slidesnotes}\\
+This will typeset both the slides and the notes in your
+presentation. See also section~\ref{sec:notes} for more information
+about notes.
+\item\option{display=notes}\\
+This will typeset the notes only.
+\end{description}
+
+Here are some more options to control the output.
+\begin{description}
+\item\DescribeOption{size}\option{size}\\
+This is the size of the normal text font in points. Possible values
+are 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt and 20pt and the preset
+value is 11pt.\footnote{Note that sizes other than 10pt, 11pt and
+12pt are non-standard and it is assumed that you have the
+\pf{extsizes} bundle \cite{extsizes} installed, which provides these
+sizes.}
+\item\DescribeOption{style}\option{style}\\
+This controls the style to be loaded for the presentation. By
+default, the \pf{default} style will be loaded. For more styles, see
+section~\ref{sec:styles}.
+\item\DescribeOption{fleqn}\option{fleqn}\\
+This option makes equations flushed left. It does the same as the
+equally named option for the article class.
+\item\DescribeOption{leqno}\option{leqno}\\
+Put equation numbers at the left. Also the same as in the article
+class.
+\item\DescribeOption{nopsheader}\option{nopsheader}\\
+By default, \pf{powerdot} will write a postscript command to the ps
+file to make sure that post processors like ps2pdf know which paper
+to use without the need to specify it on the command line. See also
+section~\ref{sec:compiling}. If you experience problems with post
+processing or printing or you want to specify the paper size in the
+post processing steps yourself, use this option.
+\item\DescribeOption{hlentries}\option{hlentries}\\
+This highlights table of contents entries when the entry matches
+with the current slide and its preset value is |true|. See also
+section~\ref{sec:structure}. If you don't want highlighting of table
+of contents entries (for instance in print mode), use
+|hlentries=false|.
+\item\DescribeOption{hlsections}\option{hlsections}\\
+This highlights table of contents sections when the section matches
+with the current section in the presentation and is preset to |false|.
+See also section~\ref{sec:structure}. Specifying this
+option turns highlighting of sections on. This could be useful when
+you are using a style that implements a split table of contents.
+\item\DescribeOption{pauseslide}\option{pauseslide}\\
+This option inserts an empty slide (black by default) in the presentation on page 1 and
+will automatically advance to page 2 when opening the presentation
+in a PDF viewer like Acrobat (Reader). The option also inserts a
+link behind every slide or section title that brings you to the
+pause slide when clicked. When you click anywhere in the pause
+slide, you will go back to the originating slide. This option can be
+used to temporarily pause a presentation, for instance, to do a
+proof on the black board. You can use a different color than black
+by specifying it after the option, for instance, |pauseslide=white|.
+\item\DescribeOptions{clock}\option{clock}\\
+This displays a small digital clock on slides which you can use to
+check the time left for your presentation.
+\end{description}
+
+Here is an example of a |\documentclass| command.
+\begin{example}
+ \documentclass[
+   size=12pt,
+   paper=screen,
+   mode=present,
+   display=slidesnotes,
+   style=tycja,
+   nohandoutpagebreaks,
+   pauseslide,
+   fleqn
+ ]{powerdot}
+\end{example}
+This example sets up a presentation in \pf{tycja} style, with a black
+slide, normal size 12 points and flushed left equations.
+\begin{example}
+ \documentclass[
+   size=12pt,
+   paper=letterpaper,
+   mode=handout,
+   display=slidesnotes,
+   style=tycja,
+   nohandoutpagebreaks,
+   pauseslide,
+   fleqn
+ ]{powerdot}
+\end{example}
+Changing the |paper| and |mode| options, now produces a handout with
+possibly more than two slides per page due to the |nohandoutpagebreaks|
+option.
+
+\subsection{Setup options}\label{sec:pdsetup}
+\DescribeMacro{\pdsetup}
+There are several extra options that can help customizing your
+presentation. These options are not available via the
+|\documentclass| command. This has a technical reason.\footnote{The
+interested reader is referred to the section about the \pf{xkvltxp}
+package in the \pf{xkeyval} package documentation \cite{xkeyval}.}
+We distinguish two types of options. Options that can only be set
+globally (acting for the entire presentation) using the |\pdsetup|
+command and options that can be accessed both globally (via
+|\pdsetup|) and locally (via slide environments, see section~\ref{sec:slides}).
+
+\subsubsection{Global options}\label{sec:gopts}
+This section describes options that can only be used globally in the
+preamble of your presentation via the |\pdsetup| command.
+\begin{description}
+\item\DescribeOption{palette}\option{palette}\\
+This specifies the palette to be used. A palette is a set of colors
+defined by a style. To find out which palettes are defined by each
+style, see section~\ref{sec:styles}.
+\item\DescribeOption{theslide}\option{theslide}\\
+This option controls how the slide number appears on the slide. This
+is preset to the value |\arabic{slide}~/~\pageref*{lastslide}|,
+which could appear like |5/22|. Notice that the |\arabic{slide}|
+typesets the number of the current slide and that
+|\pageref*{lastslide}| typesets the number of the last
+slide.\footnote{We use the starred version of \cs{pageref} which is
+defined by \pf{hyperref} and does not create a link to the page that
+it is referring to.}
+\item\DescribeOption{thenote}\option{thenote}\\
+This is similar to the |theslide| option, but typesets the slide
+numbers of notes. The preset value is
+|note~\arabic{note}~of~slide~\arabic{slide}| and |\arabic{note}|
+here typesets the number of the current note that goes with the
+current slide. This could appear like |note 2 of slide 7|.
+\item\DescribeOption{counters}\option{counters}\\
+The |counters| option lists counters that you might want to protect
+on overlays. As material on overlays (see
+section~\ref{sec:overlays}) is processed multiple times, also
+\LaTeX\ counters, like the |equation| counter, might be increased
+too often. To avoid that your equations get different numbers on
+every overlay, use this option. The |equation|, |table|, |figure|,
+|footnote| and |mpfootnote| counters are already protected for you.
+If you use extra counters, for instance for theorems, list them in
+this option. Example:
+\begin{example}
+ counters={theorem,lemma}
+\end{example}
+\item\DescribeOption{list}\option{list}\\
+This option takes a list of options that will be passed on to the
+\pf{enumitem} package that controls the layout of lists created by
+the |enumerate| and |itemize| environments. Example:
+\begin{example}
+ list={labelsep=1em,leftmargin=*,itemsep=0pt,topsep=5pt,parsep=0pt}
+\end{example}
+See for more information on controlling the layout of lists the
+\pf{enumitem} package \cite{enumitem}.
+\item\DescribeOptions{enumerate,itemize}\option{enumerate,itemize}\\
+As the |list| option, but only control |enumerate| and |itemize|
+environments respectively.
+\item\DescribeOption{clockformat}\option{clockformat}\\
+This option specifies the format of the clock. The format is set using
+Acrobat's |util.printd| function.\footnote{For a complete listing of
+allowable formats, consult the \textit{Acrobat JavaScript Scripting
+Reference}\cite{javascript}.} The default value is |HH:MM:ss|, which
+shows a 00-23 hour, 00-59 minute, 00-59 second clock. Example:
+\begin{example}
+clockformat=h:MM tt
+\end{example}
+The above setting will display a 1-12 hour, 00-59 minute, am/pm clock.
+That is, the clock might show |5:53 pm|.
+\item\DescribeOption{clockrefresh}\option{clockrefresh}\\
+This option should be a number which specifies how often
+the clock is refreshed in milliseconds. The default behavior is to refresh
+the clock every second. Thus, the default value is 1000. Notice, if the
+|clockformat| is such that seconds are not shown, then it makes no sense
+to update that clock every second.  A corresponding example:
+\begin{example}
+clockrefresh=60000
+\end{example}
+The interpretation of this is that the clock will be updated every minute.
+\end{description}
+
+\subsubsection{Global and local options}\label{sec:glopts}
+This section describes options that can be used both globally via
+|\pdsetup| and locally via slide environments (see section~\ref{sec:slides}).
+\begin{description}
+\item\DescribeOptions{lf,cf,rf}\option{lf,cf,rf}\\
+This determines the content of the left, center and right footers.
+These are preset to empty.
+\item\DescribeOption{trans}\option{trans}\\
+This option sets the default transition effect to be used in the
+presentation. These transition effects only work after compiling the
+presentation to PDF format. See also section~\ref{sec:compiling}.
+The following transition effects are supported: |Split|, |Blinds|,
+|Box|, |Wipe|, |Dissolve|, |Glitter| and |Replace|. When you are using
+a viewer that understands PDF 1.5, you can also use |Fly|, |Push|,
+|Cover|, |Uncover| or |Fade|. It is important to notice that most
+viewers are case sensitive, so, for instance, |box| will not work.
+
+The preset effect is |Replace| which just replaces one slide with
+another when browsing the slides. Note that some PDF viewers (like
+Acrobat Reader 5 and higher) only produce the transition effect in
+full screen mode. If you want to use a custom transition effect that
+is not listed in the list above (for instance, a wipe effect with a
+custom wipe direction), then that is possible. However,
+\pf{powerdot} will put a warning in your log file that the effect
+that you have chosen, might not work in the PDF viewer. Here is an
+example that does work.
+\begin{example}
+ trans=Wipe /Di 0
+\end{example}
+In Acrobat (Reader), this wipes from left to right instead of the
+default top to bottom. For more information, see a PDF Reference
+Manual.
+\item\DescribeOption{method}\option{method}\\
+This option can be used when a slide contains special material that
+does not get treated in the `usual' way by \LaTeX. Verbatim material
+is an example of this. Possible values are |normal| (the preset value),
+|direct| and |file|. We will come back to this option in detail in
+section~\ref{sec:verbatim}.
+\item\DescribeOptions{logohook,logopos,logocmd}\option{logohook,logopos,logocmd}\\
+If |logopos| is specified, a logo defined by the value of the
+|logocmd| option will be put on slides. The position can be
+specified relative to the width and height of the slide. |{0,0}| is
+the lower left corner of the paper and |{\slidewidth,\slideheight}|
+is the upper right corner. For positioning the logo, the |\rput|
+command of \pf{pstricks} \cite{PSTricksWeb,PSTricks} is used. This
+command also allows to specify the point of the logo that should be
+positioned there. This point can be entered via the |logohook|
+option and can take the values |tl|, |t|, |tr|, |r|, |Br|, |br|,
+|b|, |bl|, |Bl|, |l|, |B| and |c|. For more information about
+|\rput|, consult the \pf{pstricks} documentation. Here is an example
+that integrates the flower of the \pf{default} style into the
+\pf{husky} style.
+\begin{example}
+ \documentclass[style=husky]{powerdot}
+ \pdsetup{
+   logohook=t,
+   logopos={.088\slidewidth,.99\slideheight},
+   logocmd={\includegraphics[height=.08\slideheight]{powerdot-default.ps}}
+ }
+ \begin{document}
+ ...
+ \end{document}
+\end{example}
+The preset value for |logohook| is |tl|.
+\end{description}
+
+A special feature of \pf{powerdot}, which can be used to make
+presentations come alive, is the use of random dots. These dots will
+be placed anywhere on your slides and use the colors defined by the
+palette that you use. Overlays will carry the same dots. This
+feature uses |random.tex| \cite{random}. Several options are
+available to control the appearance of the random dots.
+\begin{description}
+\item\DescribeOption{randomdots}\option{randomdots}\\
+By default, random dots are turned off. If this option is set to
+|true|, random dots will be generated. |false| will turn off the
+feature. When no value is submitted to the option, |true| will be
+used.
+\item\DescribeOptions{dmindots,dmaxdots}\option{dmindots,dmaxdots}\\
+The number of dots per slide is also random. These options set the
+minimum and maximum dots per slide. Preset values are |5| and |40|,
+respectively.
+\item\DescribeOptions{dminsize,dmaxsize}\option{dminsize,dmaxsize}\\
+The minimum and maximum radius of the dots. Preset values are |5pt|
+and |40pt|, respectively.
+\item\DescribeOptions{dminwidth,dmaxwidth,dminheight,dmaxheight}
+\option{dminwidth,dmaxwidth,dminheight,dmaxheight}\\
+These options determine the area on the slide that can be used for
+the random dots. These values are preset such that dots go anywhere
+on the slide, but you might want to adjust these such that, for
+instance, dots can only appear in the text area. The preset values
+are |0pt|, |\slidewidth|, |0pt|, |\slideheight|.
+
+Here is an example that allows dots in a smaller rectangle on the
+slide.
+\begin{example}
+ \pdsetup{
+   dminwidth=.1\slidewidth,dmaxwidth=.9\slidewidth,
+   dminheight=.2\slideheight,dmaxheight=.8\slideheight
+ }
+\end{example}
+\item\DescribeOption{dbright}\option{dbright}\\
+This option can be used to adjust the brightness of the dots. The
+number should be an integer between -100 and 100. If the number is
+negative, the color will be adjusted towards black, with -100 giving
+black. If the number is positive, the color will be adjusted towards
+white, with 100 giving white. With a light background, you may want
+to choose |bright| to be positive. With a dark background, you may
+want to set it negative. The preset value is |60|, meaning a mixture
+of 40\% of the original color and 60\% white.
+\item\DescribeOption{dprop}\option{dprop}\\
+This option is used for passing extra parameters to the |\psdot|
+command, which creates the random dots. You could, for instance,
+change the style of the dots or the line width. See for more
+information about |\psdot| the \pf{pstricks} documentation
+\cite{PSTricksWeb,PSTricks}. \pf{powerdot} defines two extra dot
+styles that can be used for the random dots. These styles are
+|ocircle| (open circle) and |osquare| (open square).
+\end{description}
+
+Here are two examples for the use of random dots.
+\begin{example}
+ \pdsetup{
+   randomdots,dminwidth=.2\slidewidth
+ }
+\end{example}
+This turns on random dots and doesn't use the left 20\% of the slide
+for placing random dots.
+\begin{example}
+ \pdsetup{
+   randomdots,dprop={dotstyle=ocircle,linewidth=.5pt},
+   dminsize=500pt,dmaxsize=600pt,dmindots=2,dmaxdots=5
+ }
+\end{example}
+This example puts at most 5 big circles on slides. These circles do
+not fit on the slides and you will only see parts of them in the
+shape of curves.
+
+\subsubsection{\cs{pdsetup} example}
+Here is an example of a |\pdsetup| command that one could use to set up
+the presentation.
+\begin{example}
+ \pdsetup{
+   lf=My first presentation,
+   rf=For some conference,
+   trans=Wipe,
+   theslide=\arabic{slide},
+   randomdots,dmaxdots=80
+ }
+\end{example}
+This sets the left and right footers and will initialize the
+transition effect to |Wipe|. Further, slide numbers will not include
+the number of the last slide, but only the number of the current
+slide. Finally, slides will be covered with at most 80 random dots.
+
+A small note is necessary with respect to the appearance of footers.
+The slide number (controlled by the |theslide| option) will be added
+to a footer. Most styles add it too the right footer. If both the
+footer and the slide number are non empty, |~--~| will be inserted
+in between them to separate them. Styles might modify this default
+behavior however.
+
+\section{Making slides}\label{sec:slides}
+\subsection{The title slide}\label{sec:titleslide}
+\DescribeMacro{\title}
+\DescribeMacro{\author}
+\DescribeMacro{\and}
+\DescribeMacro{\date}
+\DescribeMacro{\maketitle}
+The title slide is created by the |\maketitle| command.
+\begin{command}
+ `\cs{maketitle}\oarg{options}'
+\end{command}
+Its use is the same as in the standard \LaTeX\ document classes. The
+optional argument \meta{options} can contain any option from
+section~\ref{sec:glopts}. Specifying such an option in the
+|\maketitle| command will only have an effect on the title slide and
+not on other slides. See an example below.
+\begin{example}
+ \documentclass{powerdot}
+   \title{Title}
+   \author{You \and me}
+   \date{October 7, 2010}
+ \begin{document}
+    \maketitle
+    ...
+ \end{document}
+\end{example}
+The |author|, |title| and |date| declarations provide the text to be
+used when making a title page. The design of the title page is
+specific to the style in use. Notice the use of |\and| for
+separating multiple authors. See a \LaTeX\ manual \cite{companion}
+for more information on commands such as |\title| and |\author|.
+
+\subsection{Other slides}\label{sec:otherslides}
+\DescribeEnv{slide} The centerpiece of every presentation is the
+slide. In \pf{powerdot}, the content of each slide is placed in a
+|slide| environment.
+\begin{command}
+ `\cs{begin}\texttt{\{slide\}}\oarg{options}\marg{slide title}'
+ `\meta{body}'
+ `\cs{end}\texttt{\{slide\}}'
+\end{command}
+
+In section~\ref{sec:overlays} we'll see how to give some life to the
+slides, but for now, let's look at a simple example.
+\begin{example}
+ \begin{slide}{First slide}
+   Hello World.
+ \end{slide}
+\end{example}
+The slide environment has one required argument, namely the slide
+title. When a slide is created, the slide title is used to create an
+entry in the table of contents and in the list of bookmarks. The
+table of contents is a listing of the slides and section titles in
+the presentation that appears on each slide.
+
+The table of contents is clickable (when the presentation is
+compiled into PDF) and serves as a nice way to jump from location to
+location within the presentation. The bookmark list is only present
+when compilation is taken all the way to the PDF file format. It
+also serves as a table of contents, but this list does not appear on
+\textit{any} of the slides, but in a separate window in a PDF
+viewer. In the example above, the entries in both table contents and
+the list of bookmarks would be titled |First slide|.
+
+The \meta{options} for the |slide| environment can contain any
+option listed in section~\ref{sec:glopts}. Additionally, the
+following options can be used.
+\begin{description}
+\item\DescribeOption{toc}\option{toc}\\
+When specified, the value is used for the entry in the table of
+contents; otherwise, the slide title is used. If |toc=| is
+specified, then no entry is created.
+\item\DescribeOption{bm}\option{bm}\\
+When specified, the value is used for the bookmark entry; otherwise,
+the slide title is used. If |bm=| is specified, then no entry is
+created.
+\end{description}
+
+These optional arguments are especially useful when the title of a
+slide is extremely long or when the title contains \LaTeX\ commands
+that do not render correctly in the bookmarks.\footnote{The
+bookmarking procedure uses \cs{pdfstringdef} from the \pf{hyperref}
+package, and it can process accented characters such as \cs{"i}.}
+When specifying entries, be sure to hide special characters `|,|'
+and `|=|' between curly brackets `|{|' and `|}|'. Let's look at an
+example that uses these optional arguments.
+\begin{example}
+ \begin{slide}[toc=,bm={LaTeX, i*i=-1}]{\color{red}\LaTeX, $i^2=-1$}
+   My slide contents.
+ \end{slide}
+\end{example}
+
+In this example, the slide title will appear as {\color{red}\LaTeX,
+$i^2=-1$}. This text will not render correctly in a bookmark entry.
+An attempt is made to correct this, but often, the correction does
+not produce an equivalent text. This particular title would be
+rendered in the bookmark list as |redLaTeX, i2=-1|. On the other
+hand, the manually specified bookmark entry is rendered as:
+|LaTeX, i*i=-1|. Notice, no entry is created in the table of contents,
+because of the use of |toc=|.
+
+In addition to the |slide| environment, each individual style can
+define its own environments. Many styles have a |wideslide|
+environment. The idea is that one might have information that does
+not fit nicely on a slide with a table of contents listed, as this
+consumes some space. In such cases, it is preferable to use a slide
+that does not list the table of contents. The |wideslide|
+environment provides this functionality and has more space for the
+actual slide content. See section~\ref{sec:styles} for information
+on the various environments provided by the styles.
+
+\section{Overlays}\label{sec:overlays}
+It is often the case that you don't want all the information on the
+slide to appear at once. Rather, the information should appear one
+item at a time. In \pf{powerdot}, this is achieved with overlays.
+Each slide can be comprised of many overlays, and the overlays are
+displayed one at a time.
+
+\subsection{The \cs{pause} command}\label{sec:pause}
+\DescribeMacro{\pause} The easiest way to display information
+sequentially is to use the |\pause| command.
+\begin{command}
+ `\cs{pause}\oarg{number}'
+\end{command}
+Below is a simple example:
+\begin{example}
+ \begin{slide}{Simple overlay}
+   power\pause dot
+ \end{slide}
+\end{example}
+The slide's information is displayed and continues until the
+|\pause| command is encountered. No further output within the same
+slide is displayed until the click of the mouse or the touch of the
+keyboard. Then, the content will continue to display until all the
+information is displayed or until another |\pause| command is
+encountered. In this example, |power| is displayed on the first
+overlay, and |powerdot| is the displayed on the second overlay.  The
+|\pause| command is often used within the |itemize| and |enumerate|
+environments. For example,
+\begin{example}
+ \begin{slide}{Multiple pauses}
+   power\pause dot \pause
+   \begin{itemize}
+     \item Let me pause\ldots \pause
+     \item \ldots while I talk \pause and chew bubble gum. \pause
+     \item Perhaps you'll be persuaded.
+     \item Perhaps not.
+   \end{itemize}
+ \end{slide}
+\end{example}
+Since |\pause| was used before the |itemize| environment, no item
+will appear until the third overlay. Then, each item will be
+displayed one at a time, each on their own overlay. More information
+on using lists will follow in the next section.
+
+The optional argument of the |\pause| command specifies the number
+of overlays to pause. An example usage is:
+\begin{example}
+ \begin{slide}{Pause longer}
+   \begin{itemize}
+     \item A \pause
+     \item B \pause[2]
+     \item C
+   \end{itemize}
+ \end{slide}
+\end{example}
+In the example above, item |C| will appear on the fourth overlay.
+The usefulness of this option will become more apparent in the next
+section; so we will revisit a similar example at that time.
+
+\subsection{List environments}\label{sec:lists}
+The list environments, |itemize| and |enumerate|, have special
+treatments in \pf{powerdot}. They have an optional argument that
+will be taken care off by the \pf{enumitem} package (see
+\cite{enumitem}). \pf{powerdot} supplies an extra key for this
+optional argument. In the examples that follow, features will be
+described using the |itemize| environment but they also apply to the
+|enumerate| environment.
+
+Here is the typical usage of the |itemize| environment:
+\begin{example}
+ \begin{slide}{Basic itemize}
+   \begin{itemize}
+     \item A \pause
+     \item B \pause
+     \item C
+   \end{itemize}
+ \end{slide}
+\end{example}
+The display is simple, each item appears one at a time with each
+overlay.
+
+\DescribeOption{type}
+Suppose we wanted every item to show, but we only wanted one item to
+appear `active' at once. This can be accomplished via the |type|
+option for the |itemize| environment. The preset value is |0|.
+\begin{example}
+ \begin{slide}{Type 1 itemize}
+   \begin{itemize}[type=1]
+     \item A \pause
+     \item B \pause
+     \item C
+   \end{itemize}
+ \end{slide}
+\end{example}
+Now, every item will be displayed in the \emph{inactive
+color}\index{inactive color|usage} (which is defined by the style
+that you use), and the item's font color will become the active one
+on the overlay that it would normally appear on. The default
+behavior is given by |type=0|. It is still possible to pass
+optional arguments to \pf{enumitem} via the second optional argument:
+
+\begin{example}
+ \begin{slide}{Type 1 itemize}
+   \begin{enumerate}[type=1][label=\romani*)]
+     \item A \pause
+     \item B \pause
+     \item C
+   \end{enumerate}
+ \end{slide}
+\end{example}
+Take care, that this must always be the second optional argument!
+It is possible to leave the first one empty, which is valid only for \pf{powerdot}.
+
+
+Lists can also be nested to create complicated structures. When a
+list is nested, it inherits the setting of the |type| option from
+the `parent' list, but that can be overruled by specifying the
+|type| option in the optional argument of the nested list. We
+present here one example, but many more can be created by nesting
+lists of different types in different ways.
+\begin{example}
+ \begin{slide}{Nested lists}
+   \begin{itemize}
+     \item A\pause
+     \begin{itemize}[type=1]
+       \item B\pause
+     \end{itemize}
+     \item C
+   \end{itemize}
+ \end{slide}
+\end{example}
+This displays |A| and |B| on the first overlay, but |B| is inactive.
+On overlay 2, |B| will become active and on overlay 3, |C| will
+become visible.
+
+\subsection{The \cs{item} command}
+\DescribeMacro{\item}
+The |\item| command has an extra \emph{optional} argument in
+\pf{powerdot} which allows for creating overlays in a more flexible
+way then |\pause| provides.
+\begin{command}
+ `\cs{item}\oarg{label}\larg{overlays}'
+\end{command}
+This optional argument should contain an overlay specification
+stating on which overlays you want the item to appear. This
+specification is a comma separated list where each item can used the
+notation as in table \ref{tab:item}.
+\begin{table}[htb]\centering
+\begin{tabular}{d}
+Syntax&Meaning\\\hline
+\texttt{x}&Only overlay \texttt{x}\\
+\texttt{-x}&All overlays up to and including \texttt{x}\\
+\texttt{x-}&All overlays from \texttt{x}, including \texttt{x}\\
+\texttt{x-y}&All overlays from \texttt{x} to \texttt{y},
+including \texttt{x} and \texttt{y}\\
+\end{tabular}
+\caption{\cs{item} and \cs{onslide} notation}\label{tab:item}
+\end{table}
+The \meta{label} argument is the standard optional argument for
+|\item| in \LaTeX. A \LaTeX\ manual \cite{companion} can tell you
+more about this argument.
+
+Here is an example.
+\begin{example}
+ \begin{slide}{Active itemize}
+   \begin{itemize}[type=1]
+    \item<1> A
+    \item<2> B
+    \item<3> C
+   \end{itemize}
+ \end{slide}
+\end{example}
+Here we have said that |A| should only be active on overlay 1, |B|
+should only be active on overlay 2, and |C| should only be active on
+overlay 3. Again, when the item is not active, it appears in the
+inactive color because of |type=1|.
+
+If |type=0| is specified and if each item is given an overlay
+option, then each item will appear only when it is active. When the
+item is not active, then it will not show on the slide at all. More
+examples demonstrating the syntax for \meta{overlays} will be
+discussed in the next section.
+
+\subsection{The \cs{onslide} command}\label{sec:onslide}
+\DescribeMacro{\onslide} Overlays can also be achieved using the
+|\onslide| command.
+\begin{command}
+ `\cs{onslide}\marg{overlays}\marg{text}'
+\end{command}
+This command takes an \meta{overlays} specification as first
+argument and the \meta{text} to apply it to as second argument. The
+\meta{overlays} on which the text will appear are specified as a
+comma separated list with syntax as in table \ref{tab:item}. We
+start off with a simple example.
+\begin{example}
+ \begin{slide}{Simple onslide}
+   \onslide{1,2}{power}\onslide{2}{dot}
+ \end{slide}
+\end{example}
+We have instructed |power| to appear on overlays one and two, and
+|dot| to appear only on overlay two. As you might guess, this
+example has the same output as our first |\pause| example. Yet, it
+is clearly the case that our syntax is more complicated. However,
+this slight ``complication'' also allows for much more flexibility.
+
+\DescribeMacro{\onslide+}Consider the above example with the
+following modifications:
+\begin{example}
+ \begin{slide}{Simple onslide+}
+  \texttt{onslide }: \onslide{1}{power}\onslide{2}{dot}\\
+  \texttt{onslide+}: \onslide+{1}{power}\onslide+{2}{dot}
+ \end{slide}
+\end{example}
+The |\onslide+| command displays its content in a different manner
+altogether. Now, |dot| appears on every overlay, but it is in
+inactive color\index{inactive color|usage} and matches the normal
+font color \textit{only} on overlay two. This is comparable to the
+|type=1| behavior for lists (see section~\ref{sec:lists}).
+
+When executing this example, we will also notice that the |\onslide|
+command does hide material, but still reserves the right amount of
+space for it: on overlay 2, the |dot|s appear right above each
+other. The next command does not reserve space.
+
+\DescribeMacro{\onslide*} Instead of hiding and reserving space
+(|\onslide|) or putting \meta{text} in the inactive color
+(|\onslide+|) when the overlay doesn't match \meta{overlays}, this
+command just eats the material altogether. To understand the
+differences, consider the following example:
+\begin{example}
+ \begin{slide}{Simple onslide*}
+  \texttt{onslide }: \onslide{1}{power}\onslide{2}{dot}\\
+  \texttt{onslide+}: \onslide+{1}{power}\onslide+{2}{dot}\\
+  \texttt{onslide*}: \onslide*{1}{power}\onslide*{2}{dot}
+ \end{slide}
+\end{example}
+The output of the first two lines, we are already familiar with. The
+third line displays |power| on overlay 1 and |dot| on overlay 2, but
+no space for |power| is reserved on overlay 2. Hence |dot| will
+start on the cursor position that |power| started on overlay 1 and
+it is not aligned below the other two |dots|.
+
+We finish with an example of the syntax that is possible with
+|\item| and |\onslide|. Remember that these commands take a comma
+separated list for the \meta{overlays} specification and that each
+element can used the syntax as explained in table \ref{tab:item}.
+The various variations are demonstrated in the example below.
+\begin{example}
+ \begin{slide}{Lists}
+   \onslide{10}{on overlay 10 only}\par
+   \onslide{-5}{on every overlay before and including overlay 5}\par
+   \onslide{5-}{on every overlay after  and including overlay 5}\par
+   \onslide{2-5}{on overlays 2 through 5, inclusive}\par
+   \onslide{-3,5-7,9-}{on every overlay except overlays 4 and 8}
+ \end{slide}
+\end{example}
+
+\subsection{Relative overlays}
+Sometimes it is a pain to keep track of when an item should appear
+or become active. You might, for example, just care that some text
+appears on the overlay \textit{after} some other item. This
+functionality is provided through the use of relative overlays which
+should not be used outside list environments that use |\item|. Let's
+consider a simple, illuminating example.
+\begin{example}
+ \begin{slide}{Relative overlays}
+   \begin{itemize}
+     \item A \pause
+     \item B \onslide{+1}{(visible 1 overlay after B)}\pause
+     \item C \onslide{+2-}{(appears 2 overlays after C, visible until the end)}
+     \pause
+     \item D \onslide{+1-6}{(appears 1 overlay after D, visible until overlay 6)}
+     \pause
+     \item E \pause
+     \item F \pause
+     \item G \onslide{+1-+3}{(appears 1 overlay after G for 3 overlays)}\pause
+     \item H \pause
+     \item I \pause
+     \item J \pause
+     \item K
+   \End{itemize}
+ \end{slide}
+\end{example}
+As you can see, we still use |\onslide|. The only change is with the
+syntax of the list of overlays. Now, we can specify a `|+|' symbol
+in the list. In its simplest usage, |\onslide{+1}| will make text
+display one overlay after the overlay it would \textit{normally}
+appear on. You can still use the syntax in table \ref{tab:item}.
+These are demonstrated in the above example. Notice,
+|\onslide{+1-6}| means that the text will appear one overlay after
+the overlay it would normally appear on and that the text should
+remain shown until overlay seven. To make text appear for a range of
+relative overlays, see the final demonstration in the above example.
+
+\section{Presentation structure}\label{sec:structure}
+\subsection{Making sections}\label{sec:section}
+\DescribeMacro{\section}
+This section describes the |\section| command which provides a way
+to structure a presentation.
+\begin{command}
+ `\cs{section}\oarg{options}\marg{section title}'
+\end{command}
+This command will produce a slide with \meta{section title} on it
+and will also use this text to create sections in the table of
+contents and in the bookmarks list. There are several \meta{options}
+to control its output.
+
+\DescribeOption{tocsection} This option controls the creation of a
+section in the table of contents. The preset value is |true|.
+\begin{description}
+\item\option{tocsection=true}\\
+This does create a section in the table of contents. This means that
+all following slides, until the next section, will be nested under
+this section.
+\item\option{tocsection=false}\\
+This does not create a section in the table of contents and hence
+the section will be listed as an ordinary slide.
+\item\option{tocsection=hidden}\\
+This does create a section in the table of contents, but this is
+only visible when you view a slide that is part of this section.
+This could be used to append a section to the presentation which you
+can discuss if there is some extra time.
+\end{description}
+
+\DescribeOption{slide} This option controls whether the |\section|
+command creates a slide. The preset value is |true|.
+\begin{description}
+\item\option{slide=true}\\
+A slide is created.
+\item\option{slide=false}\\
+No slide will be created. If also |tocsection| is |false|, the
+|\section| command doesn't do anything. If it does create a table of
+contents section (|tocsection=| |true| or |hidden|), its link will
+point to the first slide in the section as the section itself
+doesn't have a slide.
+\end{description}
+
+\DescribeOption{template} This option can be used to make the
+section slide with another template. By default, a normal |slide|
+environment is used to create the section slide, but if a style
+offers other templates that could be used for this purpose (for
+instance, the |wideslide| environment), then you can use this option
+to select that template. See section~\ref{sec:styles} for an
+overview of the available templates with every style.
+
+Finally, all options available to normal slides are available to
+slides created by |\section| as well (see section~\ref{sec:slides}).
+However, when the section does make a |tocsection|, |toc=| or |bm=|
+won't remove the table of contents entry or the bookmark
+respectively.
+
+\subsection{Making an overview}\label{sec:tableofcontents}
+\DescribeMacro{\tableofcontents}
+This command creates an overview of your presentation and can only
+be used on a slide.
+\begin{command}
+ `\cs{tableofcontents}\oarg{options}'
+\end{command}
+There are several \meta{options} to control the output of this
+command.
+
+\DescribeOption{type}
+This option controls whether certain material (depending on the
+input in the |content| option below) will be hidden or displayed in
+the inactive color\index{inactive color|usage}. The preset value is
+|0|. Compare with the |type| option for list environments
+(section~\ref{sec:lists}).
+
+\begin{description}
+\item\option{type=0}\\
+When material is not of the requested type as specified in the
+|content| option, it will be hidden.
+\item\option{type=1}\\
+As |type=0|, but instead of hiding material, it will be typeset in
+the inactive color.
+\end{description}
+
+\DescribeOption{content}
+The |content| option controls which elements will be included in the
+overview. The preset value is |all|. The description below assumes
+that |type=0| was chosen, but the alternative text for |type=1| can
+easily be deduced.
+
+\begin{description}
+\item\option{content=all}\\
+This will display a full overview of your presentation including all
+sections and slides, except the slides in hidden sections (see
+section~\ref{sec:section}).
+\item\option{content=sections}\\
+This displays only the sections in the presentation.
+\item\option{content=currentsection}\\
+This displays the current section only.
+\item\option{content=future}\\
+This displays all content starting from the current slide.
+\item\option{content=futuresections}\\
+This displays all sections, starting from the current section.
+\end{description}
+
+We finish this section with a small example that will demonstrate
+how you can make a presentation that contains an overall overview of
+sections in the presentation, giving a general idea of the content,
+and per section a detailed overview of the slides in that section.
+\begin{example}
+ \begin{slide}[toc=,bm=]{Overview}
+   \tableofcontents[content=sections]
+ \end{slide}
+ \section{First section}
+ \begin{slide}[toc=,bm=]{Overview of the first section}
+   \tableofcontents[content=currentsection,type=1]
+ \end{slide}
+ \begin{slide}{Some slide}
+ \end{slide}
+ \section{Second section}
+ ...
+\end{example}
+
+\section{Miscellaneous}
+\subsection{Notes}\label{sec:notes}
+\DescribeEnv{note}
+The |note| environment can be used to make personal notes that
+accompany a slide. You can control displaying notes using the
+|display| option (see section~\ref{sec:classopts}). Here is an
+example.
+\begin{example}
+ \begin{slide}{Chewing gum}
+ ...
+ \end{slide}
+ \begin{note}{Reminder for chewing gum}
+   Don't forget to mention that chewing gum is sticky.
+ \end{note}
+\end{example}
+
+\subsection{Empty slides}\label{sec:emptyslides}
+\DescribeEnv{emptyslide}
+The |emptyslide| environment creates a totally empty slide. The text
+box on the slide can be used for special things like displaying
+photos. This allows for creating a dia show. Example:
+\begin{example}
+ \begin{emptyslide}{}
+   \centering
+   \vspace{\stretch{1}}
+   \includegraphics[height=0.8\slideheight]{me_chewing_gum.eps}
+   \vspace{\stretch{1}}
+ \end{emptyslide}
+\end{example}
+The |\includegraphics| command is defined by the \pf{graphicx}
+package \cite{graphics}. The |\stretch| command is used to
+vertically center the picture. Both commands are described in your
+favorite \LaTeX\ manual, for instance \cite{companion}. Note that
+you can use the lengths |\slideheight| and |\slidewidth| to scale
+pictures to fit nicely on the slide.
+
+\subsection{Bibliography slide}\label{sec:bib}
+\DescribeEnv{thebibliography}
+\pf{powerdot} redefines the standard \pf{article}
+|thebibliography| environment to suppress the creation of a section
+heading and running headers. All other properties are maintained.
+You can do either of the next two (depending whether you are
+using BiB\TeX\ or not):\\
+\begin{minipage}[t]{.49\linewidth}
+\begin{example}
+ \begin{slide}{Slide}
+   \cite{someone}
+  \end{slide}
+\begin{slide}{References}
+   \begin{thebibliography}{1}
+   \bibitem{someone} Article of someone.
+   \end{thebibliography}
+ \end{slide}
+\end{example}
+\end{minipage}\hfill
+\begin{minipage}[t]{.49\linewidth}
+\begin{example}
+ \begin{slide}{Slide}
+   \cite{someone}
+ \end{slide}
+ \begin{slide}{References}
+   \bibliographystyle{plain}
+   \bibliography{YourBib}
+ \end{slide}
+\end{example}
+\end{minipage}
+
+In case you have a big reference list that you want to spread over
+multiple slides, have a look at the packages \pf{natbib} and
+\pf{bibentry} \cite{natbib}. Using both packages allows you to do:
+\begin{example}
+ \begin{slide}{References (1)}
+   \bibliographystyle{plain}
+   \nobibliography{YourBib}
+   \bibentry{someone1}
+   \bibentry{someone2}
+ \end{slide}
+ \begin{slide}{References (2)}
+   \bibentry{someone3}
+ \end{slide}
+\end{example}
+Have a look at your favorite \LaTeX\ manual for more information
+about citations and bibliographies.
+
+\subsection{Verbatim on slides}\label{sec:verbatim}\DescribeOption{verbatim}
+\pf{powerdot} has three different methods of processing slides, from
+which two have mainly been developed to make the inclusion of
+verbatim content\footnote{And other content that needs catcode
+changes when processing.} on slides easier. These methods can be
+accessed by the |method| key which is available in slide
+environments and the |\pdsetup| command (see
+section~\ref{sec:glopts}).
+\begin{description}
+\item\option{method=normal}\\
+This is the preset method for processing slides. It is fast and
+allows for overlays, but it does not allow for
+verbatim.\footnote{Except when it has been saved in a box outside
+the slide.}
+\item\option{method=direct}\\
+This method is also fast, but does not allow for overlays. Overlays
+will silently be disabled. However, it does allow for verbatim
+content on slides.
+\item\option{method=file}\\
+This method uses a temporary file to export the slide body to and
+read it back in. This method does allow for verbatim content and
+overlays, but could be slow when many slides use this method because
+the filesystem is used.
+\end{description}
+
+Below is an example demonstrating the use of all three different
+methods of slide processing.
+\begin{example}
+ \documentclass{powerdot}
+ \usepackage{listings}
+ \lstnewenvironment{code}{
+   \lstset{frame=single,escapeinside=`',
+   backgroundcolor=\color{yellow!20},
+   basicstyle=\footnotesize\ttfamily}
+ }{}
+ \begin{document}
+ \begin{slide}{Slide 1}
+ Normal \pause content.
+ \end{slide}
+ \begin{slide}[method=direct]{Slide 2}
+ Steps 1 and 2:
+ \begin{code}
+ compute a;`\pause'
+ compute b;
+ \end{code}
+ \end{slide}
+ \begin{slide}[method=file]{Slide 3}
+ Steps 1 and 2:
+ \begin{code}
+ compute a;`\pause'
+ compute b;
+ \end{code}
+ \end{slide}
+ \end{document}
+\end{example}
+The first slide shows the default behavior for normal content. It
+produces two overlays. The second slide does not produce overlays,
+despite the use of the |\pause| command. This command has been
+disabled by choosing the |direct| method to process the verbatim
+content. The third slide has the same body as the second slide, but
+now does create two overlays, because the method using a temporary
+file has been chosen. Notice that we used |\pause| inside the listing,
+but that it can also be used outside the listing.
+
+\subsection{The \cs{twocolumn} command}\label{sec:twocolumn}
+\DescribeMacro{\twocolumn}
+The |\twocolumn| macro allows to split content into two columns.
+\begin{command}
+ `\cs{twocolumn}\oarg{options}\marg{left}\marg{right}'
+\end{command}
+This typesets \meta{left} and \meta{right} in two columns. The
+dimensions of those columns can be controlled by \meta{options}.
+Below are the available options.
+\begin{description}
+\item\DescribeOption{lineheight}\option{lineheight}\\
+If |lineheight| is specified, a line of the specified height will be
+created using |\psline| in between the two columns. Example:
+|lineheight=6cm|.
+\item\DescribeOption{lineprop}\option{lineprop}\\
+Any \pf{pstricks} declaration to specify the line properties. Example:
+\begin{example}
+ lineprop={linestyle=dotted,linewidth=3pt}
+\end{example}
+\item\DescribeOptions{lfrheight,lfrprop}\option{lfrheight,lfrprop}\\
+The first creates a frame of the specified height around the left
+column. The second is as |lineprop|, but for the left frame.
+\item\DescribeOptions{rfrheight,rfrprop}\option{rfrheight,rfrprop}\\
+As |lfrheight| and |lfrprop|, but for the right frame.
+\item\DescribeOptions{lcolwidth,rcolwidth}\option{lcolwidth,rcolwidth}\\
+Width of the left and right columns. Both are preset to: |0.47\linewidth|.
+\item\DescribeOption{frsep}\option{frsep}\\
+Space between text and the frames. Preset: |1.5mm|.
+\item\DescribeOption{colsep}\option{colsep}\\
+Space between the two columns. Preset: |0.06\linewidth|.
+\item\DescribeOption{topsep}\option{topsep}\\
+The extra space (additional to |\baselineskip|) between text above
+the columns and the text within the columns. Preset: |0cm|.
+\item\DescribeOption{bottomsep}\option{bottomsep}\\
+Idem for the bottom of the columns. Preset: |0cm|.
+\item\DescribeOption{indent}\option{indent}\\
+Horizontal indent left to the left column. Preset: |0cm|.
+\end{description}
+The dimensions described above are represented graphically in
+figure \ref{fig:twocolumndim}.
+\begin{figure}[htb]
+\centering
+\begin{pspicture}(0,.5)(13,10.5)
+\psline(0,0.5)(0,10)
+\rput[tl](.05,9.95){Top}
+\psframe[dimen=middle](1,9)(7,2)
+\psline{C-C}(8.5,9)(11,9)
+\psline{C-C}(8.5,2)(8.5,9)
+\psline{C-C}(8.5,2)(11,2)
+\qdisk(1.7,8.3){.1cm}
+\psset{linestyle=dashed}
+\psline{C-C}(1.7,8.3)(6.3,8.3)
+\psline{C-C}(1.7,8.3)(1.7,3)
+\psline{C-C}(6.3,5)(6.3,8.3)
+\psline{C-C}(11,9)(12,9)
+\psline{C-C}(11,2)(12,2)
+\psline{C-C}(11,7)(12,7)
+\psline{C-C}(9.2,8.3)(12,8.3)
+\psline{C-C}(9.2,8.3)(9.2,3)
+\rput[tl](1.75,8.25){Left column text}
+\rput[tl](9.25,8.25){Right column text}
+\rput[tl](.05,1){Bottom}
+\psset{linestyle=dotted,dotsep=2pt}
+\psline(0,8.3)(1.7,8.3)
+\psline(0,9.6)(1,9.6)
+\psline(0,2)(1,2)
+\psline(0,1.1)(1,1.1)
+\psset{linestyle=solid}
+\psline{<->}(.2,8.33)(.2,9.57)
+\psline{<->}(4,8.33)(4,8.97)
+\psline{<->}(1.73,7)(6.27,7)
+\psline{<->}(1.03,6.5)(1.67,6.5)
+\psline{<->}(0.03,5.5)(1.67,5.5)
+\psline{<->}(6.33,7.4)(9.17,7.4)
+\psline{<->}(8.53,6.5)(9.17,6.5)
+\psline{<->}(6.33,6.5)(6.97,6.5)
+\psline{<->}(10.7,8.33)(10.7,8.97)
+\psline{<->}(7.3,8.97)(7.3,2.03)
+\psline{<->}(.2,1.13)(.2,1.97)
+\psline{->}(1.7,9.3)(1.7,8.45)
+\psline{<-}(9.23,7)(11,7)
+\cput(4,6.6){\small 1}
+\cput(11.1,6.6){\small 2}
+\cput(8,7){\small 3}
+\cput(7.7,3){\small 4}
+\cput(4.4,8.65){\small 5}
+\cput(1.35,6.1){\small 5}
+\cput(8.85,6.1){\small 5}
+\cput(11.1,8.65){\small 5}
+\cput(6.65,6.1){\small 5}
+\cput(0.6,8.95){\small 6}
+\cput(0.6,5.1){\small 7}
+\cput(0.6,1.55){\small 8}
+\cput(1.7,9.6){\small 9}
+\end{pspicture}
+\begin{tabular}{c p{4cm}cl}
+\multicolumn{4}{c}{Meaning of the labels}\\\hline
+1&|lcolwidth|&5&|frsep|\\
+2&|rcolwidth|&6&|topsep|\\
+3&|colsep|&7&|indent|\\
+4&|lfrheight|, |rfrheight|,&8&|bottomsep|\\
+&|lineheight|&9&Reference point
+\end{tabular}
+\caption{Two-column dimensions.}\label{fig:twocolumndim}
+\end{figure}
+Important to notice is that the |\twocolumn| macro uses the current
+cursor position as the reference point to position the first line of
+text of the left column (see also figure \ref{fig:twocolumndim}). This
+means that optional frames can extend to the text on the previous
+line. Use for instance |topsep=0.3cm| in that case to add extra
+space between the two lines of text. The preset value of |topsep|
+is based on the situation that there is no text on top of the two
+columns. In that case, it is best to locate the first line of text
+of the left column at the same spot as text that is not created by
+|\twocolumn| on other slides. The setting |topsep=0cm| does exactly
+this. However, with a combination of |topsep| and |indent| you can
+change this behavior and position the first line of text of the left
+column anywhere you want.
+
+The |\twocolumn| macro computes the height of the construction to
+position text below the construction correctly. The computation is
+done by taking the maximum height of |lfrheight|, |rfrheight|,
+|lineheight| (if specified) and the left and right column content.
+Hence when frames nor a line is requested, |bottomsep| is the
+vertical space between the lowest line of text in the columns and
+the text below the columns (additional to |\baselineskip|). Here is
+an example.
+\begin{example}
+ \begin{slide}{Two columns}
+   Here are two columns.
+   \twocolumn[
+     lfrprop={linestyle=dotted,linewidth=3pt},
+     lfrheight=4cm,rfrheight=5cm,lineheight=3cm,topsep=0.3cm
+   ]{left}{right}
+   Those were two columns.
+ \end{slide}
+\end{example}
+Note that the use of the \pf{xkeyval} commands |\savevalue| and
+|\usevalue| \index{savevalue=\verb!*+\savevalue+|usage}
+\index{usevalue=\verb!*+\usevalue+|usage} could be handy here, for
+instance for copying the properties of the left frame to the right
+frame. This avoids typing them twice and avoids making errors
+resulting in different frames. See an example below.
+\begin{example}
+ \twocolumn[
+   \savevalue{lfrheight}=3cm,
+   \savevalue{lfrprop}={
+     linestyle=dotted,framearc=.2,linewidth=3pt},
+   rfrheight=\usevalue{lfrheight},
+   rfrprop=\usevalue{lfrprop}
+ ]{left}{right}
+\end{example}
+See the \pf{xkeyval} documentation \cite{xkeyval} for more
+information about |\savevalue| and |\usevalue|.
+
+\section{Available styles}\label{sec:styles}
+\pf{powerdot} comes with a number of styles which are listed in the
+overview below. The characteristics of each style are described
+shortly and a sample of a title slide and a normal slide is provided
+for each style. Styles support the |wideslide| environment, have a
+table of contents on the left part of the paper in landscape
+orientation and on the bottom part in portrait orientation and
+support portrait orientation unless states otherwise.
+\begin{description}
+\item\pf{default}\\
+This style provides six different palettes. A flower in the top left
+corner decorates the slides for all palettes. The default palette is
+\texttt{blue} which has as main colors light blue and white. You can
+see an example of that palette below. Other available palettes are
+\texttt{red}, \texttt{green}, \texttt{yellow}, \texttt{brown} and
+\texttt{purple}.\\
+\styleexample{default}
+\item\pf{simple}\\
+This is a simple style in black and white. This style could be
+useful if you want to print your slides.\\
+\styleexample{simple}
+\item\pf{tycja}\\
+This style is set in shades of yellow and dark blue. The table of
+contents on slides is on the right side of the paper in landscape
+orientation and on the bottom part in portrait.\\
+\styleexample{tycja}
+\item\pf{ikeda}\\
+This style uses dark shades of red and blue and a light text color.
+It has nice patterns on the slide for decoration.\\
+\styleexample{ikeda}
+\item\pf{fyma}\\
+This style was originally created by Laurent Jacques for
+\pf{prosper}. Based on that style, he created a version for
+\pf{HA-prosper} with extended features. With his kind permission,
+this style has been converted by Shun'ichi J. Amano for
+\pf{powerdot}. The style has an elegant design with a light blue and
+white gradient background in the default \texttt{blue} palette.
+Other available palettes are \texttt{green}, \texttt{gray},
+\texttt{brown} and \texttt{orange}. It has special templates for
+sections on slides and sections on wide slides. Below is a sample of
+the blue palette.\\
+\styleexample{fyma}
+\item\pf{ciment}\\
+This style was originally created by Mathieu Goutelle for
+\pf{prosper} and \pf{HA-prosper}. With his kind permission, this style
+has been converted for \pf{powerdot}. The style has a background
+that is hatched with light gray horizontal lines. Titles and table
+of contents highlighting are done with dark red.\\
+\styleexample{ciment}
+\item\pf{elcolors}\\
+This is a style using light shades of the elementary colors red,
+blue and yellow.\\
+\styleexample{elcolors}
+\item\pf{aggie}\\
+This style was created by Jack Stalnaker for \pf{HA-prosper} and he
+has converted this style for \pf{powerdot}. The style uses dark red
+and light brown colors.\\
+\styleexample{aggie}
+\item\pf{husky}\\
+This style is created by Jack Stalnaker and has a background of
+light gray sun beams combined with dark red highlights.\\
+\styleexample{husky}
+\item\pf{sailor}\\
+This style is contributed by Mael Hill\'ereau and supplies five
+different palettes: \texttt{Sea} (the default), \texttt{River},
+\texttt{Wine}, \texttt{Chocolate} and \texttt{Cocktail}. Below is a
+sample of the palette \texttt{Sea}.\\
+\styleexample{sailor}
+\item\pf{upen}\\
+This style has a nice dark blue background and text in yellow. It is
+contributed by Piskala Upendran.\\
+\styleexample{upen}
+\item\pf{bframe}\\
+The \pf{bframe} style has blue frames on the slide in which text is
+positioned. The style is contributed by Piskala Upendran.\\
+\styleexample{bframe}
+\item\pf{horatio}\\
+The \pf{horatio} style has been contributed by Michael Lundholm and
+is a more conservative blue style.\\
+\styleexample{horatio}
+\item\pf{paintings}\\
+This is a simple style without a table of contents on slides. It has
+been contributed by Thomas Koepsell and provides 10 different
+palettes. The colors used in the palettes are drawn from famous
+paintings.\footnote{The style defines a color \texttt{pdcolor7}
+which is not used in the style but comes from the same painting and
+complements the other colors. It can be used, for example, to
+highlight text against the main background color.} If you are
+interested, open the style file to read which paintings have been
+used. The available palettes are: \texttt{Syndics} (the default),
+\texttt{Skater}, \texttt{GoldenGate}, \texttt{Lamentation},
+\texttt{HolyWood}, \texttt{Europa}, \texttt{Moitessier},
+\texttt{MayThird}, \texttt{PearlEarring} and \texttt{Charon} (all
+case sensitive). Below is a sample of the \texttt{Syndics}
+palette.\\
+\styleexample{paintings}
+\item\pf{klope}\\
+The \pf{klope} style implements a horizontal table of contents that
+only lists the sections. The style is available in the following
+palettes: \texttt{Spring}, \texttt{PastelFlower}, \texttt{BlueWater}
+and \texttt{BlackWhite}. The \texttt{Spring} palette is the default
+and you can see a sample of that below.\\
+\styleexample{klope}
+\item\pf{jefka}\\
+The \pf{jefka} style comes with four palettes: \texttt{brown} (the
+default), \texttt{seagreen}, \texttt{blue} and \texttt{white}. Below
+you see a sample of the \texttt{brown} palette.\\
+\styleexample{jefka}
+\item\pf{pazik}\\
+This style is available in two palettes: \texttt{red} and
+\texttt{brown}. Below is a sample of the default \texttt{red}
+palette.\\
+\styleexample{pazik}
+\end{description}
+
+\section{Compiling your presentation}\label{sec:compiling}
+\subsection{Dependencies}\label{sec:dependencies}
+In table \ref{tab:dependencies} is a list of packages that
+\pf{powerdot} uses to perform specific tasks. Dependencies of
+packages in this table are not listed. In the table, `required'
+means that you should have a version \emph{at least} as new as
+listed and `tested' means that \pf{powerdot} was tested with this
+version, but that it could equally well work with an older or newer
+version than the one listed in the table. So, when trying to solve
+an error, first concentrate on solving version issues for the
+`required' packages. To find out which version of a package you are
+currently using, put |\listfiles| on the first line of your
+document, run it with \LaTeX, open the |.log| file and read the file
+list (see a \LaTeX\ manual for more information). If you need to
+update a package, you can get it from CTAN \cite{CTAN}.
+\begin{table}[htb]
+\centering
+\begin{tabular}{e}
+Package/file & Version & Date & Required/tested\\\hline
+\pf{xkeyval} \cite{xkeyval} & 2.5c & 2005/07/10 & required\\
+\texttt{pstricks.sty} \cite{PSTricksWeb,PSTricks} & 0.2l & 2004/05/12 & required\\
+\pf{xcolor} \cite{xcolor} & 1.11 & 2004/05/09 & required\\
+\pf{enumitem} \cite{enumitem} & 1.0 & 2004/07/19 & required\\
+\pf{article} class & 1.4f & 2004/02/16 & tested\\
+\pf{geometry} \cite{geometry} & 5.x & 2010/10/07 & tested\\
+\pf{hyperref} \cite{hyperref} & 6.74m & 2003/11/30 & tested\\
+\pf{graphicx} \cite{graphics} & 1.0f & 1999/02/16 & tested\\
+\pf{verbatim} & 1.5q & 2003/08/22 & tested
+\end{tabular}
+\caption{Dependencies}\label{tab:dependencies}
+\end{table}
+
+\subsection{Creating and viewing output}\label{sec:creation}
+To compile your presentation, run it with \LaTeX. The DVI that is
+produced this way can be viewed with MiK\TeX's DVI viewer
+YAP.\footnote{Unless you are using \pf{pstricks-add} which distorts
+the coordinate system in DVI.} Unfortunately, xdvi and kdvi (kile)
+do not support all PostScript specials and hence these will display
+the presentation incorrectly. If your DVI viewer does support
+this, make sure that your DVI display settings match that of the
+presentation. In case you are using the |screen| paper, you should
+set the DVI display setting to using the letter paper format. If
+your DVI viewer allows for custom paper formats, use 8.25 inch by 11
+inch.
+
+Note that certain things that are produced with PostScript or PDF
+techniques will not work in a DVI viewer. Examples are hiding of
+material via postscript layers (as is done, for instance, by
+|\pause|, see section~\ref{sec:overlays}) and hyperlinks, for
+instance in the table of contents.
+
+If you want to produce a postscript document, run dvips over the DVI
+\emph{without any particular command line options related to
+orientation or paper size}. \pf{powerdot} will write information to
+the DVI file that helps dvips and ps2pdf (ghostscript) to create a
+proper document. If you have some reason that this does not work for
+you and you want to specify the paper and orientation yourself, you
+should use the |nopsheader| option that is described in
+section~\ref{sec:setup}. The PostScript document could, for
+instance, be used to put multiple slides on a page using the |psnup|
+utility.
+
+To create a PDF document for your presentation, run ps2pdf over the
+PS file created with dvips. Also here, you can \emph{leave out any
+command line arguments related to paper size or orientation}. If
+this is problematic for you somehow, use the |nopsheader| option as
+before and specify the paper and orientation at each intermediate
+step yourself.
+
+\section{Creating your own style}\label{sec:writestyle}
+\subsection{General information}
+Writing or customizing \pf{powerdot} styles is simple. If you want
+to modify a style or build a new one, locate the style that you want
+to use as basis in your \TeX\ tree (styles are named as
+|powerdot-<style_name>.sty|), copy that and rename it as to avoid
+license\footnote{The \LaTeX\ Public Project License requires
+renaming files when modifying them, see
+\url{http://www.latex-project.org/lppl}.} or naming conflicts. You
+might want to install the new style in your local \TeX\ tree to be
+able to access it from any place on your hard drive. See your
+\LaTeX\ distribution for more information.
+
+Once that has been taken care of, we can start creating the style.
+We strongly recommend to study a style file (for example,
+|powerdot-default.sty|) while reading the remainder of this section
+as it provides good examples for the content of this section.
+
+A style has several components. We describe these components below.
+\begin{description}
+\item\textbf{Identification and packages}\\
+This identifies the package in the log of a presentation and loads
+all required packages. The \pf{default} style contains something like:
+\begin{example}
+ \NeedsTeXFormat{LaTeX2e}[1995/12/01]
+ \ProvidesPackage{powerdot-default}[2005/10/09 v1.2 default style (HA)]
+ \RequirePackage{pifont}
+\end{example}
+See for more information about these commands a \LaTeX\ manual, for
+instance \cite{companion}.
+\item\textbf{Palette or color definitions}\\
+This section contains the definitions of palettes or colors that you
+want to use in the style. \pf{powerdot} uses \pf{xcolor} (via
+\pf{pstricks}). Hence, for more information about colors, see the
+\pf{xcolor} documentation. We will discuss palettes in more detail
+in section~\ref{sec:defpals}.
+\item\textbf{Template definitions}\\
+We will come back to this in sections~\ref{sec:deftemps}
+to~\ref{sec:defbg}.
+\item\textbf{Custom declarations}\\
+These can include anything that you want to be part of the style.
+The \pf{default} style, for instance, includes definitions for the labels
+in list environments like |itemize| and some initializations for
+lists in general (done with |\pdsetup|, see
+section~\ref{sec:pdsetup}). This part could also include some
+customizations as described in section~\ref{sec:specialtemps}.
+\item\textbf{Font initializations}\\
+This initializes font definitions (which can be done by
+loading a package like \pf{helvet}).
+\end{description}
+
+\subsection{Defining palettes}\label{sec:defpals}
+We will be defining templates formally in
+section~\ref{sec:deftemps}. For now, it's enough to have the general
+idea that a template controls the design of a slide. Palettes are
+sets of colors that color a template or design. A palette does not
+change the overall design of a template.
+
+\DescribeMacro{\pddefinepalettes}
+The following command can be used to define palettes for your style.
+\begin{command}
+ `\cs{pddefinepalettes}\marg{name1}\marg{cmds1}\dots'
+\end{command}
+This macro takes \emph{any} even number of mandatory arguments with
+a minimum of two. For every \meta{name}, a set of \meta{commands}
+can be given which define the palette with name \meta{name}. These
+commands can define colors with names |pdcolor1|, |pdcolor2|,
+etcetera. These colors can be used when designing the template (see
+section~\ref{sec:deftemps}). |pdcolor1| will always be used as text
+color.
+
+The user can access these palettes via the |palette| key for the
+|\pdsetup| command (see section~\ref{sec:pdsetup}). If the user does
+not specify a palette, the first palette defined when compiling the
+presentation, will be used. Here is an example for defining 2
+palettes.
+\begin{example}
+ \pddefinepalettes{reds}{
+   \definecolor{pdcolor1}{rgb}{1,0,0}
+   \definecolor{pdcolor2}{rgb}{1,.1,0}
+   \definecolor{pdcolor3}{rgb}{1,.2,0}
+ }{greens}{
+   \definecolor{pdcolor1}{rgb}{0,1,0}
+   \definecolor{pdcolor2}{rgb}{.1,1,0}
+   \definecolor{pdcolor3}{rgb}{.2,1,0}
+ }
+\end{example}
+In this example, the |reds| palette is the default one. For more
+information about |\definecolor|, see the documentation of the
+\pf{xcolor} package \cite{xcolor}.
+
+Notice that it is not necessary to use the names |pdcolor2|,
+|pdcolor3| etcetera as color names. But if these colors are defined,
+\pf{powerdot} will use them, for instance, in the random dots
+feature (see section~\ref{sec:glopts}). The flexibility adds extra
+possibilities in setting up templates and palettes. See for an
+example of its use, the \pf{klope} style.
+
+\subsection{Defining templates}\label{sec:deftemps}
+We start off with a definition of what a template is. A template is
+a collection of settings for slide components together with custom
+definitions, which controls the visual appearance of a slide. A
+style can contain multiple templates.
+
+\begin{command}
+ `\cs{pddefinetemplate}\oarg{basis}\marg{name}\marg{options}\marg{commands}'
+\end{command}
+\DescribeMacro{\pddefinetemplate}
+This defines the environment \meta{name} to produce a slide with
+characteristics determined by \meta{basis}, \meta{options} and
+\meta{commands}. We will discuss these elements in more detail
+in the coming sections.
+
+If you want to create several templates that differ only slightly
+from each other, define a \meta{basis} template, and then use it to
+define other templates. All \meta{options} and \meta{commands} for
+the new template \meta{name} will be appended to the existing list
+of \meta{options} and \meta{commands} from the \meta{basis}
+template.
+
+Make sure you choose a \emph{proper} name for the template, and
+avoid redefining existing templates or environments. \pf{powerdot}
+defines |pauseslide|, |note| and |emptyslide| internally, so you
+shouldn't use these names unless you know what you're doing.
+Furthermore, each style needs to define at least the templates
+|slide| and |titleslide|. The |titleslide| environment will be used
+to create the title slide and |slide| will (by default) also be used
+to create section slides. Titles and sections are a bit special in
+the way they use the \meta{options} and will be discussed in more
+detail in section~\ref{sec:specialtemps}.
+
+\subsection{Controlling setup}
+\DescribeOption{ifsetup}
+The \meta{options} (keys) are described in the following sections.
+You can control how these options apply to the various setups by
+using the |ifsetup| key. Any key appearing before the first
+|ifsetup| declaration in \meta{options} will apply to every possible
+setup. Once the |ifsetup| key is used, then all subsequent key
+declarations will apply \textit{only} to the setups declared in the
+|ifsetup| key. The |ifsetup| key can be used multiple times.
+
+By possible setups, we mean the allowed values of the |mode|,
+|paper|, |orient|, and |display| keys that are described in
+section~\ref{sec:classopts}. If a value (or values!) for any of
+these four keys is not specified in a |ifsetup| declaration, then
+all subsequent key declarations will apply to any layout of that
+type. Consider the following as an example.
+\begin{example}[numbers=left,numberstyle=\tiny\ttfamily,
+  escapeinside=`',numbersep=1em,xleftmargin=1em]
+ ...
+ textpos={.2\slidewidth,.3\slideheight},
+ ifsetup={portrait,screen},
+ textpos={.3\slidewidth,.2\slideheight}
+ ...
+ ifsetup=landscape,
+ ...
+ ifsetup,
+ ...
+\end{example}
+Assuming there was no |ifsetup| declaration before the first
+|textpos| declaration, this first |textpos| will apply to every
+possible setup. However, for the screen format in portrait
+orientation, the next |textpos| declaration will be used. In fact,
+all declarations that appear until we switch to the next |ifsetup|
+(which specifies all paper sorts and only landscape orientation)
+will be used in the portrait screen layout. All keys after the next
+|ifsetup| declaration will be used in landscape orientation,
+\emph{with any paper, mode and display}. If, after declaring some
+specializations, you want to switch back to settings that apply to
+all possible setups, set |ifsetup| to empty as is done in the
+example. All subsequent declarations will then again be applied
+under any setup.
+
+The following command is a stand-alone implementation of the
+mechanism described above. It allows you to control the setup
+outside the \meta{options} argument of the |\pddefinetemplate|
+command.
+\begin{command}
+ `\cs{pdifsetup}\marg{desired}\marg{true}\marg{false}'
+\end{command}
+\DescribeMacro{\pdifsetup}
+This macro executes \meta{true} when the setup that the user chose
+matches with the \meta{desired} setup, \meta{false} in all other cases.
+For instance, if the user has chosen landscape, then
+\begin{example}
+ \pdifsetup{landscape}{yes}{no}
+\end{example}
+will typeset |yes|. If the user would have chosen portrait instead,
+then |no| would have been typeset.
+
+This macro can be used to check setup requests from the user and,
+for instance, generate an error if a certain setup is not supported
+by your style. \pf{powerdot} provides one predefined error message
+which can be used in one of the first lines of your style.
+\begin{command}
+ `\cs{pd@noportrait}'
+\end{command}
+\DescribeMacro{\pd@noportrait}
+This macro generates an error when the user requests portrait
+orientation. Notice that the handout mode only works in portrait
+orientation. This macro takes that into account and doesn't generate
+an error in the case that the user requested a handout.
+
+\subsection{Main components}\label{sec:maincomps}
+The \meta{options} control several key components of a slide. Every
+component has several properties. A key that can be used in the
+\meta{options} argument is the name of the component postfixed by
+its property that you want to control.
+
+The components |title|, |text|, |toc|, |stoc| and |ntoc| have
+properties |hook|, |pos|, |width| and |font|. Additionally, the
+|text| component has a |height| property. The components |lf|, |cf| and
+|rf| have properties |hook|, |pos|, |temp| and |font|. Hence,
+examples of valid keys are |titlefont|, |tocpos| and |lftemp|. All
+components and properties will be discussed below.
+
+Here is an overview of the components that can be controlled from
+the \meta{options} argument in |\pddefinetemplate|.
+\begin{description}
+\item\DescribeOption{title-}\option{title-}\\
+The slide title.
+\item\DescribeOption{text-}\option{text-}\\
+The main text box on the slide.
+\item\DescribeOption{toc-}\option{toc-}\\
+The (full) table of contents on a slide containing sections and
+slides.
+\item\DescribeOption{stoc-}\option{stoc-}\\
+This is a table of contents containing only the sections. See also
+|ntoc| below.
+\item\DescribeOption{ntoc-}\option{ntoc-}\\
+This is a table of contents containing only the entries for the
+active section. Together with |stoc|, this can be used to create a
+split table of contents. In a particular template, one would usually
+have a |toc|, a combination of |stoc| and |ntoc| or no table of
+contents at all.
+\item\DescribeOptions{lf-,cf-,rf-}\option{lf-,cf-,rf-}\\
+The left, center and right footers.
+\end{description}
+
+Notice that all positioning of components described above will be
+done with |\rput| from \pf{pstricks} \cite{PSTricksWeb,PSTricks}
+internally. See the \pf{pstricks} documentation for more information
+about this command. It should also be noted that all components
+(except |lf|, |cf| and |rf|) put their content in a |minipage|
+environment.
+
+Now we list all properties of the components listed above and
+describe what they mean. Remember that keys are formed by combining
+a component name and a property.
+
+\begin{description}
+\item\DescribeOption{-hook}\option{-hook}\\
+This option defines the |\rput| hook that will be used when
+positioning the item. This can be |tl|, |t|, |tr|, |r|, |Br|, |br|,
+|b|, |bl|, |Bl|, |l|, |B| and |c|. See the \pf{pstricks}
+documentation for more information.
+\item\DescribeOption{-pos}\option{-pos}\\
+This defines the position of the |hook| on the paper. The lower left
+corner of the paper is given by the point |{0,0}| and the upper right
+corner by the point |{\slidewidth,\slideheight}|. So if you want to
+position the main text box at 20\% from the left edge and 30\% from
+the top edge of the paper, you have to do the following.
+\begin{example}
+ textpos={.2\slidewidth,.7\slideheight}
+\end{example}
+If the position of any component has not been specified, this
+component will not be placed on the slide. This gives an opportunity
+to design slides without footers or table of contents, for instance.
+\item\DescribeOption{-width}\option{-width}\\
+The width of the component. All component positioned by
+\pf{powerdot} will be put in a surrounding |minipage| environment.
+The |width| property determines the width of the |minipage|. Example:
+\begin{example}
+ textwidth=.7\slidewidth
+\end{example}
+This property does not exist for the |lf|, |cf| and |rf| components.
+\item\DescribeOption{-height}\option{-height}\\
+This option is only available for the |text| component. In other
+words, for this property, there is only one key, namely
+|textheight|. This can be used to specify the height of the
+|minipage| used for the main text. This does not imply that users
+are restricted to this length or that \pf{powerdot} does automatic
+slide breaking. This height is only used for vertical alignments of
+material, for instance by footnotes. The preset value is
+|\slideheight|.
+\item\DescribeOption{-font}\option{-font}\\
+This will be inserted just before the text that is about to be
+typeset. This can be used to declare deviations from the main text
+font and color. It can be a font declaration, like
+|\large\bfseries|, but can also contain other things like
+|\color{red}| or |\raggedright|.
+\item\DescribeOption{-temp}\option{-temp}\\
+This property is only available for the footers (|lf|, |cf| and |rf|) and
+can be used to change the template of the footers. This means that
+you can, for instance, add content to the footer, besides the
+content specified by the user. The default declaration by
+\pf{powerdot} is the following.
+\begin{example}
+ rftemp=\pd@@rf\ifx\pd@@rf\@empty
+   \else\ifx\theslide\@empty\else\ -- \fi\fi\theslide
+\end{example}
+Here |\pd@@rf| will contain the content of the right footer defined
+by the user via the |\pdsetup| command. Similarly, |\pd@@lf|
+contains the content of the left footer. The above declaration
+checks whether the footer and |\theslide| are both non-empty and if
+so, it inserts | -- | to separate both.
+\item\DescribeOption{-orient}\option{-orient}\\
+This property is only available for the |toc|, |stoc| and |ntoc|
+components. This property can be |h| or |v| and determines the
+orientation of the table of contents. The preset is |v|. See
+also section~\ref{sec:slidetoc} for more information about the
+construction of the table of contents.
+\end{description}
+
+\subsection{Slide toc}\label{sec:slidetoc}
+The small table of contents that is placed on slides can be
+controlled by four macros and several options.
+
+\DescribeMacro{\pd@tocslide}
+\DescribeMacro{\pd@tocsection}
+These macros take one argument. When building the table of contents,
+\pf{powerdot} first passes the content through |\pd@tocslide| or
+|\pd@tocsection|, depending on the type of entry that it is building
+at that moment. You could, for instance, do
+\begin{example}
+ \def\pd@tocslide#1{$\bullet$\ #1}
+ \def\pd@tocsection#1{#1}
+\end{example}
+which will prefix all normal entries (not the sections) with a
+bullet. By default, these two macros are defined to just pass on
+their argument.
+
+\DescribeMacro{\pd@tocdisplay}
+\DescribeMacro{\pd@tochighlight}
+These two macros also take one argument. After processing an entry
+with the command |\pd@tocslide| or |\pd@tocsection|, \pf{powerdot}
+continues building the entry by passing it through |\pd@tocdisplay|,
+when the entry needs to be displayed only, or |\pd@tochighlight|,
+when the entry needs to be highlighted. These macros are a little
+more involved and take care of putting the content in the proper
+font and color in a |minipage|. Further, |\pd@tochighlight| also
+puts a box around the item.
+
+Notice, that by default, both the separate table of contents entries
+as well as the table of contents as a whole are typeset in
+|minipage| environments by these macros, in case the table of
+contents is vertical. The |-width| properties then determines the
+width of the table of contents and, together with |tocsecindent| and
+|tocslideindent| (see below) the width of the individual entries. If
+it is horizontal, only the separate entries will be in |minipage|s
+and the table of contents itself not and the |-width| properties
+determine only the width of the individual entries (together with
+|tocsecindent| and |tocslideindent|).
+
+Several aspects of the process of generating the table of contents
+can be controlled via the keys that are available in the
+|\pddefinetemplate| command that will be described below. If these
+keys do not provide enough handles to do what you want, you might
+need to have a look at the two macros in the source and decide to
+rewrite them in your style as to fit your needs. An example can be
+found in the \pf{fyma} style.
+
+\begin{description}
+\item\DescribeOption{tocfrsep}\option{tocfrsep}\\
+This length is the distance between the box around the content
+created by the |minipage| and the highlight frame box created by
+|\pd@tochighlight|. Preset: |0.5mm|.
+\item\DescribeOption{tocsecsep}\option{tocsecsep}\\
+The distance inserted before a section (unless it is the
+first element in the table of contents). Preset: |2ex|.
+Notice that if the orientation of the table of contents is set to
+vertical, this length creates a vertical skip, otherwise, it creates
+a horizontal skip.
+\item\DescribeOption{tocslidesep}\option{tocslidesep}\\
+The distance inserted before other entries (unless it is the
+first element in the table of contents). Preset: |0ex|. Like
+|tocsecsep|, the effect of this length depends on the orientation of
+the table of contents.
+\item\DescribeOption{tocsecindent}\option{tocsecindent}\\
+The horizontal space left to a section entry. Preset: |0pt|.
+\item\DescribeOption{tocslideindent}\option{tocslideindent}\\
+The horizontal space left to a slide entry. The horizontal skip will
+not be inserted left to slide entries that appear before the first
+section. Preset: |0pt|.
+\item\DescribeOption{tocsecm}\option{tocsecm}\\
+This is inserted just before typesetting a section. This can be used
+to mark a section, for instance with a line as in the \pf{default}
+style. Preset: empty.
+\item\DescribeOption{toctcolor}\option{toctcolor}\\
+This is the text color used for non-highlighted elements in the
+table of contents. Preset: |black|.
+\item\DescribeOption{tochltcolor}\option{tochltcolor}\\
+This is the text color used for highlighted elements in the table of
+contents. Preset: |white|.
+\item\DescribeOption{tochlcolor}\option{tochlcolor}\\
+This is the color used for the frame behind highlighted elements.
+Preset: |black|.
+\end{description}
+
+\subsection{Miscellaneous options}\label{sec:miscoptions}
+There are some options that fall outside of the scope of the previous
+sections. These will be discussed here.
+
+\begin{description}
+\item\DescribeOption{iacolor}\option{iacolor}\\
+The |iacolor| option can be used to specify the color that is used
+for inactive things, produced for instance by |\onslide|, |\pause|
+(see section~\ref{sec:overlays}) and |\tableofcontents| (see
+section~\ref{sec:tableofcontents}). As \pf{xcolor} is used by
+\pf{powerdot}, one can use special notation here, like
+\begin{example}
+ iacolor=black!20
+\end{example}
+The preset value for this key is |lightgray|.
+\end{description}
+
+The following options control the digital clock (see
+section~\ref{sec:classopts}). The clock is a form text field with
+dynamic content, driven by a javascript via \pf{hyperref} text
+fields. Some options for the clock work similarly as for, for
+instance, the title component, but there are also special options.
+\begin{description}
+\item\DescribeOptions{clockhook,clockpos}\option{clockhook,clockpos}\\
+These work in the same way as the |-hook| and |-pos| properties
+discussed in section~\ref{sec:maincomps}. The preset value of
+|clockhook| is |tr|.
+\item\DescribeOptions{clockwidth,clockheight}\option{clockwidth,clockheight}\\
+These control the width and height of the text field containing the
+clock. Preset values come from \pf{hyperref} and are |3cm| and
+|\baselineskip|, respectively.
+\item\DescribeOption{clockcharsize}\option{clockcharsize}\\
+The size of characters of the clock. Preset: |14pt|.
+\item\DescribeOption{clockalign}\option{clockalign}\\
+The alignment of the clock in the text field. |0| is left-aligned,
+|1| is centered and |2| is right aligned. Preset is |2|.
+\item\DescribeOption{clockcolor}\option{clockcolor}\\
+This determines the text color of the clock. The value should be a
+named color. The preset value is |black|.
+\end{description}
+
+\subsection{Template presets}
+Below, we have copied the preset setting for the keys described
+above. These will be used if you didn't supply other input for these
+keys in a particular template. If the preset value meets your
+needs, you don't have to specify it again in your style.
+\begin{example}
+ titlehook=Bl,titlepos=,titlewidth=\slidewidth,
+ titlefont=\raggedright,texthook=tl,textpos=,
+ textwidth=\slidewidth,textfont=\raggedright,
+ textheight=\slideheight,
+ tochook=tl,tocpos=,tocwidth=.2\slidewidth,
+ tocfont=\tiny\raggedright,
+ stochook=tl,stocpos=,stocwidth=.2\slidewidth,
+ stocfont=\tiny\raggedright,
+ ntochook=tl,ntocpos=,ntocwidth=.2\slidewidth,
+ ntocfont=\tiny\raggedright,
+ tocorient=v,stocorient=v,ntocorient=v,
+ tocfrsep=.5mm,tocsecsep=2ex,tocslidesep=0ex,
+ tocsecm=,toctcolor=black,tochlcolor=black,tochltcolor=white,
+ tocsecindent=0pt,tocslideindent=0pt,
+ lfhook=Bl,lfpos=,lffont=\scriptsize,lftemp=\pd@@lf,
+ cfhook=B,cfpos=,cffont=\scriptsize,cftemp=\pd@@cf,
+ rfhook=Br,rfpos=,rffont=\scriptsize,rftemp=\pd@@rf\ifx\pd@@rf
+   \@empty\else\ifx\theslide\@empty\else\ -- \fi\fi\theslide,
+ iacolor=lightgray,
+ clockhook=tr,clockpos=,clockwidth=3cm,clockheight=\baselineskip,
+ clockcharsize=14pt,clockalign=2,clockcolor=black
+\end{example}
+
+\subsection{The background}\label{sec:defbg}
+This leaves only one argument of the |\pddefinetemplate| macro
+undiscussed. This is the \meta{commands} argument. This argument can
+contain any code that you want to execute \textit{after} setting the
+options and \textit{before} building the slide components like the
+slide title, main text, and footers. This argument is designed to
+contain declarations that will build the background of a template
+using, for instance, \pf{pstricks}, but it can also hold other
+commands you might need for building your template.
+
+Important to notice is that these commands may not create \TeX\
+material as that might destroy the construction of the slide. So, if
+you want to place the word `Hello' in the bottom left corner of the
+slide, don't type `Hello', but make its width, height and depth
+equal to zero, for instance by using \pf{pstricks}' |\rput|.
+\begin{example}
+ \rput[bl](0,0){Hello}
+\end{example}
+
+\subsection{Title slide, titles and sections}\label{sec:specialtemps}
+As mentioned before, the style that you write needs to define at
+least the templates |slide| and |titleslide|. The latter treats some
+of the keys in a special way. Besides, a section slide is also done
+in a special way.
+
+The title slide (made with |\maketitle|) puts the title with
+author(s) and date in the main text box. This means that you have to
+supply a position for the main text box (|textpos|). It will use the
+main text font for the text (together with declarations in the
+|textfont| key) for the author(s) and the date. But it will use the
+declarations in |titlefont| for the title of the presentation. This
+is done so that title and author(s) form a coherent block and to
+make sure that long titles can push down the author(s) instead of
+overwriting it.
+
+\DescribeMacro{\pd@slidetitle}
+The |\pd@slidetitle| macro is used to typeset the slide title on
+slides. This macro is comparable to for instance |\pd@tocslide|. The
+macro takes one argument which is the slide title in the right font
+and formatting. By default, this macro just passes on the content
+for typesetting, but you could redefine this macro so do something
+with its input prior to typesetting it. An example is in the
+\pf{fyma} style which underlines the title after putting it in a
+|minipage| to support multi line titles.
+
+\DescribeMacros{\pd@title,\pd@sectiontitle}
+These macros are similar to |\pd@slidetitle| and typeset the title
+on the title slide and the title on section slides respectively. By
+default, these also pass there argument (which is the presentation
+title or section title), but these can be redefined to do something
+with the input prior to typesetting it, just as |\pd@slidetitle|.
+
+\DescribeOptions{sectemp,widesectemp}
+The |\section| command uses (by default) the |slide| environment and
+puts the section title in the title box with font |titlefont|. If
+you want to change the default use of the |slide| environment for
+sections to, for instance, the |sectionslide| environment or any
+other especially designed section template, change the section
+template preset in your style, using
+\begin{example}
+ \setkeys[pd]{section}{sectemp=sectionslide}
+\end{example}
+This means that if the user asks for |template=slide| in the
+|\section| command, the |sectionslide| environment will be used
+silently. To avoid surprises, |sectionslide| should preferably be
+based on the |slide| environment.
+
+A similar option is available in case the user asks for
+|template=wideslide|. One could for instance do the following.
+\begin{example}
+ \setkeys[pd]{section}{widesectemp=sectionwideslide}
+\end{example}
+Whenever the user requests a |wideslide| to be used for a
+|\section|, instead, the |sectionwideslide| environment will be
+used. Other input to the |template| key by the user does not get a
+special treatment.
+
+Notice that these keys are available in the |section| family of keys
+and that you cannot use them in the |\pddefinetemplate| command.
+
+\subsection{Testing the style}\label{sec:styletest}
+\pf{powerdot} has a test file that should test most of the style.
+This test file can be produced by running \LaTeX\ over
+|powerdot.dtx|. This generates |powerdot-styletest.tex| which will
+help you with the testing job. Feel free to contact us when you
+would like to contribute your style to \pf{powerdot}. See also
+section~\ref{sec:questions}.
+
+\section{Using \LyX\ for presentations}\label{sec:lyx}
+\LyX\ \cite{LyXWeb} is a WYSIWYM (What You See Is What You Mean)
+document processor based on \LaTeX. It supports standard \LaTeX\
+classes but needs special files, called layout files, in order to
+support non-standard classes such as \pf{powerdot}.
+
+To start using \LyX\ for \pf{powerdot} presentations, copy the
+layout file |powerdot.layout| to the \LyX\ layout directory. You can
+find this file in the doc tree of your \LaTeX\ installation:
+\url{texmf/doc/latex/powerdot}. If you can't find it there, download
+it from \url{CTAN:/macros/latex/contrib/powerdot}. Once that is
+done, reconfigure \LyX\ (\texttt{Edit\LyXarrow Reconfigure} and
+restart \LyX\ afterwards). Now you can use the \pf{powerdot}
+document class as any other supported class. Go to
+\texttt{Layout\LyXarrow Document} and select \texttt{powerdot
+presentation} as document class. For more information, see the \LyX\
+documentation, which is accessible from the |Help| menu.
+
+\subsection{How to use the layout}
+The \pf{powerdot} \LyX\ layout provides some environments\footnote{Don't
+confuse these with \LaTeX\ environments.} which can be used in \LyX.
+Some of these environments (for instance |Title| or |Itemize|) are
+natural to use since they exist also in the standard document
+classes such as \pf{article}. For more information on these standard
+environments, see the \LyX\ documentation.
+
+This section will explain how to use the \pf{powerdot} specific
+environments |Slide|, |WideSlide|, |EmptySlide| and |Note|. These
+environments correspond to the \pf{powerdot} environments |slide|,
+|emptyslide|, |wideslide| and |note|.
+
+We start with a simple example. The following \LaTeX\ code
+\begin{example}
+ \begin{slide}{Slide title}
+   Slide content.
+ \end{slide}
+\end{example}
+can be obtained using the following \LyX\ environments. The right
+column represents the text typed into the \LyX\ window and the left
+column represents the environment applied to this text).
+\begin{example}
+ Slide         Slide title
+ Standard      Slide content.
+ EndSlide
+\end{example}
+Some remarks concerning this example.
+\begin{itemize}[leftmargin=0pt,itemsep=0pt,parsep=0pt]
+\item You can use the environment menu (under the menu bar, top-left
+corner) to change the environment applied to text.
+\item The slide title should be typed on the line of the |Slide|
+environment.
+\item |EndSlide| finishes the slide and its line is left blank.
+\end{itemize}
+
+In the \LyX\ window, the |Slide| environment (that is, the slide
+title) is displayed in magenta, the |WideSlide| style in green, the
+|EmptySlide| style in cyan and the |Note| style in red and hence
+these are easily identifiable.
+
+Here is another example.
+\begin{example}
+ \begin{slide}{First slide title}
+   The first slide.
+ \end{slide}
+ \begin{note}{First note title}
+   The first note, concerning slide 1.
+ \end{note}
+ \begin{slide}{Second slide title}
+   The second slide.
+ \end{slide}
+\end{example}
+This can be done in \LyX\ in the following way.
+\begin{example}
+ Slide         First slide title
+ Standard      The first slide.
+ Note          First note title
+ Standard      The first note, concerning slide 1.
+ Slide         Second slide title
+ Standard      The second slide.
+ EndSlide
+\end{example}
+This example demonstrates that it is often sufficient to insert the
+|EndSlide| style after the last slide or note only. Only when you
+want certain material not to be part of a slide, you need to finish
+the preceding slide manually using the |EndSlide| style. Example:
+\begin{example}
+ Slide         First slide title
+ Standard      The first slide.
+ EndSlide
+ [ERT box with some material]
+ Slide         Second slide title
+ ...
+\end{example}
+
+Options can be passed to slide environments by using
+\texttt{Insert\LyXarrow Short title} in front of the slide title.
+The following example uses the |direct| method (see
+section~\ref{sec:verbatim}) in the short title argument (delimited by
+square brackets) to allow for a |lstlisting| environment (defined by
+the \pf{listings} package) within the slide content.
+\begin{example}
+ Slide         [method=direct]Example of LaTeX source code
+ Standard      Here's the \HelloWorld command:
+ [ERT box:
+   \lstset{language=[LaTeX]TeX}
+   \begin{lstlisting}
+   \newcommand{\HelloWorld}{Hello World!}
+   \end{lstlisting}
+ ]
+ EndSlide
+\end{example}
+Note that you are not obliged to use a |verbatim| environment to
+type the |\HelloWord| text into the \LyX\ window because \LyX\
+directly supports standard verbatim.\footnote{\LyX\ translates
+special characters into their corresponding \LaTeX\ command. For
+instance, the backslash character is translated into
+\cs{textbackslash{}}. Resulting, the font is not the same as in true
+verbatim and you might want to change that via the
+\texttt{Layout\LyXarrow Character} dialog.} Consequently, the use of
+the slide processing methods |direct| and |file| is not necessary
+when you need standard verbatim, but it is necessary when doing more
+advanced things, like in the example above.
+
+\subsection{Support of syntax}
+This section lists options, commands and environments that are
+supported through the \LyX\ interface directly, without using an ERT
+box (\TeX-mode).
+
+All class options (see section~\ref{sec:classopts}) are supported
+via the \texttt{Layout\LyXarrow Document} dialog (|Layout| pane).
+Options for the |\pdsetup| command (see section~\ref{sec:setup})
+should be specified in the |Preamble| pane of the
+\texttt{Layout\LyXarrow Document} dialog.
+
+Table \ref{tab:lyxcommands} lists the \pf{powerdot} commands that
+are supported in \LyX.
+\begin{table}[htb]
+\centering
+\begin{tabular}{f}
+Command & Method in \LyX\\\hline
+\cs{title} & Use \texttt{Title} environment.\\
+\cs{author} & Use \texttt{Author} environment.\\
+\cs{date} & Use \texttt{Date} environment.\\
+\cs{maketitle} & Managed directly by \LyX.\\
+\cs{section} & Use the \texttt{Section} environment. Options to this
+command (see section~\ref{sec:section}) can be specified using
+\texttt{Insert\LyXarrow Short title} in front of the section title.\\
+\cs{tableofcontents} & Use \texttt{Insert\LyXarrow Lists \&
+TOC\LyXarrow Table of contents}. You will need an ERT box if you
+want to use the optional argument, see below.
+\end{tabular}
+\caption{Supported \pf{powerdot} commands in \LyX}\label{tab:lyxcommands}
+\end{table}
+Table \ref{tab:lyxenvs} lists the \pf{powerdot} environments that,
+besides the earlier discussed |slide|, |wideslide|, |note| and
+|emptyslide| environments, are supported in \LyX.
+\begin{table}[htb]
+\centering
+\begin{tabular}{f}
+Environment & Method in \LyX\\\hline
+\texttt{itemize} & Use \texttt{Itemize} and \texttt{ItemizeType1}
+environments. The latter will create a list with |type=1| (see
+section~\ref{sec:lists}).\\
+\texttt{enumerate} & Use \texttt{Enumerate} and
+\texttt{EnumerateType1} environments.\\
+\texttt{thebibliography} & Use \texttt{Bibliography} environment.
+\end{tabular}
+\caption{Supported \pf{powerdot} environments in \LyX}\label{tab:lyxenvs}
+\end{table}
+Table \ref{tab:lyxERT} lists commands that can only be done by using
+an ERT box (via \texttt{Insert\LyXarrow TeX}).
+\begin{table}[ht]
+\centering
+\begin{tabular}{f}
+Command & Method in \LyX\\\hline
+\cs{and} & Within \texttt{Author} environment.\\
+\cs{pause} & \\
+\cs{item} & An ERT box is only required for the optional argument,
+not mandatory for overlays specifications.\\
+\cs{onslide} & And the versions \cs{onslide+} and \cs{onslide*}.\\
+\cs{twocolumn} & \\
+\cs{tableofcontents} & Only when using the optional argument.
+\end{tabular}
+\caption{\pf{powerdot} commands needing an ERT box in \LyX}\label{tab:lyxERT}
+\end{table}
+Note that you may use the clipboard in order to repeat often used
+commands like |\pause|. Finally, table \ref{tab:lyxadd} lists
+additional commands and environments that are supported by the layout.
+\begin{table}[htb]
+\centering
+\begin{tabular}{f}
+Env./Command & Method in \LyX\\\hline
+\texttt{quote} & Use \texttt{Quote} environment.\\
+\texttt{quotation} & Use \texttt{Quotation} environment.\\
+\texttt{verse} & Use \texttt{Verse} environment.\\
+\cs{caption} & Use \texttt{Caption} environment within standard
+float environments.
+\end{tabular}
+\caption{Additional environments for \LyX}\label{tab:lyxadd}
+\end{table}
+
+\subsection{Compiling with \LyX}
+First of all, make sure that you have also read
+section~\ref{sec:compiling}. Then, in order to get a proper
+PostScript or PDF file, you have to set your \LyX\ document
+properties depending on which paper and orientation you want. When
+your \LyX\ document is open, go to the \texttt{Layout\LyXarrow
+Document} dialog. In the \texttt{Layout} pane, put the |nopsheader|,
+|orient| and |paper| keys as class options (see
+section~\ref{sec:classopts} for a description). Then, go to the
+|Paper| pane and select corresponding paper size and orientation
+(you may choose |letter| paper in the case you set |paper=screen| in
+the class options). Finally, go to the |View| (or
+\texttt{File\LyXarrow Export}) menu and select your output
+(PostScript or PDF).
+
+\subsection{Extending the layout}
+If you have created a custom style (see section~\ref{sec:writestyle})
+which defines custom templates, you may want to extend the layout
+file\footnote{The LPPL dictates to rename a file if you modify it as
+to avoid confusion.} so that these templates are also supported in
+\LyX. The explanation below assumes that you have defined a template
+called |sunnyslide|.
+
+To support this new template in \LyX, you have to use the following
+command.
+\begin{command}
+ `\cs{pddefinelyxtemplate}\meta{cs}\marg{template}'
+\end{command}
+\DescribeMacro{\pddefinelyxtemplate}
+This will define the control sequence \meta{cs} such that it will
+create a slide with template \meta{template} (which has been defined
+using |\pddefinetemplate|. This new control sequence can be used in
+the layout file as follows.
+\begin{example}
+ # SunnySlide environment definition
+ Style SunnySlide
+   CopyStyle     Slide
+   LatexName     lyxend\lyxsunnyslide
+   Font
+     Color       Yellow
+   EndFont
+   Preamble
+     \pddefinelyxtemplate\lyxsunnyslide{sunnyslide}
+   EndPreamble
+ End
+\end{example}
+Note that you must begin the |LatexName| field with |lyxend|. The
+definition of the \LyX\ template has been inserted in between
+|Preamble| and |EndPreamble| which assures that the new \LyX\
+environment will work in every presentation. After modifying the
+layout file, don't forget to restart \LyX. See for more information
+about creating \LyX\ environments, the documentation of \LyX\ in the
+|Help| menu.
+
+\section{Questions}\label{sec:questions}
+\subsection{Frequently Asked Questions}\label{sec:FAQ}
+This section is devoted to Frequently Asked Questions. Please read
+it carefully; your problem might be solved by this section.
+\begin{itemize}[leftmargin=0pt]
+\question
+Does \pf{powerdot} have example files? Where can I find them?
+\answer
+\pf{powerdot} comes with several examples that should be in the doc
+tree of your \LaTeX\ installation. More precisely:
+\url{texmf/doc/latex/powerdot}. If you can't find them there,
+download them from \url{CTAN:/macros/latex/contrib/powerdot}
+\cite{CTAN}.
+\question I'm getting errors or unexpected output when compiling
+the simplest example!
+\answer Did you read section~\ref{sec:compiling}?
+\question I made a typo in the slide code, ran the file, got an
+error, corrected the typo and reran, but now get an error that
+doesn't go away.
+\answer Remove the |.bm| and |.toc| files and try again.
+\question |\pause| does not work in the |align|\footnote{There are
+several environments doing similar things as \texttt{align}. Another
+example is the \texttt{split} environment, but more (often from the
+\pf{amsmath} package) can cause similar trouble for \cs{pause}.}
+environment.
+\answer |align| does several tricky things, which make it impossible
+to use |\pause|. Use |\onslide| instead. See
+section~\ref{sec:onslide}.
+\question My \pf{pstricks} nodes appear on all overlays. Also: color
+doesn't seem to work with |\onslide|.
+\answer Some PostScript tricks like nodes and color do not work with
+|\onslide|. Use |\onslide*| instead. See an example below.
+\begin{example}
+ \documentclass{powerdot}
+ \usepackage{pst-node}
+ \begin{document}
+ \begin{slide}{Color}
+ \onslide*{2}{\cnode(0,-5pt){2pt}{A}}
+ This is {\onslide*{2-}{\color{red}} red} text.
+ \onslide*{2}{\cnode(0,-5pt){2pt}{B}}
+ \onslide{2}{\ncline{A}{B}}
+ \end{slide}
+ \end{document}
+\end{example}
+\question Do I need to edit style files to change a style a bit?
+\answer No, you do not need to edit any style file. You can change
+any part of a certain style using the |\pddefinetemplate| and
+|\pddefinepalettes| commands. Here is an example that removes the
+left and right footers from the \pf{default} style, places the slide
+number in the center footer and adds another palette.
+\begin{example}
+ \documentclass{powerdot}
+ \pddefinetemplate[slide]{slide}{
+   lfpos=,rfpos=,cftemp=\theslide
+ }{}
+ \pddefinepalettes{mypalette}{
+   \definecolor{pdcolor1}{rgb}{.27,.31,.44}
+   \definecolor{pdcolor2}{rgb}{.85,.85,.92}
+   \definecolor{pdcolor3}{rgb}{.8,.75,.98}
+ }
+ \pdsetup{palette=mypalette}
+ \begin{document}
+ \begin{slide}{Title}
+ \end{slide}
+ \end{document}
+\end{example}
+See section~\ref{sec:writestyle} for more information about these
+two commands.
+\question Can I contribute to this project?
+\answer
+Certainly. If you find bugs\footnote{Make sure that you confirm that
+the bug is really caused by \pf{powerdot} and not by another package
+that you use.} or typos, please send a message to the mailinglist
+(see section~\ref{sec:mailinglist}). If you have developed your own
+style that is distinct from existing styles and would like to see it
+included in \pf{powerdot}, please inform us by private e-mail and we
+will consider your contribution. Notice that included contributions
+will fall under the overall \pf{powerdot} license and copyright
+notice, but that your name will be included in the documentation
+when you make a contribution. This is done to guarantee that we can
+adapt files if maintenance is needed.
+\end{itemize}
+
+If your question has not been answered at this point, advance to the
+next section to read where to find more answers.
+
+\subsection{Mailinglist}\label{sec:mailinglist}
+\pf{powerdot} has a mailinglist from \url{freelists.org} and has its
+website here:
+\begin{center}
+\url{http://www.freelists.org/list/powerdot}
+\end{center}
+There is a link to `List Archive'. Please search this archive before
+posting a question. Your problem might already have been solved in
+the past.
+
+If that is not the case, use the box on the page to type your e-mail
+address, choose the action `Subscribe' and click `Go!'. Then follow
+the instructions that arrive to you by e-mail. At a certain moment,
+you can login for the first time using an authorization code sent to
+you by e-mail. After logging in, you can create a password for
+future sessions using the `Main Menu' button. The other buttons
+provide you some info and options for your account.
+
+When you are all set, you can write to the list by sending an e-mail
+to
+\begin{center}
+\url{powerdot [at] freelists [dot] org}
+\end{center}
+
+When writing to the list, please keep in mind the following very
+important issues.
+\begin{enumerate}[leftmargin=0pt,itemsep=0pt,parsep=0pt]
+\item We are volunteers!
+\item Keep your questions related to \pf{powerdot}.
+\item Always supply a \emph{minimal} example demonstrating your
+problem.
+\item Don't send big files over the list.
+\end{enumerate}
+
+We hope you will enjoy this service.
+
+\section{Source code documentation}\label{sec:source}
+In case you want regenerate the package files from the source or
+want to have a look at the source code description, locate
+|powerdot.dtx|, search in the file for |\OnlyDescription| and remove
+that and do
+\begin{example}
+ latex powerdot.tex
+ latex powerdot.tex
+ bibtex powerdot
+ makeindex -s gglo.ist -o powerdot.gls powerdot.glo
+ makeindex -s gind.ist -o powerdot.ind powerdot.idx
+ latex powerdot.tex
+ latex powerdot.tex
+\end{example}
+
+
+\section{Implementation}\label{sec:imple}
+\subsection{General construction}
+This section explains the general idea of the class, how paper
+dimensions are chosen and how slides are created. We start with the
+paper.
+
+This class uses the same idea as \pf{prosper} and \pf{HA-prosper},
+namely that we create a background with \pf{pstricks} and position
+text on it using |\rput| and some |minipage| environments. This is
+easier than writing a dedicated output routine that can handle all
+the material, but doesn't break pages when we don't want that. So,
+when starting to write the class, we first investigated how to deal
+with landscape slides and paper dimensions.
+
+The job of making landscape slides can be done using \pf{geometry}.
+The paper dimension was more of a problem. As \LaTeX\ doesn't have
+the huge fonts that we need for presentations, we need to scale the
+usual fonts somehow. This could be done by using unusual paper
+dimensions (as \pf{beamer} does) and hence relying on ps2pdf to cut
+off all the redundant material. But this doesn't produce a usable
+DVI or PS file. Instead, it was chosen to use DVI magnification. The
+entire slide is magnified by a factor of 2 and only the top left
+quarter of the paper is used (but you will never notice that due to
+the magnification). As we already decided to place all material in
+|minipage|s using |\rput|, we didn't need the page anymore and it
+was easiest to use \pf{geometry} to just remove the page margins
+altogether so that the bottom left corner would be |(0,0)| and the
+top right corner |(\slidewidth,\slideheight)|.
+
+One extra remark on the paper type is necessary. We found that most
+common configurations of dvips use the |A4size| code when A4
+dimensions are found. This code doesn't write an explicit PostScript
+paper command in the PS document and hence programs using this PS
+(like ps2pdf) don't know what paper to use and revert to the
+default, which is letter paper in most cases. This, of course, is
+something that we don't want and hence, \pf{powerdot} will write
+these commands to the PS itself as to guarantee proper post
+processing of the PS.
+
+Now that we made the decisions on how to create proper DVI, PS and
+PDF output, the next task was to create an easy interface to
+overlays. To avoid counting the overlays as is necessary with
+\pf{prosper}, we implemented a system that first collects the entire
+body of an environment in a macro which can be reused multiple
+times. During execution of the body, the overlay commands like
+|\onslide| will keep a record of the biggest number that they find
+and that is the number of overlays to produce. Getting the body of
+the environment is done by collecting all material up to the next
+|\end| occurrence. If that control sequence has the proper argument
+(namely the slide that we started with), then we stop scanning and
+start processing the slide. With normal use, you will not notice
+this, but when doing special tricks like hiding |\end{slide}| in a
+macro, the process will fail as it relies on finding |\end{slide}|
+in the input stream without doing expansions. Often a work around
+can be found though. Have a look for instance at how |\section|
+creates a slide.
+
+The next task was to provide a simple way to create templates. As
+the class is based on the idea of having a background with some
+material spread out over it, the template system follows this idea.
+One argument can be used to create the background, the other
+argument controls, via keys and options, several properties of the
+material that should be placed. By adding an |ifsetup| key, full
+control could be gained over the design of the template in every
+possible setup chosen by the user.
+
+The final task for the class was to fill in all the `details'. All
+the mechanisms were present, but sometimes they should not be
+active. For instance, overlays should not be created in handout
+mode. Other things to add to the class were counter protection on
+overlays, handles to the layout of the slide number, footnotes, a
+bibliography environment, empty slides, etcetera.
+
+We hope that this section has made clear a little bit what you will
+be seeing when reading the next section with coding and why we chose
+to do it this way.
+
+\bibliographystyle{plain}
+\bibliography{powerdot}
+
+\section*{Acknowledgements}
+The authors are grateful to Mael Hill\'ereau for contributing the
+\LyX\ layout file and description. Further, we like to thank all
+style contributors (see section~\ref{sec:styles}). Moreover, we wish
+to thank everyone who contributed to this package in any other
+way.\\[1em]
+\hspace*{\stretch{1}}
+\begin{minipage}{.9\linewidth}
+Ramon van den Akker, Pavel \v C\'i\v zek, Darren Dale, Hans Marius
+Eikseth, Morten H\o gholm, Andr\'as Horv\'ath, Laurent Jacques, Akira
+Kakuto, Uwe Kern, Kyanh, Theo Stewart, Don P. Story and Herbert Vo\ss.
+\end{minipage}
+\hspace*{\stretch{1}}\\[1em]
+We hope not to have forgotten anyone.
+
+\PrintChangesX\PrintIndexX
+
+\end{document}
+

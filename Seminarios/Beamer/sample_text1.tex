@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage{flexiprogram}
+\usepackage{pstricks}
+\usepackage{pst-node}
+
+\bibliographystyle{plain}
+
+\title{My First Document}
+\author{I \and Me \and Myself}
+\date{1 Jan 1000}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\footnotesize
+\sffamily
+
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+
+\normalsize
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+Today i.e. on \today   we learnt a little bit of \LaTeX.
+\end{abstract}
+
+\section{Introduction}
+
+\begin{itemize}
+\item This is the first item.
+\item And this is the second.
+\end{itemize}
+
+This is a run in formula defining $f(x_i) = \prod_{k=0}^{k=l} x^{i+1}_{i-1} +
+5$.
+
+Here is its displayed version
+\[f(x_i) = \prod_{k=0}^{k=l} x^{i+1}_{i-1} + 5\]
+
+\subsection{one} 
+
+\subsubsection{Isn't it funny?}
+
+As shown in \cite{Nie83indiaH} it
+\nocite{MyNi83icalp}
+
+
+\begin{eqnarray}
+A & = & \{ a, b, c, \} \label{eq:1} \\ \nonumber
+B & = & \left[ \begin{array}{c}\emptyset \\ \emptyset \end{array}\right]
+\end{eqnarray}
+
+Equation \ref{eq:1} shows something which I don't know.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|c|c|r|}
+\hline
+one & two & three & four \\ \hline
+1 & 2 & 
+\begin{tabular}{|l|l|}
+a & this is a citation\cite{MyNi83icalp} \\ \hline
+c & d \\ \hline
+\end{tabular} & 4 \\ \hline
+\end{tabular}
+\caption{This is my first figure}
+\end{center}
+\end{table}
+
+\begin{pspicture}(0,0)(10,10)
+\rput(5,6){\rnode{n1}{\psframebox{This is a box}}}
+\rput(10,2){\rnode{n2}{\pscirclebox{This is another box}}}
+\ncline[doubleline=true,linewidth=.5mm,nodesepB=-.3cm]{->}{n1}{n2}
+\end{pspicture}
+
+
+
+
+\begin{program}{10}
+\FL \ \PROCEDURE {\em fun\/}$(i,j)$
+\NL{0} \OB this is the first line
+\NL{1}  this line is indented further
+\NL{1}   \IF (some condition)
+\NL{1}	 \OB  do this
+\NL{1}   \CB
+\NL{1}   \ELSE
+\NL{1}   \OB
+\NL{1}   \FLCOMMENT{this }
+\NL{2}      do that
+\NL{1}   \CB \COMMENT{comment}
+\NL{0} \CB
+\end{program}
+
+
+
+
+
+
+
+
+
+
+\appendix
+\section{This is a new section}
+
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{This is another section}
+
+
+\bibliography{sample}
+
+\end{document}
+

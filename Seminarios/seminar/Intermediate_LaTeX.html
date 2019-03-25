@@ -1,0 +1,733 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Stats">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (X11; U; Linux 2.4.2-2smp i686) [Netscape]">
+</head>
+<body>
+\documentclass[12pt]{article}
+<p>% The packages amsmath and amssymb are developed by The American
+<br>% Mathematical Society.
+<br>%The American Mathematical Society has developed a set of fonts and
+macros
+<br>%for specialized mathematical typesetting, above and beyond the math
+fonts and
+<br>%capabilities designed by Donald Knuth for TeX and by Leslie Lamport
+for \LaTeX\,. The AMS macros have special theorem environments and math
+environments
+<br>%and support for matrices.
+<p>% graphicx --- The graphicx package implements \LaTeX\, support for
+including
+<br>%graphics files, rotating parts of a page, and scaling parts of a page.
+<p>% multirow --- The multirow package automates the procedure of constructing
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tables with columns spanning several rows by using the
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\multirow command.
+<p>% setspace --- The setspace package replaces the doublespace package.
+<br>%It produces double and one-and-one-half line spacing based on the
+point
+<br>%size in use. The default is single spacing. When you add the setspace
+package,
+<br>% you can set the overall document spacing and the spacing for portions
+of the
+<br>% document. Changing spacing in the entire
+<br>%document doesn't affect footnotes, for which you must specify spacing
+<br>%individually. In addition to the package commands, a linespacing option
+is
+<br>%available through the Options and Packages command on the Typeset
+menu.
+<p>\usepackage{epsfig,amsmath,amssymb,graphicx,multirow,setspace}
+<p>% the following produces 1 inch margins all around with no header or
+footer
+<br>\marginparwidth 0pt
+<br>\oddsidemargin&nbsp; 0pt
+<br>\evensidemargin&nbsp; 0pt
+<br>\marginparsep 0pt
+<br>\topmargin&nbsp;&nbsp; 0pt
+<br>\textwidth&nbsp;&nbsp; 6.5in
+<br>\textheight&nbsp; 8.30in
+<br>\footskip 25pt
+<br>\voffset -0.5in
+<p>\setstretch{1} % The setstretch in double spacing is normally set to
+"2."
+<br>%If you change it to "1," you will be
+<br>%back into single spacing again.
+<p>\makeatletter&nbsp; %make @ as letter in the following command
+<br>\renewcommand{\@oddhead}
+<br>{\vbox{\hbox to \textwidth{\strut\rm{Intermediate \LaTeX\,\hfill\rightmark
+\thepage}}\hrule}}
+<p>\newcommand{\slope}[1]{{\beta_{#1}}}
+<br>\newcommand{\ub}[1]{{\boldsymbol{#1}}}
+<br>\def\wCov{{\widehat{{\rm Cov}}}}
+<br>\def\logit{{{\rm logit}}}
+<br>\def\N{{{\rm N}}}
+<br>\def\slopeTone{{\beta_{T1}}}
+<br>\def\slopeTtwo{{\beta_{T2}}}
+<p>%\def is a Tex command. For efficiency, most \LaTeX\, commands are defined
+with
+<br>%TeX's \def command. However, the \LaTeX\, commands are safer.
+<p>%\newcommand \renewcommand
+<p>%\newcommand{cmd}[args][opt]{def}
+<br>%\renewcommand{cmd}[args][opt]{def}
+<br>%\providecommand{cmd}[args][opt]{def} -- \LaTeX\,2e
+<p>%These commands define (or redefine) a command.
+<br>%
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cmd - The name of the new or
+redefined command. A \ followed by a string of lower and/or uppercase letters
+or a \ followed by a
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; single non-letter. For \newcommand
+the name must not be already defined and must not begin with \end; for
+\renewcommand it must already
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; be defined. The \providecommand
+command is identical to the \newcommand command if a command with this
+name does not exist; if it
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; does already exist, the \providecommand
+does nothing and the old definition remains in effect.
+<br>%
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args - An integer from 1 to 9
+denoting the number of arguments of the command being defined. The default
+is for the command
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to have no arguments.
+<br>%
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; opt - (\LaTeX\,2e only) If present,
+then the first of the number of arguments specified by args is optional
+with a default value of opt;
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if absent, then all of the arguments
+are required.
+<br>%
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def - The text to be substituted
+for every occurrence of cmd; a parameter of the form #n in cmd is replaced
+by the text of the nth
+<br>%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; argument when this substitution
+takes place.
+<br>%
+<br>%
+<br>%
+<br>\begin{document}
+<p>\pagenumbering{roman} % Roman numerals
+<p>\title{ \vspace{1.5in} Intermediate \LaTeX\,} % the document title
+<p>\author{Weiliang Qiu\thanks{supported by UBC Stats Dept.}\\6356 Agricultural
+Road\\
+<br>&nbsp;&nbsp;&nbsp;&nbsp; %&nbsp;&nbsp; University of British Columbia\\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UBC \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vancouver BC \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V6T 1Z2
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \and Eugenia Yu \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6356 Agricultural Road\\
+<br>&nbsp;&nbsp;&nbsp;&nbsp; %&nbsp;&nbsp; University of British Columbia\\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UBC \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vancouver BC \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V6T 1Z2}
+<p>\date{\today}
+<br>\maketitle
+<br>&nbsp;
+<p>% To eliminate page numbers (and headers/footers) use \pagestyle{empty}
+in
+<br>% preamble or \thispagestyle{empty} in text for single pages.
+<p>\thispagestyle{empty}
+<p>% To set the page number, e.g. to start the paper on p.237, you can
+use
+<br>% \setcounter{page}{237} in the preamble (or in the text).
+<br>% The following command means to start the page on p.0.
+<br>\setcounter{page}{0}
+<br>\newpage
+<p>\tableofcontents&nbsp; %create table of contents automatically
+<br>\listoffigures % produces a list of figures automatically
+<br>\listoftables % produces a list of tables automatically
+<p>\newpage % start a new page
+<p>\begin{abstract}
+<br>This is the abstract ...
+<br>\end{abstract}
+<p>\pagenumbering{arabic}&nbsp;&nbsp;&nbsp;&nbsp; % Arabic page numbers
+from now on
+<p>\section{Introduction}
+<br>\LaTeX\, is a document processing system in which you specify the content
+<br>and layout(style) separately. That is, a \LaTeX\, file includes commands
+that
+<br>define the structure, and the process requires a compiler to format
+the final
+<br>result.
+<p>The basic structure and principles of a \LaTeX\, document will be given
+in
+<br>Sections \ref{structure} and \ref{principles}.
+<br>Section \ref{include} shows how to split a larger document into smaller
+<br>parts for easier file management.
+<br>Special symbols, fonts and lists will be discussed in Sections
+<br>\ref{special} to \ref{lists}.
+<br>We will talk about how to type math, create tables and insert figures
+<br>in Sections \ref{math} and \ref{tables}.
+<br>This document ends with examples of handling errors in Section \ref{errors}.
+<br>&nbsp;
+<p>\section{The Edit/Compile/Preview Process with Bibliography}
+<br>\label{Processing}
+<p>\begin{enumerate}
+<br>&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp; Use any text editor (e.g. gvim, emacs) to input
+bibliography
+<br>&nbsp;&nbsp;&nbsp; information in the file, e.g. mybib.bib.
+<p>&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp; Use any text editor (e.g. gvim, emacs) to input
+content and \LaTeX\,
+<br>&nbsp;&nbsp;&nbsp; commands in the file, e.g. sample.tex.
+<br>&nbsp;&nbsp;&nbsp; Include the following latex commands just before
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \verb1\end{document}1:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \begin{verbatim}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \bibliographystyle{plain}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \bibliography{mybib}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \end{verbatim}
+<p>&nbsp; \item Compile the \LaTeX\, file by using the command: {\bf latex
+sample.tex}
+<br>&nbsp; \item Compile the bib file by using the command: {\bf bibtex
+sample}
+<br>&nbsp; \item Compile again the \LaTeX\, file by using the command:
+{\bf latex sample.tex}
+<br>&nbsp; \item Compile once more the \LaTeX\, file by using the command:
+{\bf latex sample.tex}
+<br>&nbsp; \item Display the sample.dvi file by the command: {\bf xdvi
+sample}
+<br>&nbsp; \item Convert the dvi file to a postscript file with the command:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {\bf dvips -o psfilename.ps
+sample.dvi}
+<br>&nbsp; \item Print the sample.dvi file by the Unix command:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {\bf dviprint sample} or
+{\bf dvips sample.dvi \verb1|1 lpr -d sample.dvi}
+<p>\end{enumerate}
+<p>% The symbol % is used to start a comment.
+<p>% \verb command simulates a short piece of typed text inside an ordinary
+<br>% paragraph. Its argument is enclosed by a pair of
+<br>% identical characters. The argument of the following \verb command
+is
+<br>% contained between the two 1 characters. Instead of 1, you can use
+any
+<br>% character that does not appear in the argument except a space, a
+letter,
+<br>% or a *.
+<p>The commands {\it latex sample.tex} and {\it bibtex sample} produce
+a number of files including:
+<br>\begin{description}
+<br>&nbsp; \item[example.aux] Used for cross-referencing and in compiling
+the table of
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+contents, list of figures, and list of tables.
+<p>&nbsp; \item[example.log] Contains everything printed on the terminal
+when \LaTeX\,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+is executed, plus additional information and some extra
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+blank lines.
+<p>&nbsp; \item[example.dvi] This is the DeVice Independent (DVI) format
+output of
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+what \LaTeX\, thinks your document should look like.
+<p>&nbsp; \item[example.bbl] This file is written by BibTeX, not by \LaTeX\,,
+using
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+information on the {\it aux} file. It is read by the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\verb1\bibliography1 command.
+<p>\end{description}
+<p>\section{\LaTeX\, Document Structure}
+<br>\label{structure}
+<p>% The verbatim environment allows you to type the text exactly the way
+you
+<br>% want it to appear in the document.
+<p>\begin{verbatim}
+<br>&nbsp; \documentclass{article}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preamble
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \begin{document}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; body
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \end{document}
+<br>\end{verbatim}
+<p>\section{General Principles}
+<br>\label{principles}
+<p>\begin{enumerate}
+<br>&nbsp; \item
+<br>&nbsp;&nbsp; % The symbols ` and ' create `Quotes' or ``Double quotes''
+<br>&nbsp;&nbsp; All input, both text and formatting commands is in ``ASCII''
+text.
+<br>&nbsp; \item
+<br>&nbsp;&nbsp; Spaces and line breaks are not important. A blank line
+starts
+<br>&nbsp;&nbsp; a new paragraph, however.
+<p>%Words are separated by one or more spaces. Paragraphs are separated
+by one
+<br>%or more blank lines. The output is not affected by adding extra spaces
+or
+<br>%extra blank lines to the input file.
+<br>%Use a double backslash to break a line in a specific place.
+<p>&nbsp; \item
+<br>&nbsp;&nbsp; All commands start with a backslash:\\
+<br>&nbsp;&nbsp; e.g. \verb1\documentclass1
+<br>&nbsp; \item
+<br>&nbsp;&nbsp; Braces are used for ``arguments'':\\
+<br>&nbsp;&nbsp; e.g. \verb1\begin{document}1
+<br>&nbsp; \item
+<br>&nbsp;&nbsp; Square brackets are used for ``optional arguments'':\\
+<br>&nbsp;&nbsp; e.g. \verb2\documentclass[11pt]{article}2
+<br>&nbsp; \item
+<br>&nbsp;&nbsp; Commands are case sensitive.\\
+<br>&nbsp;&nbsp; e.g. \verb1\documentclass1 but not \verb1\DocumentClass1
+<br>\end{enumerate}
+<p>\section{Splitting the Source File into Parts}
+<br>\label{include}
+<br>\LaTeX\, source documents can be split into several parts by using
+<br>the \verb1\includeonly1 and \verb1\include1 commands.
+<br>
+<br>% The \include command is used to insert part of the latex code (saved in
+<br>% separate tex files) into the source code.
+<br>% The command takes the name of the tex file that contains the code to
+<br>% be inserted as the argument. Do not include ".tex" in the argument.
+<br>% Put the \include command at the place where you want to insert the
+<br>% file, and the files will be inserted in the same order as appeared in
+<br>% the source code.
+<br>
+<br>% The \includeonly command takes the list of files to be included (separated
+<br>% by commas) as the argument.
+<br>% Similar to the \include command, only the names without the .tex extension
+<br>% are required in the list.
+<br>% The command must appear in the preamble before the \begin{document} statement.
+<br>% Only the files listed in the \includeonly command will be inserted in the
+<br>% compilation of the source code, even if there is 
+<br>% \include{filename-NOT-in-includeonly-list}         
+<br>% in the source code.
+<br>% The \includeonly command is optional. If not used, the compilation of
+<br>% the source code will insert all the files included as arguments of the 
+<br>% \include command.
+
+<br>
+<br>\begin{verbatim}
+<br>&nbsp; \documentclass{article}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \includeonly{file1,file2,file3}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \begin{document}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\include{file1}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\include{file2}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\include{file3}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \end{document}
+<br>\end{verbatim}
+<p>In every of the included files ({\it file1.tex, file2.tex, file3.tex}),
+<br>do not include \verb1\documentclass{}1, preamble, \verb1\begin{document}1
+<br>and \verb1\end{document}1.
+<p>\section{Special Symbols}
+<br>\label{special}
+<br>Some text characters must be generated by control sequences (i.e.,
+quotes, \verb1{}, [], \1, etc.).
+<br>The special symbols include
+<br>\verb1$ &amp; % # _ { } ~ ^ \1.
+<br>Use a backslash in front of the symbols to correctly display the first
+seven symbols.
+<br>in the above list
+<br>To display the last three, use \verb1\verb1 command, e.g. \verb1\verb2\21.
+<br>The double backslash \verb1\\1 is used to start a new line.
+<br>&nbsp;
+<p>\section{Fonts}
+<br>\label{fonts}
+<br>Since \LaTeX\, is a formatter, all changes in the format of text must
+be explicitly expressed.
+<br>Table \ref{font_table} shows the different font
+<br>types\footnote{The font effect might depend on the type size of the
+document.}.
+<p>\begin{table}
+<br>\caption{Font Effects.}
+<br>\label{font_table}
+<br>\begin{center}
+<br>&nbsp;\begin{tabular}{|ll|} \hline
+<br>&nbsp; What you type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp; What you see \\
+<br>&nbsp;\hline
+<br>&nbsp; \verb1{\bf hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\bf hello}&nbsp;&nbsp;&nbsp; \\
+<br>&nbsp; \verb1{\em hello} is the same as {\it hello}1&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\em hello} is the same as {\it hello}\\
+<br>&nbsp; \verb1{\underline {hello}}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\underline {hello}} \\
+<br>&nbsp;\hline
+<br>&nbsp; \verb1{\tiny hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\tiny hello} \\
+<br>&nbsp; \verb1{\scriptsize hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\scriptsize hello}\\
+<br>&nbsp; \verb1{\footnotesize hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\footnotesize hello}\\
+<br>&nbsp; \verb1{\small hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\small hello}\\
+<br>&nbsp; \verb1{\normalsize hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\normalsize hello}\\
+<br>&nbsp; \verb1{\large hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\large hello}\\
+<br>&nbsp; \verb1{\Large hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\Large hello}\\
+<br>&nbsp; \verb1{\LARGE hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\LARGE hello}\\
+<br>&nbsp; \verb1{\huge hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\huge hello}\\
+<br>&nbsp; \verb1{\Huge hello}1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&nbsp;&nbsp;&nbsp; {\Huge hello} \\
+<br>&nbsp;\hline
+<br>&nbsp;\end{tabular}
+<br>\end{center}
+<br>\end{table}
+<br>\section{Lists}
+<br>\label{lists}
+<p>There are basically three types of lists in \LaTeX\,:
+<br>\begin{itemize}
+<br>&nbsp;&nbsp; \item&nbsp;&nbsp;&nbsp; itemization (``bullets'') - \verb1\begin{itemize}1
+<br>&nbsp;&nbsp; \item&nbsp;&nbsp;&nbsp; enumeration (1, 2, 3, ...) - \verb1\begin{enumerate}1
+<br>&nbsp;&nbsp; \item&nbsp;&nbsp;&nbsp; description - \verb1\begin{description}1
+<br>\end{itemize}
+<p>All lists in \LaTeX\, have the same general format:
+<br>\begin{verbatim}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \begin{list-type}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \item list-entry
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \item next-list-entry
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \end{list-type}
+<br>\end{verbatim}
+<p>\subsection{The Itemize Environment}
+<br>One can have lists within lists by using the \verb1\subitem1 or nested
+<br>itemize environments.
+<p>&nbsp;\begin{verbatim}
+<br>&nbsp; \begin{itemize}
+<br>&nbsp;&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp; item one
+<br>&nbsp;&nbsp;&nbsp;&nbsp; \subitem
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subitem one
+<br>&nbsp;&nbsp;&nbsp;&nbsp; \subitem
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subitem two
+<br>&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp; item two
+<br>&nbsp; \end{itemize}
+<br>&nbsp;
+<br>&nbsp; \begin{itemize}
+<br>&nbsp;&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp; item one
+<br>&nbsp;&nbsp;&nbsp;&nbsp; \begin{itemize}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subitem
+<br>&nbsp;&nbsp;&nbsp; \end{itemize}
+<br>&nbsp;&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp; item two
+<br>&nbsp; \end{itemize}
+<br>&nbsp;\end{verbatim}
+<p>\subsection{The Enumerate Environment}
+<br>% example: line 85
+<br>&nbsp;\begin{verbatim}
+<br>&nbsp; \begin{enumerate}
+<br>&nbsp;&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp; item one
+<br>&nbsp;&nbsp;&nbsp; \item
+<br>&nbsp;&nbsp;&nbsp;&nbsp; item two
+<br>&nbsp; \end{enumerate}
+<br>&nbsp;\end{verbatim}
+<p>\subsection{The Description Environment}
+<br>Description lists are similar to enumerated or itemized lists.
+<br>In a description list, each item has both a term and a description.
+<br>% example: line 38
+<br>&nbsp;\begin{verbatim}
+<br>&nbsp; \begin{description}
+<br>&nbsp;&nbsp;&nbsp; \item[Step 1]
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 1 of the algorithm
+<br>&nbsp;&nbsp;&nbsp; \item[Step 2]
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Step 2 of the algorithm
+<br>&nbsp; \end{description}
+<br>&nbsp;\end{verbatim}
+<br>&nbsp;
+<p>\section{Typing Math in \LaTeX\,}
+<br>\label{math}
+<br>To type math expressions in the running text, use either of the two
+<br>short forms \verb1\(...)\1 or \verb1$...$1,
+<br>e.g.&nbsp; \verb1$\hat{\beta}$1.
+<p>One can also use the {\bf displaymath}, {\bf equation} and {\bf eqnarray}
+<br>environments:
+<p>\begin{enumerate}
+<p>&nbsp; \item
+<br>&nbsp; {\bf displaymath}: \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{displaymath}
+<br>&nbsp; {\rm logit}(p) = \log(\frac{p}{1-p})&nbsp; \hspace{0.5in} \mbox{is
+the definition of logit of $p$}
+<br>&nbsp; \end{displaymath}
+<p>&nbsp; \item
+<br>&nbsp; {\bf equation}: \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation}
+<br>&nbsp;&nbsp;&nbsp; \bar{X} = \frac{\sum_{i=1}^n X_i}{n}
+<br>&nbsp; \end{equation}
+<br>&nbsp;
+<br>&nbsp; The {\bf equation*} environment is the same as the {\bf equation}
+environment except it
+<br>&nbsp; does not generate equation numbers. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation*}
+<br>&nbsp; Y_{ij} = \mu + \alpha_i + \beta_j + \epsilon_{ij}, \hspace{0.5in}
+\epsilon_{ij}\sim N(0,\sigma^2)
+<br>&nbsp; \end{equation*}
+<p>&nbsp; Big delimiters are most often used with array. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation}
+<br>&nbsp;&nbsp; \left(\begin{array}{c}
+<br>&nbsp;&nbsp; y\\
+<br>&nbsp;&nbsp; z
+<br>&nbsp;&nbsp; \end{array}\right)
+<br>&nbsp; \end{equation}
+<br>&nbsp;
+<p>&nbsp; The \verb1\left1 and \verb1\right1 commands must come in matching
+pairs, but
+<br>&nbsp; the matching delimiters need not be the same. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation}
+<br>&nbsp; \left.\frac{\partial f(x, y)}{\partial x}\right|_{x=x_0}=y
+<br>&nbsp; \end{equation}
+<p>&nbsp; We can type text in math mode by using the \verb1\mbox1 command.
+\\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation}
+<br>&nbsp;&nbsp; x=\left\{ \begin{array}{ll}
+<br>&nbsp;&nbsp; y&amp; \mbox{if $y>0$}\\
+<br>&nbsp;&nbsp; z+y &amp; \mbox{otherwise}
+<br>&nbsp;&nbsp; \end{array}\right.
+<br>&nbsp; \end{equation}
+<p>\newpage
+<br>&nbsp; \item
+<br>&nbsp; {\bf eqnarray}: \\\\
+<br>&nbsp; The {\bf displaymath} and {\bf equation} environments make one-line
+<br>&nbsp; formulas. A sequence of equations or inequalities is displayed
+with the
+<br>&nbsp; {\bf eqnarray} environment. By default, an equation number is
+put in
+<br>&nbsp; every single line. Use the \verb1\nonumber1 command in each
+of the lines
+<br>&nbsp; you want to suppress an equation number. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{eqnarray}
+<br>&nbsp;&nbsp; x&amp;\ll &amp;y_{1}+\cdots +y_{n}\\
+<br>&nbsp;&nbsp; &amp;\leq &amp;z \nonumber
+<br>&nbsp; \end{eqnarray}
+<br>&nbsp;
+<br>&nbsp; The {\bf eqnarray*} environment is the same as the {\bf eqnarray}
+<br>&nbsp; environment except it does not generate equation numbers. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{eqnarray*}
+<br>&nbsp;&nbsp; &amp;A\stackrel{a'}{\to}B\stackrel{b'}{\to}C\\
+<br>&nbsp;&nbsp; &amp;\vec{x}\stackrel{\rm def}{=} (x_1,\ldots, x_n)
+<br>&nbsp; \end{eqnarray*}
+<br>&nbsp;
+<br>&nbsp; For multiline formula, sometimes it is desirable to have one
+equation number
+<br>&nbsp; and put the equation number in the middle line of the equations.
+In this
+<br>&nbsp; case, we can combine the {\bf equation} environment and the
+{\bf split}
+<br>&nbsp; environment. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation}
+<br>&nbsp;&nbsp; \begin{split}
+<br>&nbsp;&nbsp;&nbsp; H_0 : \mu_1 &amp;= \mu_2 \\
+<br>&nbsp;&nbsp;&nbsp; H_1: \mu_1 &amp;\neq \mu_2
+<br>&nbsp;&nbsp; \end{split}
+<br>&nbsp; \end{equation}
+<br>&nbsp;
+<br>&nbsp; We cannot use the \verb1\bf1 command in math mode. Instead we
+use
+<br>&nbsp; \verb1\mathbf1 for English characters and \verb1\boldsymbol1
+for both English
+<br>&nbsp; characters and Greek letters. \\\\
+<br>&nbsp; e.g.
+<br>&nbsp; \begin{equation}
+<br>&nbsp;&nbsp;&nbsp; \Biggl\{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \begin{array}{c}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {\mathbf Y_i} = {\mathbf X_i}
+\boldsymbol{\beta} + {\mathbf Z_i} \boldsymbol{b_i} + \boldsymbol{e_i}
+\\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \boldsymbol{b_i} \sim {\rm N}(0,{\mathbf
+D}), \boldsymbol{e_i} \sim {\rm N}(0,{\mathbf R_i}),
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\boldsymbol{b_i} \perp \boldsymbol{e_i}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \end{array}
+<br>&nbsp; \end{equation}
+<br>&nbsp;
+<br>&nbsp; Sometimes it might be useful to use the {\bf align}, {\bf gather}
+and {\bf multline}
+<br>&nbsp; environments.
+<br>%\newpage
+<br>\item {\bf align}:
+<br>\begin{align}
+<br>x+y&amp;&lt;2\\
+<br>x+y&amp;>3\\
+<br>x+y&amp;\leq 15\\
+<br>x+y&amp;\geq 20000000000000000000
+<br>\end{align}
+<br>Comparing to the result from using {\bf eqnarray}:
+<br>\begin{eqnarray}
+<br>x+y&amp;&lt;&amp;2\\
+<br>x+y&amp;>&amp;3\\
+<br>x+y&amp;\leq&amp; 15\\
+<br>x+y&amp;\geq&amp; 20000000000000000000
+<br>\end{eqnarray}
+<br>\item {\bf gather}:
+<br>\begin{gather}
+<br>x+y&lt;2\\
+<br>x+y>3\\
+<br>x+y\leq 15\\
+<br>x+y\geq 20000000000000000000
+<br>\end{gather}
+<br>\item {\bf multline}:
+<br>\begin{multline}
+<br>x+y&lt;2\\
+<br>x+y>3\\
+<br>x+y\leq 15\\
+<br>x+y\geq 20000000000000000000
+<br>\end{multline}
+<br>Comparing to the result from using {\bf split}:
+<br>\begin{equation}
+<br>\begin{split}
+<br>x+y&amp;&lt;2\\
+<br>x+y&amp;>3\\
+<br>x+y&amp;\leq 15\\
+<br>x+y&amp;\geq 20000000000000000000
+<br>\end{split}
+<br>\end{equation}
+<br>&nbsp;
+<br>&nbsp;
+<p>\end{enumerate}
+<br>&nbsp;
+<p>\section{Tables and Figures}
+<br>\label{tables}
+<br>To create tables, you will need the {\bf table} and the {\bf tabular}
+environments.
+<br>Table \ref{anova_table} gives the anova table of a 1-way anova, and
+Table
+<br>\ref{multtable} shows an example of using \verb1\multicolumn1 and
+<br>\verb1\multirow1 commands.
+<p>\begin{table}
+<br>\caption{Anova Table.}
+<br>\label{anova_table}
+<br>\begin{center}
+<br>&nbsp; \begin{tabular}{|c||c|c|c|c|}\hline
+<br>&nbsp;&nbsp;&nbsp; Source of Variation &amp; SS&nbsp; &amp; df &amp;
+MS&nbsp; &amp; F-ratio \\
+<br>&nbsp; \hline
+<br>&nbsp;&nbsp;&nbsp; Treatment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp; SST &amp; 2&nbsp; &amp; MST &amp; $\frac{MST}{MSE}$ \\
+<br>&nbsp;&nbsp;&nbsp; Error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp; SSE &amp; 30 &amp; MSE &amp;&nbsp; \\
+<br>&nbsp; \hline
+<br>&nbsp; \end{tabular}
+<br>\end{center}
+<br>\end{table}
+<p>%r - right justify the column
+<br>%l - left justify the column
+<br>%c - center the column
+<p>\begin{table}[top]
+<br>\caption{A sample table with the use of multicolumn and
+<br>multirow commands.}
+<br>\label{multtable}
+<br>\begin{center}
+<br>\begin{tabular}{|cl||cc|cc|}
+<br>&nbsp;\hline
+<br>&nbsp; \multicolumn{6}{|c|}{$\slope{C}$ = -0.001721} \\
+<br>&nbsp;\hline
+<br>&nbsp; &amp;&amp;
+<br>&nbsp; %\multicolumn{2}{|c||}{Parameter values used for simulation}
+&amp;
+<br>&nbsp; \multicolumn{2}{c|}{Method \# 1} &amp;
+<br>&nbsp; \multicolumn{2}{c|}{Method \# 2} \\
+<br>&nbsp;\cline{3-6}
+<br>&nbsp; \multicolumn{2}{|c||}{Parameter values used for simulation}
+&amp;
+<br>&nbsp; $\hat{\beta}_{time \times group}$&nbsp; &amp;&nbsp; ($SE$)&amp;
+<br>&nbsp; $\hat{\beta}_4+\hat{\beta}_5$ &amp; ($SE$)\\
+<br>&nbsp;
+<br>&nbsp; $\slopeTone$ &amp; $\slopeTtwo$ &amp;
+<br>&nbsp;&nbsp; \multicolumn{2}{c|}{(values in $10^{-4}$)} &amp;
+<br>&nbsp;&nbsp; \multicolumn{2}{c|}{(values in $10^{-4}$)} \\
+<br>&nbsp;\hline
+<br>&nbsp;\hspace*{0.25in} \multirow{3}{17mm}{-0.001721}\hspace*{0.25in}
+&amp; -0.001&nbsp; &amp; 7.71 &amp; 3.05 &amp; 7.38 &amp; 2.78 \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp; -0.0014&nbsp; &amp;&nbsp; 3.56 &amp; 2.83 &amp; 3.21 &amp; 2.73\\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp; -0.001721 &amp; 0.45 &amp; 2.99 &amp; 0.07 &amp; 2.70\\
+<br>&nbsp;\hline
+<br>\end{tabular}
+<br>\end{center}
+<br>\end{table}
+<p>To insert graphics into \LaTeX, use the {\bf figure} environment.
+<br>Figure \ref{hist} shows the histogram of a random sample of 100 observations
+<br>from the standard normal distribution.
+<br>\begin{figure}
+<br>\caption{Histogram of 100 standard normal random variables.}
+<br>\label{hist}
+<br>&nbsp; %\includegraphics[width=6.5in, height=7.5in]{hist.eps}
+<br>&nbsp; \epsfig{file=hist.eps,width=6.0in}
+<br>\end{figure}
+<br>&nbsp;
+<p>\section{Centering and ``Flushing"}\label{justification}
+<br>There are several \LaTeX\, environments to control
+<br>the alignment of text.
+<br>\begin{verbatim}
+<br>&nbsp;&nbsp;&nbsp;&nbsp; Center: \begin{center} ... \end{center}
+<br>&nbsp;&nbsp;&nbsp;&nbsp; Right Align: \begin{flushright} ... \end{flushright}
+<br>&nbsp;&nbsp;&nbsp;&nbsp; Left Align: \begin{flushleft} ... \end{flushleft}
+<br>\end{verbatim}
+<p>%\begin{flushright}
+<br>The following declarations can be used at the beginning of the body
+to
+<br>produce alignment effect for the entire document.
+<br>Be sure to put the declaration immediately after the
+<br>\verb1\begin{document}1 command.
+<br>These declarations will be turned off as soon as they
+<br>encounter a \verb1\end{...}1 command.
+<br>%\end{flushright}
+<p>\begin{verbatim}
+<br>&nbsp;&nbsp;&nbsp;&nbsp; \centering
+<br>&nbsp;&nbsp;&nbsp;&nbsp; \raggedleft
+<br>&nbsp;&nbsp;&nbsp;&nbsp; \raggedright
+<br>\end{verbatim}
+<br>&nbsp;
+<p>\section{Errors in Running \LaTeX\,}
+<br>\label{errors}
+<br>When you compile a \LaTeX\, file that contains syntax errors, \LaTeX\,
+will
+<br>print out error messages, indicate which line contains an error,
+<br>and print a ``?'' prompt. You can either enter letter ``x'' to exit
+<br>(quit the compilation) or enter ``E'' to edit the \LaTeX\, file.
+<p>%&nbsp; $x+y
+<p>\vskip 1cm
+<br>\appendix
+<br>\begin{center}
+<br>{\bf\LARGE Appendices}
+<br>\end{center}
+<br>\section{Appendix 1}
+<br>&nbsp;This is the appendix.
+<p>For further information on \LaTeX\,, please refer to
+<br>(Lamport, 1986)\nocite{Lamport:1986} or
+<br>\cite{Goossens:1994, Lamport:1994}.
+<br>%\nocite{Goossens:1994}
+<p>\section{Appendix 2}
+<p>Also there are many web sites providing useful information on \LaTeX\,.
+For
+<br>example
+<br>\begin{enumerate}
+<br>&nbsp; \item A short math guide for \LaTeX: \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \verb1http://www.ams.org/tex/short-math-guide.html1
+<br>&nbsp; \item The \LaTeX\, homepage: \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \verb1http://www.latex-project.org/1
+<br>&nbsp; \item Hypertext Help with \LaTeX: \\
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \verb1http://www.giss.nasa.gov/latex/1
+<br>\end{enumerate}
+<br>\bibliographystyle{abbrv}
+<br>\bibliography{ws2}
+<p>\end{document}
+</body>
+</html>

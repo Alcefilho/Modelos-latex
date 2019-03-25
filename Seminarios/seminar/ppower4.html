@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Presentation using PDFLATEX, and PPOWER4</TITLE>
+<META NAME="description" CONTENT="Presentation using PDFLATEX, and PPOWER4">
+<META NAME="keywords" CONTENT="ppseminar">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+
+</HEAD>
+
+<BODY >
+Please refer to
+<a href="foils_class.html">the FoilTeX page</a> for information on creating presentations using the Foi
+lTeX document class.
+<br>
+<br>
+An example presentation document using FoilTeX and PPower4
+<br>
+<a href="ppseminar.tex">original latex file</a>
+&nbsp &nbsp <a href="pp4.pdf">pdf format</a>
+
+
+<hr>
+<P>
+
+
+
+<H1 ALIGN="CENTER">
+Presentation using pdfLaTeX, FoilTeX and PPOWER4
+</H1>
+<br><br>
+<ul>
+<li>
+What is PPOWER4?
+<p>
+PPOWER4 (PDF Presentation Post-Processor)
+is a post-processor for <SMALL>PDF</SMALL> files produced
+with pdfLaTeX  
+<P>
+The features of PPower4:
+<UL>
+<LI>parts of a page can be
+uncovered step by step during a presentation with <TT>Acrobat Reader</TT>.
+</LI>
+<LI>can display parts of a page in any order
+</LI>
+<LI>can remove item from the page
+</LI>
+<LI>can insert fancy transitions or gradient background
+</LI>
+</UL>
+<br>
+</li>
+<br>
+<li>
+Using PPower4:
+<P>
+<UL>
+<LI>Add <code>\usepackage{pause}</code>, <code>\usepackage{background}</code>,
+<BR>  <code>\usepackage{pp4slide}</code>, <code>\usepackage{hyperref}</code> to the
+  preamble.
+</LI>
+<br><br>
+<LI>Produce PDF from LaTeX source with
+  <TT>pdflatex file.tex</TT>, then post-process with <TT>ppower4
+  file.pdf file.post.pdf</TT>.  This produces a new file,
+  <TT>file.post.pdf</TT>, with the effects. If you want to print out the pdf
+file, <B>print the orginal pdf file file.pdf</B> instead of the file
+<TT>file.post.pdf</TT>.
+</LI>
+<br><br>
+<LI>Three different commands for backgrounds
+  
+<UL>
+<LI><code>\pagecolor{color}</code> for solid color.
+</LI>
+<LI><code>\vpagecolor[color1]{color2}</code> for vertical gradient (like
+    this page).
+</LI>
+<LI><code>\hpagecolor[color1]{color2}</code> for horizontal gradient.
+  
+</LI>
+</UL>
+</LI>
+</UL>
+<br>
+<UL>
+<LI>The <code>\pause</code> command produces partial pages.  For example
+  at the end of this line there is a <code>\pause</code> command
+  - it waits for a keypress to display the rest of the page.
+  
+<UL>
+<LI>We can also use transition effects with <code>\pause</code> like Dissolve
+    or Wipe -- <code>\pauseDissolve</code> and <code>\pauseWipe{0}</code>.
+</LI>
+<LI>To Switch off the pause function, use <code>\pauseReplace</code>.
+  
+</LI>
+</UL>
+</LI>
+</UL>
+<br><br>
+<li>We can download the PPower4 program from the following site:
+<P>
+<a href="http://www.tex.ac.uk/tex-archive/support/ppower4/download.html">http://www.tex.ac.uk/tex-archive/support/ppower4/download.html</a>
+</li>
+<P>
+</LI>
+
+<li>
+<a href="pp4.pdf">Here (pp4.pdf)</a> is the output from using ppower4 on 
+<a href="ppseminar.pdf">the pdf file (ppseminar.pdf)</a> 
+we created from compiling
+<a href="ppseminar.tex">the latex file (ppseminar.tex)</a>
+with the foils class. 
+To produce the two pdf files, we did
+<br><br>
+&nbsp &nbsp
+<code>pdlatex ppseminar.tex</code>  &nbsp &nbsp (this gives ppseminar.pdf)
+<br>
+&nbsp &nbsp
+<code>ppower4 ppseminar.pdf pp4.pdf</code> &nbsp &nbsp (this generates pp4.pdf)
+</li>
+</UL>
+
+<!--
+<P>
+Minipage and Graphics
+
+<P>
+Partial code for the previous page:
+<PRE>
+\begin{minipage}[t]{4.5in}
+  \raggedright
+  \begin{center}
+    \includegraphics[width=2.8in,height=2in]{whistler}
+  \end{center}
+  \vspace{-0.2in}
+  \begin{itemize}
+  \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{4.5in}
+\end{minipage}
+</PRE>
+
+-->
+
+<P>
+<br>
+<br>
+<hr>
+<font size=-1>
+Last Updated on February 27, 2003.
+</font>
+<br><br>
+
+</BODY>
+</HTML>

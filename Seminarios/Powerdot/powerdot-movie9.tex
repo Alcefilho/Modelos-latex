@@ -1,0 +1,24 @@
+\documentclass{powerdot}
+\usepackage[brazil]{babel} %media9.sty needs it, language doesn't matter
+\usepackage{media9}
+
+\begin{document}
+
+\begin{slide}{Embedded video}
+
+  \includemedia[
+    activate=pageopen,
+    width=250pt, height=200pt,
+    addresource=House2.mp4,
+    flashvars={
+       source=House2.mp4
+      &loop=true
+    }
+  ]{}{VPlayer.swf}
+  
+  
+  %{StrobeMediaPlayback.swf}
+
+\end{slide}
+
+\end{document}

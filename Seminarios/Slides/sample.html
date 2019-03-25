@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang=en>
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=iso-8859-1">
+<title>A Prosper tutorial -- sample.tex</title>
+<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+<link rel="icon" href="../images/favicon.ico">
+</head>
+<body>
+
+<h1>A bare-bones sample file</h1>
+
+<p>
+The basic structure of a Prosper input file is pretty simple.
+Consider the file <a href="sample.tex">sample.tex</a>, the content
+of which is shown below:
+
+<hr>
+<pre>
+% sample.tex
+\documentclass[pdf,azure,slideColor,colorBG]{prosper}
+\begin{document}
+
+\begin{slide}{Elementary mathematics}
+
+Observations:
+
+\[
+    \int_{-\infty}^\infty e^{-x^2} \, dx = \sqrt{\pi}
+\]
+
+\[
+    e^{i\pi} = -1
+\]
+
+Conclusions:
+
+\begin{itemize}
+    \item $\sqrt{2}$ is irrational
+    \item $e$ and $\pi$ are transcendental
+    \item $42$ and 42 are not the same in \LaTeX
+\end{itemize}
+
+\end{slide}
+
+\end{document}
+</pre>
+<hr>
+
+<p>
+The input file above produces the following single slide:
+
+<a name="sample.png"></a>
+<div class=pic>
+<p align=center><img src=sample-azure.png width=468 height=330 alt="[image]"></p>
+</div>
+
+<p>
+The <tt>\begin{slide}{}...\end{slide}</tt> block can be repeated any number
+of times to produce a sequence of slides.
+
+<div class=remark>
+<b>Important!</b> Every Prosper slide has a mandatory <em>slide title</em>.
+The line:
+<p>
+<pre>
+\begin{slide}{<span class=highlight>Elementary mathematics</span>}
+</pre>
+<p>specifies "Elementary mathematics" as title for this slide.
+It is an <strong>error</strong> to omit the slide title.
+</div>
+
+<div class=navbar>
+<hr>
+<a href="index.html"><img src=arrow-left.png border=0 alt="[previous]"></a>
+&nbsp;
+&nbsp;
+<a href="index.html"><img src=arrow-up.png border=0 alt="[index]"></a>
+&nbsp;
+&nbsp;
+<a href="processing.html"><img src=arrow-right.png border=0 alt="[next]"></a>
+</div>
+
+</body>
+</html>

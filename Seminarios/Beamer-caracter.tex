@@ -1,1 +1,200 @@
-/home/salviano/Modelos/Seminarios/Beamer-caracter.tex
+% modelo beamer
+% http://latexbr.blogspot.com.br/
+% aspectratio=169 - modo widescreen
+% 1610, 149, 54, 43 and 32.
+\documentclass[aspectratio=149,9pt,xcolor=table]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphics,amssymb,amsfonts,amsmath}
+\usepackage[mathscr]{euscript}
+\usepackage{enumerate,hyperref}
+%\usepackage{palatino}  % Fonte sem serifa
+%\usepackage{mathpazo}  % Fonte sem serifa
+\usepackage{ragged2e}   % Paragrafo justificado
+\usepackage[normalem]{ulem} % Textos sublinhados
+%---------------------------------------------------------
+\usepackage{minted}
+\usepackage{upquote}
+\usepackage{tcolorbox}
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{minted}{\begin{tcolorbox}}%
+\AfterEndEnvironment{minted}{\end{tcolorbox}}%
+\usepackage{booktabs} % tabelas
+%---------------------------------------------------------
+\usepackage{array}
+\usepackage{rotating}
+%\usepackage[table]{xcolor}  % Definição de cores 
+\usepackage{colortbl}       % Permitir cores nas tabelas
+\usepackage[first=0,last=99]{lcg}  % Gerador de numeros aleatórios
+\usepackage{multirow}       % Permiti multiplas colunas
+\newcommand{\Ra}{\rand0.\arabic{rand}}
+
+\newcommand{\mc}[2]{\multicolumn{#1}{c}{#2}}
+%\definecolor{Gray}{gray}{0.85}
+\definecolor{Gray}{gray}{0.9}
+
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{Maroon}{cmyk}{0,0.87,0.68,0.32}
+\definecolor{fogo}{RGB}{255,127,0}
+
+\newcolumntype{a}{>{\columncolor{yellow}}c}
+\newcolumntype{b}{>{\columncolor{cyan}}c}
+%=====================================================================
+\usepackage{datapie}
+
+\DTLloaddb{marks}{Notas-estudantes.csv}
+%=====================================================================
+\usepackage{hyperref}
+%---------------------------------------------------------------------
+\hypersetup{
+ pdfborder={0 0 0},     % Sem caixa em volta da hiperreferência
+ pdftoolbar=true,       % Mostrar a barra de ferramentas 
+ pdfmenubar=true,       % Mostrar o menu no 
+ pdffitwindow=false,    % Ajusta documento ao tamanho da janela aberta
+ pdfstartview={FitH},   % Ajusta largura da página a da janela aberta 
+ pdfauthor={Salviano A. Leão}, % Autor do documento
+ pdftitle={Linux -- Gerenciamento de pacotes},  % Titulo do documento
+ pdfsubject={Linux, Debian},          % Assunto do documento
+ pdfkeywords={Linux, Debian, Pacotes} % Palavras chaves do documento
+ pdfproducer={LaTeX},   % O produtor do documento
+ pdfcreator={pdfLaTeX}, % O programa que criou o documento
+ pdfnewwindow=true,     % Abre links em uma nova janela
+ colorlinks=true,       % false: links em uma caixa; true: links coloridos
+ linkcolor=red,         % Cor dos links internos 
+ %linkbordercolor=green % Cor da caixa com os links
+ citecolor=green,       % Cor dos links das referências bibliográficas
+ filecolor=magenta,     % Cor dos links dos arquivos
+ urlcolor=blue          % Cor dos links externos
+}
+%======================================================================
+\graphicspath{
+{/home/salviano/Cursos/Figs_Logotipos/}
+{/home/salviano/Cursos/Figs_Ensino/Computacao/}
+{/home/salviano/Cursos/Figs_Ensino/LaTeX/}
+}
+%-----------------------------------------------------------------------
+
+
+%===========================================================
+\usepackage{pifont}
+\newenvironment{Mitemize}{\renewcommand\labelitemi
+{\ding{43}} \begin{itemize}}{\end{itemize}}
+%============================================================
+
+
+\usepackage{multicol}
+\usepackage{comment}
+\usepackage{shapepar}
+\usepackage{lipsum}
+%----------------------------------------------------------
+\definecolor{Cinza50}{gray}{0.50}
+\definecolor{Cinza10}{gray}{0.10}
+\definecolor{Cinza}{gray}{0.88}
+%\definecolor{cinza}{rgb}{0.9,0.9,0.9}
+\definecolor{cinza}{gray}{0.9}
+\definecolor{tcA}{rgb}{1,1,0}
+%----------------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+%----------------------------------------------------------
+
+\newcommand{\bs}{{\char'134}}% Backslash -> \
+\newcommand{\lb}{{\char'173}}% Left brace -> {
+\newcommand{\rb}{{\char'175}}% Right brace -> }
+\newcommand{\ls}{{\char'133}}% Left bracket -> [
+\newcommand{\rs}{{\char'135}}% Right bracket -> ]
+\newcommand{\ci}[1]{{\textbackslash}{#1}}
+
+%\newcommand{\LCMD2}[2]{{\color{blue}\bs #1 \lb }{\color{red}#2}{\color{blue}\rb}}
+\newcommand{\A}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+\newcommand{\B}[2]{#1#2&\texttt{\string#1{} #2}\hspace*{1ex}}
+
+% Tema, cor e fonte modo matematico
+\usetheme{AnnArbor}
+% \usetheme{Pittsburgh}
+\usecolortheme{orchid}
+
+\usefonttheme[onlymath]{serif}
+% Veja mais temas e cores em http://www.hartwork.org/beamer-theme-matrix/
+
+% Colocando numero de paginas no slide
+\setbeamertemplate{footline}[frame number]
+
+% Desativando os botoes de navegacao
+%\beamertemplatenavigationsymbolsempty
+
+% Tela cheia
+\hypersetup{pdfpagemode=FullScreen}
+
+% Layout da pagina
+\hypersetup{pdfpagelayout=SinglePage}
+
+% Definicao de novos ambientes
+%\theoremstyle{Definition}
+\newtheorem{defn}{Defini\c c\~ao}
+\newtheorem{teo}[theorem]{Teorema}
+\newtheorem{ex}[theorem]{Exemplo}
+
+% Definicao de novos comandos
+\providecommand{\sin}{} \renewcommand{\sin}{\hspace{2pt}\textrm{sen}}
+\providecommand{\tan}{} \renewcommand{\tan}{\hspace{2pt}\textrm{tg}}
+\newcommand{\R}{\mathbb{R}}
+
+% Capa - requer o TikZ
+\newcommand{\capa}{
+  \begin{tikzpicture}[remember picture,overlay]
+    \node at (current page.south west)
+      {\begin{tikzpicture}[remember picture, overlay]
+        \fill[shading=radial,top color=orange,bottom color=orange,middle color=yellow]
+          (0,0) rectangle (\paperwidth,\paperheight);
+      \end{tikzpicture}
+      };
+  \end{tikzpicture}
+}
+
+\providecommand{\Red}[1]{\textcolor{red}{#1}} % troca a cor para vermelho
+\providecommand{\Blue}[1]{\textcolor{blue}{#1}}
+
+
+% Ambiente Java (minted)
+\newminted{java}{bgcolor=cyan!10}
+\newminted{latex}{bgcolor=cyan!10}
+%\newminted{bibtex}{bgcolor=cyan!10}
+\newminted{shell}{bgcolor=cyan!10}
+
+% Titulo
+\title[\sc{Texto no rodap\'e}]{caracteres escondidos}
+\author[prof. Dr. Salviano A. Leão]{prof. Dr. Salviano A. Leão}
+\institute{Instituto de Física -- UFG} % opcional
+\date{29 de julho de 2017}
+
+\tcbset{colback=yellow!40,colframe=blue!75}
+
+\begin{document}
+
+% Primeiro frame: Capa
+\begin{frame}
+  \capa
+  \titlepage
+
+% \begin{center}
+%   \includegraphics[width=0.3\linewidth]{flisol.png}
+% \end{center}
+\end{frame}
+
+%==============================================================
+\begin{frame}[fragile]
+\frametitle{Procurando por caractere escondido}
+O comando seguinte comando 
+\texttt{Arq.tex}
+\begin{minted}[bgcolor=lightgray!20]{bash}
+sed -n '100,110p' Arq.tex | od -A d -t c
+\end{minted}
+mostra todos os caracteres do arquivo que estão entre as linhas 100 e 110, 
+mesmo aqueles  escondido que podem estar gerando um erro estranho
+\end{frame}
+
+\end{document}

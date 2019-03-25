@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Presentation using PDFLATEX and class</TITLE>
+<META NAME="description" CONTENT="Presentation using PDFLATEX and class">
+<META NAME="keywords" CONTENT="foilseminar">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="foilseminar.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html2"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html3"
+  HREF="node1.html">About this document ...</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN="CENTER">Presentation using <SMALL>PDF</SMALL>L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X and  class</H1>
+<P ALIGN="CENTER"><STRONG>Latex Smart 
+<BR>
+6356 Agricultural Road
+<BR>
+University of British Columbia
+<BR>
+Vancouver BC 
+<BR>
+V6T 1Z2</STRONG></P>
+<P ALIGN="CENTER"><STRONG>February 27, 2003</STRONG></P>
+
+<P>
+Why use <TT>foils</TT> class instead of <TT>seminar</TT> class
+
+<UL>
+<LI>nice centered titles and text in very large fonts
+</LI>
+<LI>easy to rotate either the entire set of foils to landscape mode or to rotate individual
+foils
+</LI>
+<LI>easy to control the header and footer
+</LI>
+<LI>directly produce <TT>pdf</TT> output which can be displayed and printed in ``full-screen'' 
+mode if combined with <TT>pdflatex</TT>
+</LI>
+</UL>
+
+<P>
+Using 
+
+<P>
+To create a simple presentation document using , we
+can use the <FONT COLOR="#ff0000"><TT>foils</TT></FONT> class. 
+The syntax is as follows:
+
+<P>
+<PRE>
+\documentclass[landscape]{foils}
+...
+\begin{document}
+\foilhead[length]{title of page 1}
+...
+\foilhead[length]{title of next page}
+...
+\end{document}
+</PRE>
+where the option <TT>length</TT> specify the vertical space used as a cushion between the header
+and the body of the foil. For example, if you want the body of your foil to sit closer to the
+header, you could use the command
+<PRE>
+  \foilhead[-0.5in]{This is the Header}
+</PRE>
+
+<P>
+rotatefoilhead macros
+
+<P>
+To rotate a foil, simply use <code>\rotatefoilhead</code> instead of
+<code>foilhead</code>
+
+<P>
+
+<UL>
+<LI>everything on the page will be rotate including header and footer.
+</LI>
+<LI>if the default position is portrait, then this foil will be rotated
+to landscape.
+</LI>
+<LI>if the default position is landscape, then it rotates to portrait.
+</LI>
+<LI>if a rotated foil is splitted into several pages, then each of these
+pages will also be rotated. Normal orientation is recovered by the next
+invocation of <code>\foilhead</code>.
+</LI>
+</UL>
+
+<P>
+Header and Footer
+left header 1#1
+right header 
+right footer
+
+<P>
+The code for this page's header and footer are
+<PRE>
+  \leftheader{left header $\Sigma$}
+  \rightheader{right header \thepage}
+  \rightfooter{right footer}
+</PRE>
+
+<P>
+To clear the header and footer, type
+<PRE>
+  \leftheader{}
+  \rightheader{}
+  \rightfooter{}
+</PRE>
+
+<P>
+To add ruler in the header and footer, use the <TT>headrule</TT> and <TT>footrule</TT> class options.
+<PRE>
+\documentclass[landscape, headrule, footrule]{foils}
+</PRE>
+
+<P>
+Left Footer
+
+<P>
+P<SMALL>RESENTATION USING PDF</SMALL>L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X <SMALL>AND  CLASS</SMALL>
+
+<P>
+This is my logo
+This is the content of my restriction
+
+<P>
+
+<UL>
+<LI>The left footer is controlled by <code>\MyLogo</code> and <code>\Restriction</code>
+macro.
+
+<P>
+</LI>
+<LI>By default, the footline consists of the contents of <code>\MyLogo</code>
+followed by the contents of <code>\Restriction</code>.
+
+<P>
+</LI>
+<LI>By default (<code>\MyLogo{}</code> and <code>\Restriction{}</code>), <code>\Restriction</code> is empty and <code>\MyLogo</code> is the
+phrase 
+
+<P>
+``- Typeset by  -''.
+
+<P>
+</LI>
+<LI>You can toggle on and off the logo by macro <code>\LogoOn</code> and
+<code>LogoOff</code>.
+</LI>
+</UL>
+
+<P>
+Installation of and Compilation of Foil files
+Eugenia and Weiliang, UBC Stats 
+
+
+<P>
+We can download the  package from the following site:
+
+<P>
+http://www.ctan.org/tex-archive/macros/latex/contrib/supported/foiltex/http://www.ctan.org/tex-archive/macros/latex/contrib/supported/foiltex/
+
+<P>
+After downloading the necessary files, use command <code>latex foiltex.ins</code> for installation.
+
+<P>
+To compile a foil file, you can use command <code>latex filename.tex</code>. It's
+better to use command <code>pdflatex filename.tex</code>.
+
+<P>
+next pagenext page
+
+<P>
+PDFLaTeX
+
+<P>
+next page
+
+<P>
+
+<UL>
+<LI>PDFLaTex is a version of L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X that generates PDF output
+</LI>
+<LI>PDF is a near-universal format
+</LI>
+<LI>PDF file can be ``full-screen'' displayed
+</LI>
+<LI>PDF has a number of advanced features -- special display effects,
+hyperlinks, and so forth.
+</LI>
+</UL>
+
+<P>
+[-0.5in]Some Special Display Effects
+To make the pdf start in full-screen mode, use  
+<PRE>
+  \usepackage[pdftex]{geometry}
+</PRE>
+ and use macro <code>\hypersetup</code>. For
+example,
+<PRE>
+\hypersetup{
+  pdftitle={Presentation using pdfLaTeX and \FoilTeX\, class},
+  pdfsubject={How to make presentations with LaTeX},
+  pdfauthor={Eugenia Yu and Weiliang Qiu,
+    Department of Statistics,
+    University of British Columbia},
+  pdfkeywords={Presentations, LaTeX, FoilTeX, pdfTeX},
+  pdfpagemode={FullScreen},   %make the pdf start in full-screen
+                              %   mode
+  linkcolor=cyan,             %make all the links cyan instead
+  citecolor=cyan,             %   of red
+  pagecolor=cyan,
+  urlcolor=cyan
+  }
+</PRE>
+
+<P>
+[-0.5in]Some Special Display Effects (Con't)
+The content of this page is from: Hideo Umeki (2002),
+<I>The geometry package</I>.
+pdfpagetransition=Dissolve
+Effect of <code>\hypersetup{pdfpagetransition=Dissolve}</code>
+
+<P>
+To set dimensions for page layout in L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X is not straightforward. You
+need to adjust several L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X dimensions to place a text area where you
+want. If you want to center the text area in the paper you use, for example,
+you have to use specify L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X dimensions as follows:
+<PRE>
+  \usepackage{calc}
+  \setlength{\textwidth{8in}}
+  \setlength{\textheight{11in}}
+  \setlength\oddsidemargin{(\paperwidth-\textwidth)/2 - 1in}
+  \setlength\topmargin{(\paperheight-\textheight
+                        -headheight-\headsep-\footskip)/2 - 1in}
+</PRE>
+Without <TT>calc</TT> package, the above example would need more tedious
+setting. The <TT>geometry</TT> package provides an easy way to set page layout
+parameters. In this case, what you have to do is just
+<PRE>
+  \usepackage[body={8in, 11in}]{geometry}.
+</PRE>
+
+<P>
+[-0.5in]Some Special Display Effects (Con't)
+pdfpagetransition=Box
+Effect of  <code>\hypersetup{pdfpagetransition=Box}</code>
+
+<P>
+The package (<TT>geometry</TT>) will be also useful when you have to set page
+layout obeying the following strict instructions: for example:
+
+<BLOCKQUOTE><FONT SIZE="-1">The total allowable width of the text area is 6.5 inches wide by 8.75 inches
+high. The first line on each page should begin 1.2 inches from the top edge
+of the page. The left margin should be 0.4 inch from the left edge.
+</FONT></BLOCKQUOTE>
+In this case, using <TT>geometry</TT> package you can go
+<PRE>
+  \usepackage[body={6.5in, 8.75in},
+                    top=1.2in, left=0.4in, nohead]{geometry}.
+</PRE>
+
+<P>
+Eugenia and Weiliang, UBC Stats 
+pdfpagetransition=Replace
+
+<P>
+To switch off the <TT>pdfpagetransition</TT>, use
+<PRE>
+\hypersetup{pdfpagetransition=Replace}
+</PRE>
+
+<P>
+[-0.5in]Hyperref Package
+The content of this page is from: Sebastian Rahtz (1998),
+<I>Hypertext marks in L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X: the hyperref package</I>.
+
+<P>
+
+<UL>
+<LI>The package <TT>hyperref</TT> derives from, and builds on, 
+the work of the HyperTEX project, described
+at <code>http://xxx.lanl.gov/hypertex/</code>. 
+</LI>
+<LI>It extends the functionality of all the LATEX
+cross-referencing commands (including the table of contents, bibliographies 
+etc).
+</LI>
+<LI>It also
+provides new commands to allow the user to write ad hoc hypertext links, 
+including
+those to external documents and URLs.
+</LI>
+</UL>
+
+<P>
+[-0.5in]Hyperref Package (Con't)
+Eugenia and Weiliang, UBC Stats 
+Syntax:
+
+<UL>
+<LI><code>\href{URL}{text}</code>
+
+<P>
+Example: <code>\href{http://www.stat.ubc.ca}{Stat Dept., UBC}</code>
+2#2 http://www.stat.ubc.caStat Dept., UBC
+
+<P>
+</LI>
+<LI><code>\hyperlink{name}{text}</code> and 
+<code>\hypertarget{name}{text}</code>
+
+<P>
+Example: <code>\hyperlink{mycolor}{Color Package}</code> 2#2
+mycolorColor Package. 
+
+<P>
+We define 
+<code>\hypertarget{mycolor}{Color Package}</code> in the next page:
+<PRE>
+\foilhead[-0.5in]{\hypertarget{mycolor}{Color Package}}
+</PRE>
+</LI>
+</UL>
+
+<P>
+[-0.5in]mycolorColor Package
+
+<UL>
+<LI><code>\usepackage[usenames]{color}</code>
+
+<P>
+Here option <TT>[usenames]</TT> causes the definitions for the 3#3 colors
+known to dvips to be preloaded. E.g. <code>\textcolor{red}{red}</code>
+produces <FONT COLOR="#ff0000">red</FONT>.
+</LI>
+<LI>You also can define your own custom colors. For example:
+<code>\definecolor{DarkGreen}{rgb}{0.5,0.8,0.6}</code>
+
+<P>
+<FONT COLOR="#80cc99">This is DarkGreen</FONT>
+</LI>
+<LI>To add background color and other special dispaly effects of PDF
+such as <TT>pause</TT>, we can use <TT>ppower4</TT>.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html4"
+  HREF="node1.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html3"
+  HREF="node1.html">About this document ...</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Department Web Master
+2003-02-27
+</ADDRESS>
+</BODY>
+</HTML>

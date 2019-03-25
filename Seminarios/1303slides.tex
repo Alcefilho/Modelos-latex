@@ -1,1 +1,277 @@
-/home/salviano/Modelos/Seminarios/1303slides.tex
+\documentclass[a4paper,landscape]{slides}
+% for transparencies
+\usepackage[dvips]{xcolor}
+\usepackage{CJK}
+%======================== 数学公式相关宏包 ===============================%
+\usepackage{latexsym,bm}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{pifont}
+%===================== 设置页面大小, 定义行距 ===================================%
+%\setlength{\textwidth}{15cm}
+%\setlength{\textheight}{22cm}
+%\setlength{\hoffset}{-10mm}
+%\setlength{\voffset}{0mm}
+%\renewcommand{\baselinestretch}{1.2}
+
+%===================== 重定义字体、字号命令 =============================%
+\newcommand{\song}{\CJKfamily{song}}    % 宋体   (Windows自带simsun.ttf)
+\newcommand{\fs}{\CJKfamily{fs}}        % 仿宋体 (Windows自带simfs.ttf)
+\newcommand{\kai}{\CJKfamily{kai}}      % 楷体   (Windows自带simkai.ttf)
+\newcommand{\hei}{\CJKfamily{hei}}      % 黑体   (Windows自带simhei.ttf)
+\newcommand{\li}{\CJKfamily{li}}        % 隶书   (Windows自带simli.ttf)
+\newcommand{\you}{\CJKfamily{you}}      % 幼圆   (Windows自带simyou.ttf)
+%
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont} % 字号设置
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{14pt}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{12.6pt}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{11pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+
+%===================================================================%
+\CJKtilde   %用于解决英文字母和汉字的间距问题
+
+\special{pdf: pagesize width 29.7cm height 21cm}
+% 用于指定转化成 pdf 文件后的页面大小
+
+\begin{document}
+\begin{CJK*}{GBK}{song}
+
+\newcommand{\spacer}{\rule[-3mm]{0mm}{8mm}}
+
+\title{Solution of Non-Symmetric, Real Positive Linear Systems}
+\author{\textcolor{blue}{Gene H. Golub\\
+Stanford University}}
+\date{}
+
+\maketitle
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{Outline}}
+\setlength{\itemsep}{2pt}
+\begin{enumerate}
+  \item The Problem.
+  \item \textcolor{red}{Useful Splittings.}
+  \item \textcolor{green}{The Generalized Conjugate Gradient Method.}
+  \item \textcolor{blue}{Two-Step Preconditioning.}
+  \item \textcolor{magenta}{The Hermitian/Skew-Hermitian Iteration Method.}
+\end{enumerate}
+\end{slide}
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{Introduction}}
+
+\color{black}
+We consider (\textcolor{red}{obviously :-)}) the linear system:
+$$　Ax = b.　$$
+
+The splitting: $ A = M - N; Mx = Nx + b $
+
+leads to the ‘\textcolor{blue}{fundamental}’ iterative scheme:
+\begin{equation}\label{iter_scheme}
+ Mx^{k+1} = N x^k + b.
+\end{equation}
+
+Define the error and the iteration matrix: $e_k = x - x_k; K = M^{-1}N$.
+
+We obtain $e_k \to 0$ as $k \to\infty$, if $\rho(K) < 1$.
+
+We assume it is “easy” to solve \eqref{iter_scheme}.
+
+\end{slide}
+
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{%
+Example: the Navier-Stokes Equations
+}}
+
+Given data $f$, find the velocity $u$ and pressure $p$ satisfying\color{blue}
+$$
+\left\{\begin{array}{rl}
+ -v\Delta u + \frac12 u(\mathrm{div\, u}) + u\cdot\triangledown u +\triangledown p &= f\\
+ \mathrm{div}\, u &= 0
+ \end{array}\right.
+$$
+\color{black}
+in a domain $\Omega\subset\mathbb{R}^2$ or $\mathbb{R}^3$,
+with boundary conditions, e.g. $u = g|_{\partial\Omega}$.
+
+Apply a fixed point iteration $\to$ obtain \textsl{Oseen equations}: ($w$ is given)
+
+Finite Difference/Element discretization leads to\color{red}
+
+\begin{center}
+\boxed{$$
+\begin{bmatrix} vH + S & B \\ B^T & 0 \end{bmatrix}
+\begin{bmatrix} u \\ p \end{bmatrix} =
+\begin{bmatrix} f \\ 0 \end{bmatrix}
+$$}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{%
+A Useful Splitting
+}}
+
+We write:
+\begin{eqnarray*}
+ &&A = \dfrac{A + A^*}2 + \dfrac{A - A^*}2\\[10pt]
+ && H=\dfrac{A + A^*}2 = H^*\\[10pt]
+ && S=\dfrac{A - A^*}2 = -S^*
+\end{eqnarray*}
+
+\color{red}
+\textbullet\ This is of interest in solving Maxwell’s equation.
+\end{slide}
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{%
+The Chebyshev Algorithm (G./Varga)
+}}
+
+\color{red}
+Based on taking a linear combination of all iterates, so that the
+corresponding polynomial satisfies a min-max property on the interval
+that contains the spectrum of the matrix.
+
+\color{black}
+Determine the coefficients $v_j(k), j = 0, \ldots, k$, such that an
+improvement over $x^{(k)}$ is obtained:
+$y^{(k)} =\sum_{j=0}^k v_j(k)x^{(j)}$.
+
+Computing the error equation leads to
+$$
+ y^{(k)} - x = \sum_{j=0}^k v_j(k)(M^{-1}N)^j e^{(0)}.
+$$
+
+\end{slide}
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{%
+Example: 一个表格
+}}
+
+Here's a table, produced in the
+{\tt tabular} environment.
+
+\begin{center}
+   \begin{tabular}{|c||c|c|c|c|} \hline
+   n & $L_1$ & $L_2$ & $L_3$  & W
+        \\ \hline \hline
+   2 & 1/2 & 1/3 & 1.28453 &  0.35728389 \\
+     & 1/3 & 2/3 & 1.98720 &  0.32497238 \\ \hline
+     & 1/4 & 1/4 & 2.97378 &  0.39902682 \\
+   3 & 1/3 & 1/2 & 3.09927 &  0.41826033 \\
+     & 1/2 & 3/4 & 3.14972 &  0.41991556 \\ \hline
+     & 1/5 & 1/5 & 4.29072 &  0.50297387 \\
+   4 & 1/4 & 2/5 & 4.87208 &  0.51993702 \\
+     & 1/3 & 3/5 & 4.96931 &  0.52083333 \\
+     & 1/2 & 4/5 & 4.99926 &  0.52000000 \\ \hline
+   \end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{%
+并不是所有的~\LaTeX{} 环境都可以用在~slides 中
+}}\bigskip
+
+\newcommand{\yes}{\textcolor{blue}{\ding{51}}}
+\tiny   % make it fit on the page!
+ \begin{center}
+   \begin{tabular}{|l||c|c|c|c|c|} \hline
+   environment \spacer
+    & {\bf article} & {\bf report} & {\bf book} &
+    {\bf letter} & {\bf slides}
+    \\ \hline \hline
+   abstract \spacer
+    & \yes & \yes &   &   &
+    \\ \hline
+   description \spacer
+    & \yes & \yes & \yes & \yes & \yes
+    \\ \hline
+   figure \spacer
+    & \yes & \yes & \yes &   &
+    \\ \hline
+   figure* \spacer
+    & \yes & \yes & \yes &   &
+    \\ \hline
+   picture \spacer
+    & \yes & \yes & \yes & \yes & \yes
+    \\ \hline
+   quotation \spacer
+    & \yes & \yes & \yes & \yes & \yes
+    \\ \hline
+   quote \spacer
+    & \yes & \yes & \yes & \yes & \yes
+    \\ \hline
+   table \spacer
+    & \yes & \yes & \yes &   &
+    \\ \hline
+   table* \spacer
+    & \yes & \yes &  \yes  &   &
+    \\ \hline
+   tabular \spacer
+    & \yes & \yes & \yes & \yes & \yes
+    \\ \hline
+   thebibliography \spacer
+    & \yes & \yes & \yes &   &
+    \\ \hline
+   theindex \spacer
+    & \yes & \yes & \yes &   &
+    \\ \hline
+   titlepage \spacer
+    & \yes & \yes &  \yes  &   & \yes
+    \\ \hline
+   verse \spacer
+    & \yes & \yes & \yes & \yes & \yes
+    \\ \hline
+   \end{tabular}
+ \end{center}
+\end{slide}
+
+\begin{slide}
+\textcolor{violet}{\large\textbf{%
+一个图表
+}}\bigskip
+
+\begin{center}
+    \setlength{\unitlength}{15mm}
+    \newsavebox{\testcon}\savebox{\testcon}(0,0){
+        \thicklines
+        \put(0,0.5) {\line(-2,-1){1.0}}
+        \put(0,0.5) {\line(2,-1){1.0}}
+        \put(0,-0.5){\line(-2,1){1.0}}
+        \put(0,-0.5){\line(2,1){1.0}}
+        \put(0,0.5) {\makebox(0,0)[b]
+            {\put(0,0){\line(0,1){0.5}}}}
+        \put(1,0)   {\line(1,0){1.0}}
+        \put(-1,0)  {\line(-1,0){1.0}}
+        \put(-1.1,0.1) {\makebox(0,0)[br]{no}}
+        \put(1.1,0.1)  {\makebox(0,0)[bl]{yes}}}
+  \begin{picture}(10,4)
+    \thicklines
+    \put(5,4){\vector(0,-1){1.1}}
+    \put(5,2){\usebox{\testcon}\makebox(0,0){$i=0$}}
+    \put(3,1){\usebox{\testcon}\makebox(0,0){$j \le i$}}
+    \put(7,1){\usebox{\testcon}\makebox(0,0){$k \neq j$}}
+    \put(0.6,1){\circle{1.0}\makebox(0,0){3}}
+    \put(9.4,1){\circle{1.0}\makebox(0,0){5}}
+    \put(5,1){\vector(0,-1){0.5}\circle*{0.1}}
+    \put(3.5,0){\framebox(3,0.5){$y = f(i,j,k)$}}
+  \end{picture}
+\end{center}
+\end{slide}
+
+\end{CJK*}
+\end{document}

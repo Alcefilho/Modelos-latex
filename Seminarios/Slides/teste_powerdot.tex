@@ -1,0 +1,50 @@
+\documentclass[style=aggie]{powerdot}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{multicol}
+\usepackage{graphicx}
+
+\pdsetup{
+}
+
+\title{Um teste}
+\author{Salviano A. Leão}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Primeira seção}
+
+%==============================================================
+\begin{slide}{Título do slide}
+Aqui vem o texto do slide
+\end{slide}
+
+%==============================================================
+\begin{slide}{Tabela}
+
+
+\begin{multicols}{2}
+
+\begin{table}[!htb]
+\caption{A tabela a seguir mostra}
+\begin{center}
+\begin{tabular}{|l|c|l|} \hline
+gato & hoje & irá\\ \hline
+ação & boca & cacho\\
+dado & aviação & kappa\\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{tiger.eps}
+\end{center}
+
+\end{multicols}
+
+
+\end{slide}
+
+\end{document}

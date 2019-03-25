@@ -1,0 +1,598 @@
+===================================================================
+A página original em que esses arquivos foram obtidos é:
+http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+
+Ele foi obtido em: 14/12/16
+
+===================================================================
+
+   #[1]TeX - LaTeX Stack Exchange [2]Feed for question 'Force Computer
+   Modern in math mode'
+
+[3]current community
+
+     * [4]blog [5]chat
+       TeX - LaTeX
+     * TeX - LaTeX Meta
+
+your communities
+
+   [6]Sign up or [7]log in to customize your list.
+
+[8]more stack exchange communities
+
+   [9]company blog
+   [10]Stack Exchange [11]Inbox [12]Reputation and Badges
+   [13]sign up [14]log in [15]tour [16]help
+     * [17]Tour Start here for a quick overview of the site
+     * [18]Help Center Detailed answers to any questions you might have
+     * [19]Meta Discuss the workings and policies of this site
+     * [20]About Us Learn more about Stack Overflow the company
+     * [21]Business Learn more about hiring developers or posting ads with
+       us
+
+   ____________________
+
+   [22]TeX - LaTeX
+     * [23]Questions
+     * [24]Tags
+     * [25]Users
+     * [26]Badges
+     * [27]Unanswered
+
+     * [28]Ask Question
+
+   _
+   TeX - LaTeX Stack Exchange is a question and answer site for users of
+   TeX, LaTeX, ConTeXt, and related typesetting systems. Join them; it
+   only takes a minute:
+   [29]Sign up
+   Here's how it works:
+    1. Anybody can ask a question
+    2. Anybody can answer
+    3. The best answers are voted up and rise to the top
+
+[30]Force Computer Modern in math mode
+
+   up vote 3 down vote [31]favorite
+
+   I am writing a presentation using the beamer class and XeTeX. I have
+   changed the sans font using \setsansfont. Now some symbols in my
+   equations are rendered using the mono font (like the lowercase
+   letters).
+
+   How can I force math mode to render all symbols in the equations in the
+   default Computer Modern, ignoring the font set with \setsansfont?
+   [32]fonts [33]math-mode [34]beamer [35]xetex [36]computer-modern
+   [37]share|[38]improve this question
+   [39]edited Feb 7 '11 at 16:23
+   [40]Caramdir
+   54.9k13186257
+   asked Feb 7 '11 at 15:47
+   [41]Nickolay Kolev
+   1,47111430
+
+   Could you pleas edit your question and add that you are seeing this
+   behavior with beamer slides. That would be helpful for people having
+   the same problem and searching for a solution. – [42]Caramdir Feb 7 '11
+   at 16:07
+
+   I changed the tags. – [43]Leo Liu Feb 7 '11 at 16:18
+   add a comment |
+
+3 Answers 3
+
+   [44]active [45]oldest [46]votes
+   up vote 4 down vote
+
+   Yes, it was a beamer issue. Using
+\documentclass[onlymath]{beamer}
+\usefonttheme{serif}
+
+   solves the problem. Thanks for pointing me in the right direction,
+   though.
+   [47]share|[48]improve this answer
+   answered Feb 7 '11 at 15:59
+   [49]Nickolay Kolev
+   1,47111430
+
+   Yes. I didn't noitce it is beamer here. – [50]Leo Liu Feb 7 '11 at
+   16:01
+   1
+   And you'd use \usefonttheme[onlymath]{serif}. – [51]Leo Liu Feb 7 '11
+   at 16:12
+   add a comment |
+   up vote 4 down vote
+
+   By default, Beamer does some math font manipulation, because many
+   fonts, such as the cm-sans used by default, don't provide matching
+   mathematical glyphs. If you want the standard Computer Modern (serif)
+   math font, just say
+\usefonttheme{professionalfonts}
+
+   in the preamble. This suppresses any auto-manipulations.
+   [52]share|[53]improve this answer
+           [54]edited Jan 18 at 7:42
+   answered Feb 8 '11 at 8:50
+   [55]AlexG
+   21.1k245110
+
+   Note that you don't have to (and in fact shouldn't) sign with your name
+   since it automatically appears in the lower right corner of your post.
+   – [56]Hendrik Vogt Feb 8 '11 at 16:19
+   add a comment |
+   up vote 1 down vote
+\usepackage[cm-default,no-math]{fontspec}
+
+   [57]share|[58]improve this answer
+   answered Feb 7 '11 at 15:50
+   [59]Leo Liu
+   54.5k6146235
+   1
+   This change makes more symbols appear in the sans font, instead of the
+   less, e.g. now numbers are in the sans font. Could this be a beamer
+   issue? – [60]Nickolay Kolev Feb 7 '11 at 15:55
+   add a comment |
+
+Your Answer
+
+
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+   _______________________________________________________________________
+
+   draft saved
+   draft discarded
+   ____________________
+
+Sign up or [61]log in
+
+   Sign up using Google
+
+   Sign up using Facebook
+
+   Sign up using Email and Password
+   [BUTTON Input] (not implemented)______
+
+Post as a guest
+
+   Name ______________________________
+   Email ______________________________
+
+Post as a guest
+
+   Name ______________________________
+   Email ______________________________
+   Post Your Answer [62]discard
+
+   By posting your answer, you agree to the [63]privacy policy and
+   [64]terms of service.
+
+Not the answer you're looking for? Browse other questions tagged [65]fonts
+[66]math-mode [67]beamer [68]xetex [69]computer-modern or [70]ask your own
+question.
+
+   asked
+
+   5 years ago
+
+   viewed
+
+   3173 times
+
+   active
+
+   [71]11 months ago
+   Blog
+     __________________________________________________________________
+
+   [72]Stack Overflow Podcast #96 - A Face Full of Code
+
+   Get the weekly newsletter! In it, you'll get:
+     * The week's top questions and answers
+     * Important community announcements
+     * Questions that need answers
+
+   [BUTTON Input] (not implemented)__________________________
+
+   see an [73]example newsletter
+
+   By subscribing, you agree to the [74]privacy policy and [75]terms of
+   service.
+
+Linked
+
+   4
+   [76]How to customize block in Beamer
+   4
+   [77]Title Slide of Flip Beamer Theme
+
+Related
+
+   1
+   [78]How to enforce pslatex to use Computer Modern font for math?
+   3
+   [79]Computer Modern Unicode + OpenType for XeTeX / fontspec
+   2
+   [80]Force font to computer modern (serif) in math mode although it is
+   set to sans serif
+   231
+   [81]What are all the font styles I can use in math mode?
+   15
+   [82]Fatter Computer Modern
+   1
+   [83]Changing math font in ClassicThesis
+   3
+   [84]Computer Modern Serif for both linux and windows
+   14
+   [85]How to create new font which is thicker version of Computer Modern
+   3
+   [86]Using Computer Modern symbols in math mode in Minion Pro
+   4
+   [87]Which sized Latin Modern Math delimiter glyphs correspond to
+   Computer Modern Extended (cmex) glyphs
+
+[88]Hot Network Questions
+
+     * [89]How can I make these winter real estate photos look like summer
+       photos?
+     * [90]A lens inside a liquid is not visible. Why?
+     * [91]Execute a series of Command in PSQL
+     * [92]Measure voltage with no current
+     * [93]How many digits of a Visa card number can vendors disclose on
+       receipts?
+     * [94]strcat implementation
+     * [95]Triptych of Animal Cryptics
+     * [96]pgfmathparse does not correctly parse zero left-padded
+       integers?
+     * [97]How to prevent a thief from using my iPhone ever?
+     * [98]The English Department
+     * [99]What's the point of using T-38 to instill flight proficiency in
+       Space Shuttle pilots?
+     * [100]Sealing space between counter and stainless stove
+     * [101]Are Lightsabers ever used outside of combat?
+     * [102]Does WordPress power 27% of the Internet?
+     * [103]Simple non destructive spaceship liftoff engine
+     * [104]What does the "TE" suffix in the Intel Core i3-6100TE's name
+       stand for?
+     * [105]Curiosity: Wouldn't the definition of the derivative always be
+       1 if it exists?
+     * [106]How did Aragorn’s army reach Mordor so easily?
+     * [107]In Visual Studio when debugging C# code, can I export a
+       Dictionary<string,string> in xml,csv or text format easily?
+     * [108]Is Sanctuary Broken if I Attack an Object?
+     * [109]SOQL Error in Compare Date
+     * [110]What are the legal, emotional, and/or behavioral side effects
+       of a punishment which involves confiscating money?
+     * [111]In what order does the shell execute commands and stream
+       redirection?
+     * [112]Is there a downside to going multiple days without sleeping?
+
+   [113]more hot questions
+   [114]question feed
+   lang-tex
+
+   [115]about us [116]tour [117]help [118]blog [119]chat [120]data
+   [121]legal [122]privacy policy [123]work here [124]advertising info
+   mobile [125]contact us [126]feedback
+   Technology Life / Arts Culture / Recreation Science Other
+    1. [127]Stack Overflow
+    2. [128]Server Fault
+    3. [129]Super User
+    4. [130]Web Applications
+    5. [131]Ask Ubuntu
+    6. [132]Webmasters
+    7. [133]Game Development
+    8. [134]TeX - LaTeX
+
+    1. [135]Software Engineering
+    2. [136]Unix & Linux
+    3. [137]Ask Different (Apple)
+    4. [138]WordPress Development
+    5. [139]Geographic Information Systems
+    6. [140]Electrical Engineering
+    7. [141]Android Enthusiasts
+    8. [142]Information Security
+
+    1. [143]Database Administrators
+    2. [144]Drupal Answers
+    3. [145]SharePoint
+    4. [146]User Experience
+    5. [147]Mathematica
+    6. [148]Salesforce
+    7. [149]ExpressionEngine® Answers
+    8. [150]Cryptography
+
+    1. [151]Code Review
+    2. [152]Magento
+    3. [153]Signal Processing
+    4. [154]Raspberry Pi
+    5. [155]Programming Puzzles & Code Golf
+    6. [156]more (7)
+
+    1. [157]Photography
+    2. [158]Science Fiction & Fantasy
+    3. [159]Graphic Design
+    4. [160]Movies & TV
+    5. [161]Music: Practice & Theory
+    6. [162]Seasoned Advice (cooking)
+    7. [163]Home Improvement
+    8. [164]Personal Finance & Money
+
+    1. [165]Academia
+    2. [166]more (8)
+
+    1. [167]English Language & Usage
+    2. [168]Skeptics
+    3. [169]Mi Yodeya (Judaism)
+    4. [170]Travel
+    5. [171]Christianity
+    6. [172]English Language Learners
+    7. [173]Japanese Language
+    8. [174]Arqade (gaming)
+
+    1. [175]Bicycles
+    2. [176]Role-playing Games
+    3. [177]Anime & Manga
+    4. [178]Motor Vehicle Maintenance & Repair
+    5. [179]more (17)
+
+    1. [180]MathOverflow
+    2. [181]Mathematics
+    3. [182]Cross Validated (stats)
+    4. [183]Theoretical Computer Science
+    5. [184]Physics
+    6. [185]Chemistry
+    7. [186]Biology
+    8. [187]Computer Science
+
+    1. [188]Philosophy
+    2. [189]more (3)
+
+    1. [190]Meta Stack Exchange
+    2. [191]Stack Apps
+    3. [192]Area 51
+    4. [193]Stack Overflow Talent
+
+   site design / logo © 2016 Stack Exchange Inc; user contributions
+   licensed under [194]cc by-sa 3.0 with [195]attribution required
+   rev 2016.12.14.4331
+
+   TeX - LaTeX Stack Exchange works best with JavaScript enabled
+
+References
+
+   Visible links
+   1. http://tex.stackexchange.com/opensearch.xml
+   2. http://tex.stackexchange.com/feeds/question/10488
+   3. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+   4. http://tex.blogoverflow.com/
+   5. http://chat.stackexchange.com/?tab=site&host=tex.stackexchange.com
+   6. https://tex.stackexchange.com/users/signup?ssrc=site_switcher&returnurl=http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+   7. https://tex.stackexchange.com/users/login?ssrc=site_switcher&returnurl=http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+   8. http://stackexchange.com/sites
+   9. http://stackoverflow.blog/
+  10. http://stackexchange.com/
+  11. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  12. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  13. https://tex.stackexchange.com/users/signup?ssrc=head&returnurl=http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  14. https://tex.stackexchange.com/users/login?ssrc=head&returnurl=http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  15. http://tex.stackexchange.com/tour
+  16. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  17. http://tex.stackexchange.com/tour
+  18. http://tex.stackexchange.com/help
+  19. http://meta.tex.stackexchange.com/
+  20. http://stackoverflow.com/company/about
+  21. https://www.stackoverflowbusiness.com/?ref=topbar_help
+  22. http://tex.stackexchange.com/
+  23. http://tex.stackexchange.com/questions
+  24. http://tex.stackexchange.com/tags
+  25. http://tex.stackexchange.com/users
+  26. http://tex.stackexchange.com/help/badges
+  27. http://tex.stackexchange.com/unanswered
+  28. http://tex.stackexchange.com/questions/ask
+  29. http://tex.stackexchange.com/users/signup?ssrc=hero&returnurl=http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  30. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  31. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  32. http://tex.stackexchange.com/questions/tagged/fonts
+  33. http://tex.stackexchange.com/questions/tagged/math-mode
+  34. http://tex.stackexchange.com/questions/tagged/beamer
+  35. http://tex.stackexchange.com/questions/tagged/xetex
+  36. http://tex.stackexchange.com/questions/tagged/computer-modern
+  37. http://tex.stackexchange.com/q/10488
+  38. http://tex.stackexchange.com/posts/10488/edit
+  39. http://tex.stackexchange.com/posts/10488/revisions
+  40. http://tex.stackexchange.com/users/83/caramdir
+  41. http://tex.stackexchange.com/users/3413/nickolay-kolev
+  42. http://tex.stackexchange.com/users/83/caramdir
+  43. http://tex.stackexchange.com/users/2674/leo-liu
+  44. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode?answertab=active#tab-top
+  45. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode?answertab=oldest#tab-top
+  46. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode?answertab=votes#tab-top
+  47. http://tex.stackexchange.com/a/10490
+  48. http://tex.stackexchange.com/posts/10490/edit
+  49. http://tex.stackexchange.com/users/3413/nickolay-kolev
+  50. http://tex.stackexchange.com/users/2674/leo-liu
+  51. http://tex.stackexchange.com/users/2674/leo-liu
+  52. http://tex.stackexchange.com/a/10563
+  53. http://tex.stackexchange.com/posts/10563/edit
+  54. http://tex.stackexchange.com/posts/10563/revisions
+  55. http://tex.stackexchange.com/users/1053/alexg
+  56. http://tex.stackexchange.com/users/1235/hendrik-vogt
+  57. http://tex.stackexchange.com/a/10489
+  58. http://tex.stackexchange.com/posts/10489/edit
+  59. http://tex.stackexchange.com/users/2674/leo-liu
+  60. http://tex.stackexchange.com/users/3413/nickolay-kolev
+  61. http://tex.stackexchange.com/users/login?ssrc=question_page&returnurl=http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode#new-answer
+  62. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+  63. http://stackexchange.com/legal/privacy-policy
+  64. http://stackexchange.com/legal/terms-of-service
+  65. http://tex.stackexchange.com/questions/tagged/fonts
+  66. http://tex.stackexchange.com/questions/tagged/math-mode
+  67. http://tex.stackexchange.com/questions/tagged/beamer
+  68. http://tex.stackexchange.com/questions/tagged/xetex
+  69. http://tex.stackexchange.com/questions/tagged/computer-modern
+  70. http://tex.stackexchange.com/questions/ask
+  71. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode?lastactivity
+  72. http://stackoverflow.blog/2016/12/Stack-Overflow-Podcast-96-A-Face-Full-Of-Code/
+  73. http://stackexchange.com/newsletters/newsletter?site=tex.stackexchange.com
+  74. http://stackexchange.com/legal/privacy-policy
+  75. http://stackexchange.com/legal/terms-of-service
+  76. http://tex.stackexchange.com/questions/160767/how-to-customize-block-in-beamer?noredirect=1
+  77. http://tex.stackexchange.com/questions/129939/title-slide-of-flip-beamer-theme?noredirect=1
+  78. http://tex.stackexchange.com/questions/7618/how-to-enforce-pslatex-to-use-computer-modern-font-for-math
+  79. http://tex.stackexchange.com/questions/17771/computer-modern-unicode-opentype-for-xetex-fontspec
+  80. http://tex.stackexchange.com/questions/42394/force-font-to-computer-modern-serif-in-math-mode-although-it-is-set-to-sans-se
+  81. http://tex.stackexchange.com/questions/58098/what-are-all-the-font-styles-i-can-use-in-math-mode
+  82. http://tex.stackexchange.com/questions/100577/fatter-computer-modern
+  83. http://tex.stackexchange.com/questions/148834/changing-math-font-in-classicthesis
+  84. http://tex.stackexchange.com/questions/202588/computer-modern-serif-for-both-linux-and-windows
+  85. http://tex.stackexchange.com/questions/225027/how-to-create-new-font-which-is-thicker-version-of-computer-modern
+  86. http://tex.stackexchange.com/questions/272301/using-computer-modern-symbols-in-math-mode-in-minion-pro
+  87. http://tex.stackexchange.com/questions/279282/which-sized-latin-modern-math-delimiter-glyphs-correspond-to-computer-modern-ext
+  88. http://stackexchange.com/questions?tab=hot
+  89. http://photo.stackexchange.com/questions/85256/how-can-i-make-these-winter-real-estate-photos-look-like-summer-photos
+  90. http://physics.stackexchange.com/questions/298423/a-lens-inside-a-liquid-is-not-visible-why
+  91. http://dba.stackexchange.com/questions/158103/execute-a-series-of-command-in-psql
+  92. http://electronics.stackexchange.com/questions/274793/measure-voltage-with-no-current
+  93. http://security.stackexchange.com/questions/145070/how-many-digits-of-a-visa-card-number-can-vendors-disclose-on-receipts
+  94. http://codereview.stackexchange.com/questions/149812/strcat-implementation
+  95. http://puzzling.stackexchange.com/questions/46710/triptych-of-animal-cryptics
+  96. http://tex.stackexchange.com/questions/343962/pgfmathparse-does-not-correctly-parse-zero-left-padded-integers
+  97. http://apple.stackexchange.com/questions/264675/how-to-prevent-a-thief-from-using-my-iphone-ever
+  98. http://puzzling.stackexchange.com/questions/46709/the-english-department
+  99. http://aviation.stackexchange.com/questions/33908/whats-the-point-of-using-t-38-to-instill-flight-proficiency-in-space-shuttle-pi
+ 100. http://diy.stackexchange.com/questions/104367/sealing-space-between-counter-and-stainless-stove
+ 101. http://scifi.stackexchange.com/questions/147189/are-lightsabers-ever-used-outside-of-combat
+ 102. http://skeptics.stackexchange.com/questions/36257/does-wordpress-power-27-of-the-internet
+ 103. http://worldbuilding.stackexchange.com/questions/64330/simple-non-destructive-spaceship-liftoff-engine
+ 104. http://superuser.com/questions/1156253/what-does-the-te-suffix-in-the-intel-core-i3-6100tes-name-stand-for
+ 105. http://math.stackexchange.com/questions/2056720/curiosity-wouldnt-the-definition-of-the-derivative-always-be-1-if-it-exists
+ 106. http://scifi.stackexchange.com/questions/147317/how-did-aragorn-s-army-reach-mordor-so-easily
+ 107. http://stackoverflow.com/questions/41132735/in-visual-studio-when-debugging-c-sharp-code-can-i-export-a-dictionarystring-s
+ 108. http://rpg.stackexchange.com/questions/91632/is-sanctuary-broken-if-i-attack-an-object
+ 109. http://salesforce.stackexchange.com/questions/152456/soql-error-in-compare-date
+ 110. http://parenting.stackexchange.com/questions/28127/what-are-the-legal-emotional-and-or-behavioral-side-effects-of-a-punishment-wh
+ 111. http://askubuntu.com/questions/860147/in-what-order-does-the-shell-execute-commands-and-stream-redirection
+ 112. http://gaming.stackexchange.com/questions/294243/is-there-a-downside-to-going-multiple-days-without-sleeping
+ 113. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 114. http://tex.stackexchange.com/feeds/question/10488
+ 115. http://stackoverflow.com/company/about
+ 116. http://tex.stackexchange.com/tour
+ 117. http://tex.stackexchange.com/help
+ 118. http://tex.blogoverflow.com/?blb=1
+ 119. http://chat.stackexchange.com/?tab=site&host=tex.stackexchange.com
+ 120. http://data.stackexchange.com/
+ 121. http://stackexchange.com/legal
+ 122. http://stackexchange.com/legal/privacy-policy
+ 123. http://stackoverflow.com/company/work-here
+ 124. http://stackexchange.com/mediakit
+ 125. http://tex.stackexchange.com/contact
+ 126. http://meta.tex.stackexchange.com/
+ 127. http://stackoverflow.com/
+ 128. http://serverfault.com/
+ 129. http://superuser.com/
+ 130. http://webapps.stackexchange.com/
+ 131. http://askubuntu.com/
+ 132. http://webmasters.stackexchange.com/
+ 133. http://gamedev.stackexchange.com/
+ 134. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 135. http://softwareengineering.stackexchange.com/
+ 136. http://unix.stackexchange.com/
+ 137. http://apple.stackexchange.com/
+ 138. http://wordpress.stackexchange.com/
+ 139. http://gis.stackexchange.com/
+ 140. http://electronics.stackexchange.com/
+ 141. http://android.stackexchange.com/
+ 142. http://security.stackexchange.com/
+ 143. http://dba.stackexchange.com/
+ 144. http://drupal.stackexchange.com/
+ 145. http://sharepoint.stackexchange.com/
+ 146. http://ux.stackexchange.com/
+ 147. http://mathematica.stackexchange.com/
+ 148. http://salesforce.stackexchange.com/
+ 149. http://expressionengine.stackexchange.com/
+ 150. http://crypto.stackexchange.com/
+ 151. http://codereview.stackexchange.com/
+ 152. http://magento.stackexchange.com/
+ 153. http://dsp.stackexchange.com/
+ 154. http://raspberrypi.stackexchange.com/
+ 155. http://codegolf.stackexchange.com/
+ 156. http://stackexchange.com/sites#technology
+ 157. http://photo.stackexchange.com/
+ 158. http://scifi.stackexchange.com/
+ 159. http://graphicdesign.stackexchange.com/
+ 160. http://movies.stackexchange.com/
+ 161. http://music.stackexchange.com/
+ 162. http://cooking.stackexchange.com/
+ 163. http://diy.stackexchange.com/
+ 164. http://money.stackexchange.com/
+ 165. http://academia.stackexchange.com/
+ 166. http://stackexchange.com/sites#lifearts
+ 167. http://english.stackexchange.com/
+ 168. http://skeptics.stackexchange.com/
+ 169. http://judaism.stackexchange.com/
+ 170. http://travel.stackexchange.com/
+ 171. http://christianity.stackexchange.com/
+ 172. http://ell.stackexchange.com/
+ 173. http://japanese.stackexchange.com/
+ 174. http://gaming.stackexchange.com/
+ 175. http://bicycles.stackexchange.com/
+ 176. http://rpg.stackexchange.com/
+ 177. http://anime.stackexchange.com/
+ 178. http://mechanics.stackexchange.com/
+ 179. http://stackexchange.com/sites#culturerecreation
+ 180. http://mathoverflow.net/
+ 181. http://math.stackexchange.com/
+ 182. http://stats.stackexchange.com/
+ 183. http://cstheory.stackexchange.com/
+ 184. http://physics.stackexchange.com/
+ 185. http://chemistry.stackexchange.com/
+ 186. http://biology.stackexchange.com/
+ 187. http://cs.stackexchange.com/
+ 188. http://philosophy.stackexchange.com/
+ 189. http://stackexchange.com/sites#science
+ 190. http://meta.stackexchange.com/
+ 191. http://stackapps.com/
+ 192. http://area51.stackexchange.com/
+ 193. http://www.stackoverflowbusiness.com/talent
+ 194. https://creativecommons.org/licenses/by-sa/3.0/
+ 195. http://blog.stackoverflow.com/2009/06/attribution-required/
+
+   Hidden links:
+ 197. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 198. http://meta.tex.stackexchange.com/
+ 199. http://tex.stackexchange.com/users/83/caramdir
+ 200. http://tex.stackexchange.com/users/3413/nickolay-kolev
+ 201. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 202. http://tex.stackexchange.com/users/3413/nickolay-kolev
+ 203. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 204. http://tex.stackexchange.com/users/1053/alexg
+ 205. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 206. http://tex.stackexchange.com/users/2674/leo-liu
+ 207. http://tex.stackexchange.com/questions/10488/force-computer-modern-in-math-mode
+ 208. http://stackoverflow.blog/2016/12/Stack-Overflow-Podcast-96-A-Face-Full-Of-Code/
+ 209. http://tex.stackexchange.com/q/160767
+ 210. http://tex.stackexchange.com/q/129939
+ 211. http://tex.stackexchange.com/q/7618
+ 212. http://tex.stackexchange.com/q/17771
+ 213. http://tex.stackexchange.com/q/42394
+ 214. http://tex.stackexchange.com/q/58098
+ 215. http://tex.stackexchange.com/q/100577
+ 216. http://tex.stackexchange.com/q/148834
+ 217. http://tex.stackexchange.com/q/202588
+ 218. http://tex.stackexchange.com/q/225027
+ 219. http://tex.stackexchange.com/q/272301
+ 220. http://tex.stackexchange.com/q/279282

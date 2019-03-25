@@ -1,0 +1,194 @@
+\documentclass[
+  size=12pt, %Possiveis valores 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt e 20pt
+% Aqui você escolhe o estilo, veja páginas 21-25 para
+% ver os possíveis estilos.
+%  style=upen,    % estilo do powerdot
+%  style=tycja,   % estilo do powerdot
+%  style=ikeda,   % estilo do powerdot
+%  style=simple,
+%  style=paintings,
+%  style=klope,
+%  style=sailor,
+%   style=aggie,
+%  style=husky,
+  style=jefka,
+  paper=screen,
+%  paper=a4paper,
+%% Try me!
+  orient=landscape,
+%  orient=portrait,
+%  mode=print,
+  mode=present,
+%  mode=handout,
+  display=slides,
+%  display=slidesnotes,
+%  blackslide,
+  nopagebreaks,
+  hlentries=true, % Realça a tabela de conteúdos da seção atual
+  %pauseslide,
+  fleqn,
+  clock
+]{powerdot}
+
+\usepackage[portuges,brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+% Aqui vem as fonts especiais
+\usepackage{pifont}
+\renewcommand\labelitemi{\ding{43}}
+\renewcommand\labelitemii{\ding{40}}
+
+
+
+%\usepackage{bbold}
+%\usepackage{bbm}
+\usepackage{textcomp}  % Símbolos matemáticos p/ modo texto
+\usepackage{latexsym}  % Símbolos
+\usepackage{braket}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+
+\usepackage{tcolorbox}
+% 
+% \usepackage{tikz}
+% \usepackage{environ}
+% \usetikzlibrary{shapes,snakes}
+% 
+% 
+% \tikzstyle{mybox} = [draw=blue, fill=green!20, very thick,
+%     rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+% 
+% \tikzstyle{mynote} = [draw=blue, fill=yellow!50, very thick,
+%     rectangle, rounded corners, inner sep=10pt, inner ysep=10pt]
+% 
+% \tikzstyle{fancytitle} =[fill=yellow!50, text=black, ellipse]
+% 
+% \NewEnviron{Mybox}{%
+% \begin{center}
+% \begin{tikzpicture}
+% \node [mybox] (box) {%
+%     \begin{minipage}[t!]{0.8\textwidth}
+%        \BODY
+%     \end{minipage}
+%     };
+% \node[fancytitle] at (box.north) {\textbf{Nota}};
+% \end{tikzpicture}
+% \end{center}
+% }
+% 
+% \NewEnviron{nota}{%
+% \begin{center}
+% \begin{tikzpicture}
+% \node [mynote] (box) {%
+%     \begin{minipage}[t!]{0.8\textwidth}
+%        \BODY
+%     \end{minipage}
+%     };
+% \end{tikzpicture}
+% \end{center}
+% }
+
+
+%\usepackage[display]{texpower}
+%\usepackage{pst-node}
+\usepackage{graphicx}
+%%\usepackage{rotating}
+%\usepackage[dvips]{hyperref}
+%\usepackage{fixseminar}
+%%\usepackage{color}
+%\usepackage{colortbl}
+%\usepackage{background}
+%\usepackage{pagetrans}
+%\usepackage{pp4slide}
+%%\usepackage{fancybox}
+\usepackage{multicol}
+%\usepackage{eepic}
+%\usepackage{wrapfig}
+%\usepackage{latexcad}
+%\usepackage{mpmulti}
+
+\usepackage{listings}
+\lstnewenvironment{code}{%
+\lstset{frame=single,escapeinside=~~,
+backgroundcolor=\color{black!50},
+basicstyle=\footnotesize\ttfamily}
+}{}
+
+\pdsetup{
+  logohook=tl,
+%  logopos={.088\slidewidth,.99\slideheight},
+  logopos={.0\slidewidth,1.0\slideheight},
+  logocmd={\includegraphics[height=0.10\slideheight]{Figs/Simbolo_IF_5.eps}},
+%  lf=\textcolor{red}{XXIII Semana da Física},
+  lf=\textcolor{red}{XXIII Semana da Física},
+%  lf=\textcolor{red}{VI ENCONTRO DE MATEMÁTICA}
+  rf=\textcolor{green}{Salviano A. Leão},
+  clockformat=h:MM tt,
+  clockrefresh=1000,
+%  trans=Blinds,
+%  trans=Split,
+   trans=Box,
+%  trans=Wipe,
+%   trans=Dissolve,
+%  trans=Glitter,
+%  trans=Replace,
+   theslide=\arabic{slide},
+%   palette=River,
+%   palette=gold,
+%   palette=gray,
+%   palette=brown,
+%   palette=orange,
+%   palette=azul,
+%   palette=green,
+%   palette=verde,
+%   palette=seagreen,  % verde, salviano,
+%   palette=GoldenGate,
+%   palette=Lamentation,
+%   palette=PearlEarring, % GoldenGate, Lamentation, Europa, Moitessier, MayThird, HolyWood, Skater, PearlEarring, Charon,
+list={itemsep=6pt}
+}
+
+
+\def\ff#1{\hbox{\rm #1}\,}
+\def\fff#1{\hbox{\rm #1}\,}
+\def\abs{\ff{abs}}
+\def\acos{\ff{acos}}
+\def\acosh{\ff{acosh}}
+\def\asin{\ff{asin}}
+\def\asinh{\ff{asinh}}
+\def\asin{\ff{atan}}
+\def\asinh{\ff{atanh}}
+\def\sin{\ff{sin}}
+\def\asen{\ff{asen}}
+\def\asenh{\ff{asenh}}
+\def\asen{\ff{atg}}
+\def\asenh{\ff{atgh}}
+\def\sen{\ff{sen}}
+\def\cos{\ff{cos}}
+\def\tan{\ff{tan}}
+\def\sinh{\ff{sinh}}
+\def\cosh{\ff{cosh}}
+\def\tanh{\ff{tanh}}
+\def\log{\fff{log}}
+\def\tg{\ff{tg}}
+\def\senh{\ff{senh}}
+\def\tgh{\ff{tgh}}
+
+\title{Visualização e Tratamento de Dados Com Software Livre}
+
+%\title{Usando Softwares Livres Para Modelar e Tratar Problemas de Física e Ciências Afins}
+
+\author{Salviano A. Leão}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%\input{meu}
+
+\input{Gnuplot}
+
+%\input{slides_01.tex}
+
+\end{document}

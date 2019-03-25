@@ -1,0 +1,213 @@
+\section{\texorpdfstring{\href{https://tex.stackexchange.com/questions/102384/how-to-have-each-slide-in-a-separate-file-each-compilable-then-combine-them}{How
+to have each slide in a separate file, each compilable, then combine
+them}}{How to have each slide in a separate file, each compilable, then combine them}}\label{how-to-have-each-slide-in-a-separate-file-each-compilable-then-combine-them}
+
+https://tex.stackexchange.com/questions/102384/how-to-have-each-slide-in-a-separate-file-each-compilable-then-combine-them
+
+I would like to write each slide of a presentation into its own file, so
+that I can compile and view each slide, one at a time.\\
+But, I still need to combine all of them to make my presentation.\\
+What's is the way to do that?\\
+I try the following, but it doesn't compile.\\
+\emph{includedoc} doesn't seems to be there in Beamer.
+
+file: 1.tex
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{ \textbackslash{}begin\{frame\}}
+
+\emph{ Content}
+
+\emph{ \textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+file: slide.tex
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{ \textbackslash{}includedoc\{1\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+\subsection{Method 1}\label{method-1}
+
+\begin{quote}
+The structure of LATEX documents doesn't allow one standalone document
+to be included as a part of another. \emph{docmute}package tries to
+remedy this limitation and enables standalone documents to be imported
+with the standard \emph{\textbackslash{}input} and
+\emph{\textbackslash{}include} commands just as if they had no preamble.
+\end{quote}
+
+Use \emph{docmute} package in the main input file. \emph{docmute}
+package will import everything between
+\emph{\textbackslash{}begin\{document\}} and
+\emph{\textbackslash{}end\{document\}} of the imported file
+(\emph{child.tex} in the following example). You can still compile the
+\emph{child.tex} as a standalone presentation.
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}usepackage\{filecontents\}}
+
+\emph{\textbackslash{}begin\{filecontents*\}\{child.tex\}}
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{ \textbackslash{}begin\{frame\}}
+
+\emph{ Content}
+
+\emph{ \textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+\emph{\textbackslash{}end\{filecontents*\}}
+
+\emph{\textbackslash{}usepackage\{docmute\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{ \textbackslash{}input\{child\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+\subsection{Method 2}\label{method-2}
+
+Using \emph{standalone} document class with option \emph{beamer} for the
+child (imported) input file and using package \emph{standalone} in the
+main input file.
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}usepackage\{filecontents\}}
+
+\emph{\textbackslash{}begin\{filecontents*\}\{child.tex\}}
+
+\emph{\textbackslash{}documentclass{[}beamer{]}\{standalone\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{ \textbackslash{}begin\{frame\}}
+
+\emph{ Content}
+
+\emph{ \textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+\emph{\textbackslash{}end\{filecontents*\}}
+
+\emph{\textbackslash{}usepackage\{standalone\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{ \textbackslash{}input\{child\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+Note: using the first method seems to be simpler!
+
+One option, but I am not sure if this is \emph{exactly} what you are
+after, would be to label the frames so that you can use
+\emph{\textbackslash{}includeonlyframes}; a little example:
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}includeonlyframes\{one,three\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{\textbackslash{}begin\{frame\}{[}label=one{]}}
+
+\emph{test frame one.}
+
+\emph{\textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}begin\{frame\}{[}label=two{]}}
+
+\emph{test frame two.}
+
+\emph{\textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}begin\{frame\}{[}label=three{]}}
+
+\emph{test frame three.}
+
+\emph{\textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}begin\{frame\}{[}label=four{]}}
+
+\emph{test frame four.}
+
+\emph{\textbackslash{}end\{frame\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+Using the code above, only the two frames corresponding to the labels
+\emph{one} and \emph{three} will be shown.
+
+Combining this idea with the use of \emph{\textbackslash{}include} (or
+\emph{\textbackslash{}input}), you then might write each frame contents
+in its own file; something like
+
+\emph{\textbackslash{}begin\{frame\}{[}label=two{]}}
+
+\emph{the frame contents...}
+
+\emph{\textbackslash{}end\{frame\}}
+
+(notice, in particular that this subsidiary files have no
+\emph{\textbackslash{}documentclass}, nor
+\emph{\textbackslash{}begin\{document\}},
+\emph{\textbackslash{}end\{document\}} commands); each of this files
+will then be saved in your current working directory as, for example,
+\emph{frameone.tex}, \emph{frametwo.tex}, \emph{framethree.tex},
+\emph{framefour.tex} and then you can \emph{\textbackslash{}include}
+them in the desired order in your "main" document; for example:
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{\textbackslash{}include\{frametwo\}}
+
+\emph{\textbackslash{}include\{framefour\}}
+
+\emph{\textbackslash{}include\{framethree\}}
+
+\emph{\textbackslash{}include\{frameone\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+will show the four frames in the order \emph{two}, \emph{four},
+\emph{three}, \emph{one}.
+
+The following code
+
+\emph{\textbackslash{}documentclass\{beamer\}}
+
+\emph{\textbackslash{}includeonlyframes\{one,three\}}
+
+\emph{\textbackslash{}begin\{document\}}
+
+\emph{\textbackslash{}include\{frametwo\}}
+
+\emph{\textbackslash{}include\{framefour\}}
+
+\emph{\textbackslash{}include\{framethree\}}
+
+\emph{\textbackslash{}include\{frameone\}}
+
+\emph{\textbackslash{}end\{document\}}
+
+will give you a two frame document showing the frames in the order
+\emph{three}, \emph{one}.

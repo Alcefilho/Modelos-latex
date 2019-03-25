@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <title>Norm Matloff's Quick Tutorial on Making Prosper Slides</title>
+  <meta name="GENERATOR" content="amaya 5.1" />
+</head>
+
+<body>
+
+<body bgcolor=white>
+
+<h1>Quick Tutorial on the Prosper Package for Slide Making in LaTeX</h1>
+
+<p>
+
+(Note:  A newer package, Beamer, is more powerful, though more complex
+to use.  See <a href="beamer.html"> my mini-tutorial</a>.) 
+
+</p>
+
+<p>When you make PowerPoint slides, are you frustrated by Microsoft's
+cumbersome and limited math capabilities? And if you write your papers
+in LaTeX, do you wish you could re-use the source files when you make
+slides, instead of having to type everything (especially the math) again
+in PowerPoint?  Would you like to be able to make slides viewable from
+any platform?  Would you like to get away from PowerPoint just to be
+mean and antisocial?  </p>
+
+<p>
+If so, Prosper may for you. 
+</p>
+
+<p>Prosper allows you to create slides featuring transition effects,
+animation and so on in LaTeX. You simply insert some calls to Prosper
+macros in your LaTeX source file, then run<strong> latex</strong> and a
+DVI-PDF conversion utility such as <strong>dvipdf</strong>. You then use
+Acroread or <strong>xpdf</strong> to present your slides.</p>
+
+<p>Here are the details:</p>
+<ul>
+  <li><a href="#Obtaining">obtaining and installing Prosper</a></li>
+  <li><a href="#Quick">quick tour of Prosper's capabilities</a></li>
+  <li><a href="#Acr">using Acroread or xpdf to view the slides</a></li>
+  <li><a href="#Using">using Prosper's macros</a></li>
+  <li><a href="#OtherStyles">using other styles</a></li>
+  <li><a href="#Trans">what about transparencies?</a></li>
+  <li><a href="#Example:">full example</a></li>
+  <li><a href="http://www.miwie.org/presentations/presentations.html">
+     list of other slides packages</a>, including the excellent
+     <a href="http://sarovar.org/projects/pdfslide/">pdfslide</a> 
+     </li>
+</ul>
+
+<h2 id="Obtaining">Obtaining and installing Prosper:</h2>
+
+<p>Download the package from the <a
+href="http://prosper.sourceforge.net/">Prosper home page</a>. Unpack it in a
+convenient directory. 
+</p>
+
+<p> Add the top-level portion of the Prosper directory (the one
+containing the file <strong>prosper.cls</strong>) to your LaTeX path.
+You do have to make sure you don't cancel the existing default path,
+though.  In the C shell, for example, if your Prosper files are in
+<strong>/a/b/prosper</strong>, type </p>
+
+<pre>
+set TEXPLACE = /usr/share/texmf/tex/
+setenv TEXINPUTS $TEXPLACE/latex//:$TEXPLACE/generic/pstricks:/a/b/prosper:.
+</pre>
+
+<p>
+
+If you wish to use the non-default styles, copy the <strong>.ps</strong>
+files to your top-level Prosper directory from the <strong>img</strong>
+subdirectory.
+
+</p>
+
+<h2><a name="Quick" id="Quick">Quick tour of Prosper's capabilities:</a></h2>
+
+<p>The package comes with a nice "quick-tour" file,
+<strong>prosper-tour.tex</strong>.  It will show you many of the cool
+tricks which the package can do. Here is how (on a UNIX system) to
+process the file (execute these commands from the top-level portion of
+the Prosper directory tree):</p>
+
+<pre>
+% cp doc/prosper-tour.tex .
+% latex prosper-tour.tex
+% latex prosper-tour.tex
+% dvipdf prosper-tour.dvi
+% acroread prosper-tour.pdf
+</pre>
+
+<p>
+See the next section for information on using Acroread (or
+<strong>xpdf</strong>).
+</p>
+
+<h2><a name="acr" id="acr">Viewing the slides:</a></h2>
+
+<p>
+
+In Acroread,hit ctrl-l to make the slides fill the whole screen if you
+wish (toggle to return to the original window size), and hit the
+right-arrow key to go to the next slide (or next transition within a
+slide.  Hit the left-arrow to go back a slide, etc.  Ctrl-Q can be used
+to quit.
+
+</p>
+
+<p>
+(If you are placing the slides on the Web, Acroread 6.0 does not seem to
+fully obey the cltr-l command when used from within a browser, though it
+works fine standalone.)
+</p>
+
+<p>
+You can also use <strong>xpdf</strong> to view the slides.  Be sure to
+use full-screen mode, by specifying the <strong>-fullscreen</strong>
+option on the command line.  Hit PageUp/PageDown to move through the
+slides, q to quit.
+</p>
+
+<h2><a name="Using" id="Using">Using Prosper's macros:</a></h2>
+
+<p>I will show here how to use Prosper's most commonly-invoked capability,
+slide overlays.</p>
+
+<p>A single slide will begin and end as follows:</p>
+<pre>\begin{slide}{}
+...
+\end{slide}</pre>
+
+<p>The argument in the begin line is for the title of the slide. Leave this
+field empty if you have no title, but if you do have one, make sure it does
+not span more than one line on the slide.  (You may have to experiment
+with this.)</p>
+
+<p>A set of overlaid slides will also begin and end this way (with just one
+\begin{slide}/\end{slide} pair for the set). 
+Each overlay is specified with \item, all surrounded by
+\begin{itemstep} and \end{itemstep}.  In other words, the general form
+for a series of <strong>n</strong> overlaid slides is 
+</p>
+
+<pre>
+\overlays{n}{
+\begin{slide}{}
+(material common to all slides in this overlay set)
+\begin{itemstep}
+\item (first overlay)
+\item (second overlay)
+...
+\end{itemstep}
+\end{slide}
+}
+</pre>
+
+<p>
+Note that the bullets can be suppressed by specifying an empty item
+symbol:  \item[]
+</p>
+
+<p>For a little more flexibility, within an overlay environment, a line
+of the form</p>
+
+<pre>\FromSlide{j}%</pre>
+
+<p>means that the following material will appear on all the overlays starting
+with the j<sup>th</sup>.  (Note the `%' sign at the end of the line; it IS
+necessary.)</p>
+
+<h2><a name="OtherStyles" id="OtherStyles">using other styles</a></h2>
+
+<p>
+
+If you don't want to use the style I chose for 
+<a href="#Example">my example below</a>, just change the style section.
+Comment out the the line where I specify ``azure,'' by insert a percent
+size % at the start of that line, and uncomment the line with the style
+you want, by removing the %.  Also, if you want a white background,
+then uncomment the ``nocolorBG'' line and comment out the ``colorBG''
+line.
+
+</p>
+
+<h2><a name="Trans" id="Trans">What about transparencies?</a></h2>
+
+<p> To prepare transparencies, simply specify ``ps'' instead of ``pdf''
+in the {\bf documentclass} field.
+</p>
+
+<h2 id="Example:">Full example:</h2>
+
+<p>
+(The most up-to-date version is at 
+<a href="http://heather.cs.ucdavis.edu/ucdcs.pdf">
+http://heather.cs.ucdavis.edu/ucdcs.pdf
+</a>.) 
+</p>
+
+<pre>
+% CVSId: $Id: Example.tex,v 1.1.1.1 2000/11/28 11:15:12 exupery Exp $
+\documentclass[%
+pdf,
+%nocolorBG,
+colorBG,
+slideColor,
+%slideBW,
+%draft,
+%frames
+azure
+%contemporain
+%nuancegris
+%troispoints
+%lignesbleues
+%darkblue
+%alienglow
+%autumn
+]{prosper}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{slide}{Overview of Programs}
+
+Dept. of Computer Science
+
+University of California, Davis
+
+http://www.cs.ucdavis.edu
+
+\bigskip
+
+Professor Norm Matloff 
+
+matloff@cs.ucdavis.edu
+
+\bigskip
+
+Hard copy of presentation:
+http://heather.cs.ucdavis.edu/ucdcs.pdf 
+
+\end{slide}
+
+\overlays{3}{
+
+\begin{slide}{Computer-Related Majors}
+
+\begin{itemstep}
+
+\item Computer Science (CS):  
+
+Administered by CS Dept., degree in Letters and Science
+
+\item Computer Science and Engineering (CSE):  
+
+Administered by CS Dept., degree in Engineering
+
+\item Computer Engineering (CE):  
+
+Administered by ECE Dept., degree in Engineering
+
+\end{itemstep}
+
+\end{slide}
+
+}
+
+\begin{slide}{Curricular Comparison}
+
+
+{\centering \begin{tabular}{|c|c|c|c|c|}
+
+\hline
+major &amp; college &amp; software &amp; hardware &amp; freedom \\ \hline
+\hline
+CS &amp; L\&amp;S &amp; heavy &amp; minimal &amp; lots \\ \hline
+CSE &amp; Eng. &amp; heavy &amp; strong &amp; $\approx 0$ \\ \hline
+CE &amp; Eng. &amp; substantial &amp; heavy &amp; $\approx 0$ \\ \hline
+
+\end{tabular}\par}
+
+\bigskip
+
+All of these majors have an integrated BS/MS option.
+
+\end{slide}
+
+\begin{slide}{Which Is Better, CS or CSE?}
+
+In terms of jobs prospects for new grads, there is essentially no
+difference.
+
+\end{slide}
+
+
+\overlays{3}{
+
+\begin{slide}{Then What \underline{Does} Count?}
+
+Good grades aren't enough.  The following are crucial:
+
+\begin{itemstep}
+
+\item Co-op/internship experience.  Very little chance of even getting
+an interview for a technical job without this!
+
+\item ``Brazil''  --- really \underline{knowing} the material, being
+able to discuss it intelligently without review.
+
+\item Good verbal abilities (NOT from taking more English classes).
+
+\end{itemstep}
+
+\end{slide}
+
+}
+
+\begin{slide}{UC vs. CSU}
+
+\begin{itemize}
+
+\item CSU has small class sizes (at UCD, a typical upper-division class
+is 50 or 60, maybe more).
+
+\item At a UC school, you are hearing it ``from the source.''  Most
+faculty are doing cutting-edge research.  They lecture from their own
+notes, not lecturing out of a textbook.
+
+\end{itemize}
+
+\end{slide}
+
+
+\begin{slide}{UCD CS Faculty Research}
+
+``Claims to fame'' (large, nationally-known research groups):
+
+\begin{itemize}
+
+\item Cryptography/Security
+
+\item Graphics
+
+\item Networks 
+
+\item many nationally-known faculty in other fields
+
+\end{itemize}
+
+As a result, we have a lot of special courses other schools don't have
+--- a 2-quarter UG sequence in networks, an UG security course, a host
+of UG graphics courses, etc.
+
+\end{slide}
+
+
+\begin{slide}{Commitment to Students}
+
+\begin{itemize}
+
+\item 4 CS faculty have won the campus Distinguished Teaching Award.
+
+\item 2 CS faculty have won the campus Best Faculty Adviser Award.
+
+\end{itemize}
+
+\end{slide}
+
+\overlays{4}{
+
+\begin{slide}{Guess What}
+
+\bigskip
+This isn't PowerPoint... 
+\FromSlide{2}%
+We're UNIX users. :-)
+
+\bigskip
+\FromSlide{3}%
+UCD, like most major universities, is mainly UNIX-oriented.
+
+\bigskip
+\FromSlide{4}%
+Most computer-related UC grads get jobs in full or partial UNIX shops.
+
+\end{slide}
+
+}
+
+\begin{slide}{Linux}
+
+Students are strongly encouraged to install Linux on their home PCs:
+
+\begin{itemize}
+
+\item Have the same software development environment at school, home.
+
+\item Learn lots of valuable system admin skills!
+
+\end{itemize}
+
+\end{slide}
+
+\overlays{2}{
+
+\begin{slide}{Location, Location, Location}
+
+\begin{itemstep}
+
+\item ``1 hr. to Bay Area, 2 hrs. to Lake Tahoe...UCD is centrally
+isolated.'' :-)
+
+\item Proximity to Silicon Valley means:
+
+Close relations between faculty and industry.
+
+Most employers give high preference to locals, since they can
+drive to interviews.
+
+\end{itemstep}
+
+\end{slide}
+
+}
+\end{document}
+</pre>
+
+<p></p>
+
+<p></p>
+</body>
+</html>

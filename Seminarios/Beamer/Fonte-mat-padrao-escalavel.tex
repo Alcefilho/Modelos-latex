@@ -1,0 +1,41 @@
+\documentclass{beamer}
+\usefonttheme{serif}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{lipsum}
+\usepackage{comment}
+\begin{document}
+  \begin{frame}
+    \lipsum[1]
+    \[x^2=25\]
+  \end{frame}
+  
+You can use
+\begin{verbatim}
+\documentclass[onlymath]{beamer}
+\usefonttheme{serif}
+\end{verbatim} 
+or 
+\begin{verbatim}
+\usefonttheme[onlymath]{serif}
+\end{verbatim} 
+  
+  
+By default, Beamer does some math font manipulation, because many
+fonts, such as the cm-sans used by default, don't provide matching
+mathematical glyphs. If you want the standard Computer Modern (serif)
+math font, just say:
+
+\begin{verbatim}
+\usefonttheme{professionalfonts}
+\end{verbatim}  
+
+
+This change makes more symbols appear in the sans font, instead of the
+less, e.g. now numbers are in the sans font. Could this be a beamer
+issue? 
+   
+\begin{verbatim}
+\usepackage[cm-default,no-math]{fontspec}
+\end{verbatim} 
+\end{document}

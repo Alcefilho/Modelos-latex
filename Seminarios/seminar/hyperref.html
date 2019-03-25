@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Hyperreferencing in the FoilTeX Class</TITLE>
+<META NAME="description" CONTENT="Presentation using PDFLATEX and FoilTeX class">
+<META NAME="keywords" CONTENT="foilseminar">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+
+</HEAD>
+
+<BODY >
+Please refer to 
+<a href="foils_class.html">the FoilTeX page</a> for information on creating presentations using the FoilTeX document class.
+
+<hr>
+<P>
+<h1 ALIGN=CENTER>
+Hyperreferencing in the FoilTeX Class
+</h1>
+<br><br>
+<P>
+
+
+To do hyperreferencing within the presentation document file, use the <tt>hyperref</tt> package:
+<P>
+
+<UL>
+<LI>The package <TT>hyperref</TT> derives from, and builds on, 
+the work of the HyperTEX project, described
+at <a href="http://xxx.lanl.gov/hypertex/">http://xxx.lanl.gov/hypertex/</a>. 
+(xxx is not a typo!)
+</LI>
+<br><br>
+<LI>It extends the functionality of all the LATEX
+cross-referencing commands (including the table of contents, bibliographies 
+etc).
+</LI>
+<br><br>
+<LI>It also
+provides new commands to allow the user to write ad hoc hypertext links, 
+including
+those to external documents and URLs.
+</LI>
+</UL>
+
+<P>
+<u>Syntax</u>:
+
+<UL>
+<LI><code>\href{URL}{text}</code>
+
+<P>
+Example: <code>\href{http://www.stat.ubc.ca}{Stat Dept., UBC}</code>
+<br><br>
+The above line of code produces a link entitled "Stat Dept., UBC" in the output 
+file (either ps or pdf format).
+Upon clicking the link, a web brower will be brought up and the page
+indicated by the link will be loaded.
+
+<P>
+</LI>
+<LI><code>\hyperlink{name}{text}</code> and 
+<code>\hypertarget{name}{text}</code>
+
+<P>
+Example: Suppose we want to create a link to the slide with
+the heading "Color Package".
+When we create that particular slide, do
+<br><br>
+&nbsp &nbsp<code>\foilhead[-0.5in]{\hypertarget{mycolor}{Color Package}}</code>
+<br><br>
+and at the place where the link is to be added, do
+<br><br>
+&nbsp &nbsp
+<code>\hyperlink{mycolor}{Color Package}</code> 
+<br><br>
+The "mycolor" name is used for referencing, while "Color Package" will be shown
+as the link in the output pdf file.
+</ul>
+<br><br>
+To see how hyperreferencing works, take a look at 
+an example presentation document (using the "foils" document class)
+<br>
+<a href="foilseminar.tex">original latex file</a>
+&nbsp &nbsp <a href="foilseminar.pdf">pdf format</a>
+
+<br>
+<br>
+<hr>
+<font size=-1>
+Last Updated on February 27, 2003.
+</font>
+<br><br>
+
+
+</BODY>
+</HTML>

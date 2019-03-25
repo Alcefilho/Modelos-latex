@@ -1,0 +1,133 @@
+\backslash{}documentclass[
+  size=12pt,
+\% Aqui voc\^e escolhe o estilo, veja p\'aginas 21-25 para
+\% ver os poss\'{\i}veis estilos. 
+\%  style=upen,     \% estilo do powerdot 
+\%  style=tycja,   \% estilo do powerdot
+\%  style=ikeda,   \% estilo do powerdot
+\%  style=simple,
+\%  style=paintings,
+\%  style=klope,
+\%  style=sailor,
+  style=husky-sal,
+\%  style=jefka,
+  paper=screen,
+\%  paper=a4paper,
+\%\% Try me!
+  orient=landscape,
+\%  orient=portrait,
+\%  mode=print,
+  mode=present,
+\%  mode=handout,
+  display=slides,
+\%  display=slidesnotes,
+\%  blackslide,
+  nopagebreaks,
+  fleqn,
+  clock
+]\{powerdot\}
+
+\backslash{}usepackage[portuges,brazil]\{babel\}
+\backslash{}usepackage[utf8]\{inputenc\}
+\backslash{}usepackage\{amsmath\}
+\%\backslash{}usepackage[display]\{texpower\}
+\%\backslash{}usepackage\{pst-node\}
+\backslash{}usepackage\{graphicx\}
+\%\%\backslash{}usepackage\{rotating\}
+\%\backslash{}usepackage[dvips]\{hyperref\}
+\%\backslash{}usepackage\{fixseminar\}
+\%\%\backslash{}usepackage\{color\}
+\%\backslash{}usepackage\{colortbl\}
+\%\backslash{}usepackage\{background\}
+\%\backslash{}usepackage\{pagetrans\}
+\%\backslash{}usepackage\{pp4slide\}
+\%\%\backslash{}usepackage\{fancybox\}
+\backslash{}usepackage\{multicol\}
+\%\backslash{}usepackage\{eepic\}
+\%\backslash{}usepackage\{wrapfig\}
+\%\backslash{}usepackage\{latexcad\}
+\%\backslash{}usepackage\{mpmulti\}
+
+\backslash{}usepackage\{listings\}
+\backslash{}lstnewenvironment\{code\}\{\%
+\backslash{}lstset\{frame=single,escapeinside=~~,
+backgroundcolor=\backslash{}color\{black!50\},
+basicstyle=\backslash{}footnotesize\backslash{}ttfamily\}
+\}\{\}
+
+\backslash{}pdsetup\{
+  logohook=tl,
+\%  logopos=\{.088\backslash{}slidewidth,.99\backslash{}slideheight\},
+  logopos=\{.0\backslash{}slidewidth,1.0\backslash{}slideheight\},
+  logocmd=\{\backslash{}includegraphics[height=0.12\backslash{}slideheight]\{Figs/Simbolo\_IF\_5.eps\}\},
+\%  lf=\backslash{}textcolor\{red\}\{XXIII Semana da F\'{\i}sica\},
+  lf=\backslash{}textcolor\{red\}\{XXIII Semana da F\'{\i}sica\},
+\%  lf=\backslash{}textcolor\{red\}\{VI ENCONTRO DE MATEM\'ATICA\}
+  rf=\backslash{}textcolor\{green\}\{Salviano A. Le\~ao\},
+\%  trans=Blinds,
+\%  trans=Split,
+\%   trans=Box,
+\%  trans=Wipe,
+   trans=Dissolve,
+\%  trans=Glitter,
+\%  trans=Replace,
+   theslide=\backslash{}arabic\{slide\},
+\%   palette=River,
+\%   palette=gold,
+\%   palette=gray,
+\%   palette=brown,
+\%   palette=orange,
+\%   palette=azul,
+\%   palette=green,
+\%   palette=verde,
+\%   palette=seagreen,  \% verde, salviano,
+\%   palette=GoldenGate,
+\%   palette=Lamentation,
+\%   palette=PearlEarring, \% GoldenGate, Lamentation, Europa, Moitessier, MayThird, HolyWood, Skater, PearlEarring, Charon,
+list=\{itemsep=6pt\}
+\}
+
+
+\backslash{}def\backslash{}ff\#1\{\backslash{}hbox\{\backslash{}rm \#1\}\backslash{},\}
+\backslash{}def\backslash{}fff\#1\{\backslash{}hbox\{\backslash{}rm \#1\}\backslash{},\}
+\backslash{}def\backslash{}abs\{\backslash{}ff\{abs\}\}
+\backslash{}def\backslash{}acos\{\backslash{}ff\{acos\}\}
+\backslash{}def\backslash{}acosh\{\backslash{}ff\{acosh\}\}
+\backslash{}def\backslash{}asin\{\backslash{}ff\{asin\}\}
+\backslash{}def\backslash{}asinh\{\backslash{}ff\{asinh\}\}
+\backslash{}def\backslash{}asin\{\backslash{}ff\{atan\}\}
+\backslash{}def\backslash{}asinh\{\backslash{}ff\{atanh\}\}
+\backslash{}def\backslash{}sin\{\backslash{}ff\{sin\}\}
+\backslash{}def\backslash{}asen\{\backslash{}ff\{asen\}\}
+\backslash{}def\backslash{}asenh\{\backslash{}ff\{asenh\}\}
+\backslash{}def\backslash{}asen\{\backslash{}ff\{atg\}\}
+\backslash{}def\backslash{}asenh\{\backslash{}ff\{atgh\}\}
+\backslash{}def\backslash{}sen\{\backslash{}ff\{sen\}\}
+\backslash{}def\backslash{}cos\{\backslash{}ff\{cos\}\}
+\backslash{}def\backslash{}tan\{\backslash{}ff\{tan\}\}
+\backslash{}def\backslash{}sinh\{\backslash{}ff\{sinh\}\}
+\backslash{}def\backslash{}cosh\{\backslash{}ff\{cosh\}\}
+\backslash{}def\backslash{}tanh\{\backslash{}ff\{tanh\}\}
+\backslash{}def\backslash{}log\{\backslash{}fff\{log\}\}
+\backslash{}def\backslash{}tg\{\backslash{}ff\{tg\}\}
+\backslash{}def\backslash{}senh\{\backslash{}ff\{senh\}\}
+\backslash{}def\backslash{}tgh\{\backslash{}ff\{tgh\}\}
+
+\backslash{}title\{Visualiza\c{c}\~ao e Tratamento de Dados Com Software Livre\}
+
+\%\backslash{}title\{Usando Softwares Livres Para Modelar e Tratar Problemas de F\'{\i}sica e Ci\^encias Afins\}
+
+\backslash{}author\{Salviano A. Le\~ao\}
+\backslash{}date\{\backslash{}today\}
+
+\backslash{}begin\{document\}
+
+\backslash{}maketitle
+
+\backslash{}input\{meu\}
+
+\%\backslash{}input\{Gnuplot\}
+
+\%\backslash{}input\{slides\_01.tex\}
+
+\backslash{}end\{document\}

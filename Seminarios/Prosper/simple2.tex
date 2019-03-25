@@ -1,0 +1,45 @@
+\documentclass[pdf,serpaggi,slideColor,colorBG]{prosper}
+%\documentclass[pdf,wj,slideColor,colorBG]{prosper}
+%\documentclass[ps,whitecross,slideBW,nocolorBG]{prosper}
+%% use pdf and colorBG for powerpoint-like presentation, 
+%% ps and colorBW to print slides
+%\DefaultTransition{Split}
+%Other choices:Split,Blinds,Box,Wipe,Dissolve,Glitter,Replace(default)
+\begin{document}
+\title{Sample Prosper file}
+\subtitle{animated \LaTeX\ presentations}
+\author{\href{http://www.math.wisc.edu/~ynagel}{{\red Yvonne Nagel}}}
+\institution{%
+  UW Math Dept\\
+    Madison, WI}
+\maketitle
+
+\overlays{4}{ % wrap around slide so each bullet appears slowly
+\begin{slide}{What is Prosper?}
+\begin{itemstep}
+\item Prosper is a Latex style file for Making PowerPoint Like PDF slide shows
+\item It can also be used to make printed slides
+\item It is built on Timothy Van Zandt's Seminar Package
+\item It uses the {\it hyperref} package to make links and {\it ghostscript}
+to convert postscript to pdf 
+\item It can be used with the {\it pstricks} and {\it pictex} packages
+\end{itemstep}
+\end{slide}
+}
+
+\begin{slide}{Acrobat Navigation}
+On startup, {\bf Acrobat reader} displays in a small window.
+{\bf CTRL-L} will toggle between this and full screen mode.
+
+\begin{tabular}{ll}
+{\bf Action} & {\bf Key sequence}\\
+Next Slide & {\bf Right Arrow}\\
+Previous Slide & {\bf Left Arrow}\\
+Last Slide & {\bf Control-Shift-PageDown}\\
+First Slide & {\bf Control-Shift-PageUp}\\
+Next Slide & {\bf Right Arrow}\\
+Previous viewed Slide & {\bf Control-Left Arrow}\\
+Quit & {\bf Control-Q}\\
+\end{tabular}
+\end{slide}
+\end{document}

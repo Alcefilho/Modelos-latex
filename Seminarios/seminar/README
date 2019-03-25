@@ -1,0 +1,26 @@
+This directory contains the following files:
+
+presentations.pdf    -- the talk in pdf format
+presentations.tex    -- the LaTeX source for the talk
+		     -- compile with "pdflatex presentations"
+		     --     and then "ppower4 presentations.pdf \
+		     --		presentations.pdf"
+		     -- Note: This last step may spew errors and not work!
+		     --	      Try instead "ppower4 presentations.pdf \
+		     --		   presentations.out.pdf"
+		     --	      and then the final product will be 
+		     --	      "presentations.out.pdf"
+whistler.jpg         -- a picture of a mosquito
+lake1.jpg            -- a picture of a mosquito
+mypic.eps            -- a picture of the earth
+latecompare.pdf	     -- a matlab graphic saved as eps
+		     --     and then converted using "epstopdf"
+		     --	Note: The command "colordef none" in Matlab v5 & v6
+		     --	      produces transparent backgrounds.  There may be
+		     --	      a better way -- drop me a line if you find one.
+simpleplot.pdf	     -- an xfig graphic saved as eps
+		     --	    and then converted using "epstopdf"
+README		     -- this file
+
+It requires pdftex, foiltex and ppower4 to compile.
+

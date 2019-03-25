@@ -1,0 +1,689 @@
+\documentclass[12pt]{article}
+
+% The packages amsmath and amssymb are developed by The American
+% Mathematical Society.
+%The American Mathematical Society has developed a set of fonts and macros 
+%for specialized mathematical typesetting, above and beyond the math fonts and
+%capabilities designed by Donald Knuth for TeX and by Leslie Lamport for \LaTeX\,. The AMS macros have special theorem environments and math environments
+%and support for matrices.
+
+% graphicx --- The graphicx package implements \LaTeX\, support for including 
+%graphics files, rotating parts of a page, and scaling parts of a page. 
+
+% multirow --- The multirow package automates the procedure of constructing
+%              tables with columns spanning several rows by using the 
+%              \multirow command. 
+
+% setspace --- The setspace package replaces the doublespace package. 
+%It produces double and one-and-one-half line spacing based on the point 
+%size in use. The default is single spacing. When you add the setspace package,
+% you can set the overall document spacing and the spacing for portions of the
+% document. Changing spacing in the entire
+%document doesn't affect footnotes, for which you must specify spacing 
+%individually. In addition to the package commands, a linespacing option is 
+%available through the Options and Packages command on the Typeset menu. 
+
+\usepackage{epsfig,amsmath,amssymb,graphicx,multirow,setspace}
+
+%\pdfcompresslevel=9
+
+% the following produces 1 inch margins all around with no header or footer
+\marginparwidth 0pt
+\oddsidemargin  0pt
+\evensidemargin  0pt
+\marginparsep 0pt
+\topmargin   0pt
+\textwidth   6.5in
+\textheight  8.30in                
+\footskip 25pt
+\voffset -0.5in
+
+\setstretch{1} % The setstretch in double spacing is normally set to "2." 
+%If you change it to "1," you will be
+%back into single spacing again. 
+
+\makeatletter  %make @ as letter in the following command
+\renewcommand{\@oddhead}
+{\vbox{\hbox to \textwidth{\strut\rm{Intermediate \LaTeX\,\hfill\rightmark \thepage}}\hrule}} 
+
+\newcommand{\slope}[1]{{\beta_{#1}}}
+\newcommand{\ub}[1]{{\boldsymbol{#1}}}   
+\def\wCov{{\widehat{{\rm Cov}}}}
+\def\logit{{{\rm logit}}}
+\def\N{{{\rm N}}}
+\def\slopeTone{{\beta_{T1}}}
+\def\slopeTtwo{{\beta_{T2}}}             
+
+%\def is a Tex command. For efficiency, most \LaTeX\, commands are defined with
+%TeX's \def command. However, the \LaTeX\, commands are safer.
+
+%\newcommand \renewcommand
+
+%\newcommand{cmd}[args][opt]{def}
+%\renewcommand{cmd}[args][opt]{def}
+%\providecommand{cmd}[args][opt]{def} -- \LaTeX\,2e
+
+%These commands define (or redefine) a command.
+%
+%       cmd - The name of the new or redefined command. A \ followed by a string of lower and/or uppercase letters or a \ followed by a
+%       single non-letter. For \newcommand the name must not be already defined and must not begin with \end; for \renewcommand it must already
+%       be defined. The \providecommand command is identical to the \newcommand command if a command with this name does not exist; if it
+%       does already exist, the \providecommand does nothing and the old definition remains in effect. 
+%
+%       args - An integer from 1 to 9 denoting the number of arguments of the command being defined. The default is for the command
+%       to have no arguments. 
+%
+%       opt - (\LaTeX\,2e only) If present, then the first of the number of arguments specified by args is optional with a default value of opt;
+%       if absent, then all of the arguments are required. 
+%
+%       def - The text to be substituted for every occurrence of cmd; a parameter of the form #n in cmd is replaced by the text of the nth
+%       argument when this substitution takes place. 
+%
+%
+%
+\begin{document}
+
+\pagenumbering{roman} % Roman numerals
+
+\title{ \vspace{1.5in} Intermediate \LaTeX\,} % the document title
+
+\author{Weiliang Qiu\thanks{supported by UBC Stats Dept.}\\6356 Agricultural Road\\
+     %   University of British Columbia\\
+        UBC \\
+        Vancouver BC \\
+        V6T 1Z2 
+        \and Eugenia Yu \\ 
+        6356 Agricultural Road\\
+     %   University of British Columbia\\
+        UBC \\
+        Vancouver BC \\
+        V6T 1Z2}
+
+\date{\today}
+\maketitle
+
+
+% To eliminate page numbers (and headers/footers) use \pagestyle{empty} in
+% preamble or \thispagestyle{empty} in text for single pages.
+
+\thispagestyle{empty} 
+
+% To set the page number, e.g. to start the paper on p.237, you can use
+% \setcounter{page}{237} in the preamble (or in the text). 
+% The following command means to start the page on p.0. 
+\setcounter{page}{0}            
+\newpage
+
+\tableofcontents  %create table of contents automatically
+\listoffigures % produces a list of figures automatically
+\listoftables % produces a list of tables automatically
+
+\newpage % start a new page
+
+\begin{abstract}
+This is the abstract ...
+\end{abstract}
+
+\pagenumbering{arabic}     % Arabic page numbers from now on
+
+\section{Introduction}
+\LaTeX\, is a document processing system in which you specify the content
+and layout(style) separately. That is, a \LaTeX\, file includes commands that
+define the structure, and the process requires a compiler to format the final
+result.
+
+The basic structure and principles of a \LaTeX\, document will be given in
+Sections \ref{structure} and \ref{principles}.
+Section \ref{include} shows how to split a larger document into smaller
+parts for easier file management.
+Special symbols, fonts and lists will be discussed in Sections
+\ref{special} to \ref{lists}.
+We will talk about how to type math, create tables and insert figures
+in Sections \ref{math} and \ref{tables}.
+This document ends with examples of handling errors in Section \ref{errors}.
+
+
+\section{The Edit/Compile/Preview Process with Bibliography}
+\label{Processing}
+
+\begin{enumerate}
+  \item 
+    Use any text editor (e.g. gvim, emacs) to input bibliography 
+    information in the file, e.g. mybib.bib.
+
+  \item 
+    Use any text editor (e.g. gvim, emacs) to input content and \LaTeX\, 
+    commands in the file, e.g. sample.tex.
+    Include the following latex commands just before
+      \verb1\end{document}1:
+      \begin{verbatim}
+      \bibliographystyle{plain}
+      \bibliography{mybib}
+      \end{verbatim}
+
+  \item Compile the \LaTeX\, file by using the command: {\bf latex sample.tex}
+  \item Compile the bib file by using the command: {\bf bibtex sample}
+  \item Compile again the \LaTeX\, file by using the command: {\bf latex sample.tex}
+  \item Compile once more the \LaTeX\, file by using the command: {\bf latex sample.tex}
+  \item Display the sample.dvi file by the command: {\bf xdvi sample}
+  \item Convert the dvi file to a postscript file with the command:
+        {\bf dvips -o psfilename.ps sample.dvi}
+  \item Print the sample.dvi file by the Unix command:
+        {\bf dviprint sample} or {\bf dvips sample.dvi \verb1|1 lpr -d sample.dvi}
+
+\end{enumerate}
+
+% The symbol % is used to start a comment.
+
+% \verb command simulates a short piece of typed text inside an ordinary
+% paragraph. Its argument is enclosed by a pair of
+% identical characters. The argument of the following \verb command is
+% contained between the two 1 characters. Instead of 1, you can use any
+% character that does not appear in the argument except a space, a letter,
+% or a *.
+
+The commands {\it latex sample.tex} and {\it bibtex sample} produce a number of files including:
+\begin{description}
+  \item[example.aux] Used for cross-referencing and in compiling the table of
+                     contents, list of figures, and list of tables.
+
+  \item[example.log] Contains everything printed on the terminal when \LaTeX\,
+                     is executed, plus additional information and some extra 
+                     blank lines.
+
+  \item[example.dvi] This is the DeVice Independent (DVI) format output of
+                     what \LaTeX\, thinks your document should look like.
+
+  \item[example.bbl] This file is written by BibTeX, not by \LaTeX\,, using
+                     information on the {\it aux} file. It is read by the 
+                     \verb1\bibliography1 command.
+
+\end{description}
+
+\section{\LaTeX\, Document Structure}
+\label{structure}
+
+% The verbatim environment allows you to type the text exactly the way you
+% want it to appear in the document.
+
+\begin{verbatim}
+  \documentclass{article} 
+         preamble 
+         \begin{document} 
+         body 
+         \end{document} 
+\end{verbatim}
+
+
+\section{General Principles}
+\label{principles}
+
+\begin{enumerate}
+  \item
+   % The symbols ` and ' create `Quotes' or ``Double quotes''
+   All input, both text and formatting commands is in ``ASCII'' text.      
+  \item
+   Spaces and line breaks are not important. A blank line starts 
+   a new paragraph, however. 
+
+%Words are separated by one or more spaces. Paragraphs are separated by one
+%or more blank lines. The output is not affected by adding extra spaces or
+%extra blank lines to the input file. 
+%Use a double backslash to break a line in a specific place.
+
+  \item 
+   All commands start with a backslash:\\
+   e.g. \verb1\documentclass1
+  \item
+   Braces are used for ``arguments'':\\
+   e.g. \verb1\begin{document}1
+  \item
+   Square brackets are used for ``optional arguments'':\\
+   e.g. \verb2\documentclass[11pt]{article}2
+  \item
+   Commands are case sensitive.\\
+   e.g. \verb1\documentclass1 but not \verb1\DocumentClass1
+\end{enumerate}
+
+
+\section{Splitting the Source File into Parts}
+\label{include}
+\LaTeX\, source documents can be split into several parts by using 
+the \verb1\includeonly1 and \verb1\include1 commands.
+
+% The \include command is used to insert part of the latex code (saved in
+% separate tex files) into the source code.
+% The command takes the name of the tex file that contains the code to
+% be inserted as the argument. Do not include ".tex" in the argument.
+% Put the \include command at the place where you want to insert the
+% file, and the files will be inserted in the same order as appeared in
+% the source code.
+
+% The \includeonly command takes the list of files to be included (separated
+% by commas) as the argument.
+% Similar to the \include command, only the names without the .tex extension
+% are required in the list.
+% The command must appear in the preamble before the \begin{document} statement.
+% Only the files listed in the \includeonly command will be inserted in the
+% compilation of the source code, even if there is 
+% \include{filename-NOT-in-includeonly-list} 
+% in the source code. 
+% The \includeonly command is optional. If not used, the compilation of
+% the source code will insert all the files included as arguments of the 
+% \include command.
+
+\begin{verbatim}
+  \documentclass{article} 
+          :
+          \includeonly{file1,file2,file3}
+          :  
+         \begin{document} 
+            :
+            :
+            \include{file1}
+            \include{file2}
+            \include{file3}
+            : 
+         \end{document} 
+\end{verbatim}
+
+In every of the included files ({\it file1.tex, file2.tex, file3.tex}),
+do not include \verb1\documentclass{}1, preamble, \verb1\begin{document}1
+and \verb1\end{document}1.
+
+\section{Special Symbols}
+\label{special}
+Some text characters must be generated by control sequences (i.e., quotes, \verb1{}, [], \1, etc.).
+The special symbols include
+\verb1$ & % # _ { } ~ ^ \1.
+Use a backslash in front of the symbols to correctly display the first seven symbols.
+in the above list
+To display the last three, use \verb1\verb1 command, e.g. \verb1\verb2\21.
+The double backslash \verb1\\1 is used to start a new line.
+
+
+
+\section{Fonts}
+\label{fonts}
+Since \LaTeX\, is a formatter, all changes in the format of text must be explicitly expressed.
+Table \ref{font_table} shows the different font 
+types\footnote{The font effect might depend on the type size of the document.}.
+
+\begin{table}
+\caption{Font Effects.}
+\label{font_table}
+\begin{center}
+ \begin{tabular}{|ll|} \hline
+  What you type                                    &   What you see \\     
+ \hline
+  \verb1{\bf hello}1                               &    {\bf hello}    \\                                   
+  \verb1{\em hello} is the same as {\it hello}1    &    {\em hello} is the same as {\it hello}\\
+  \verb1{\underline {hello}}1                      &    {\underline {hello}} \\
+ \hline
+  \verb1{\tiny hello}1                             &    {\tiny hello} \\ 
+  \verb1{\scriptsize hello}1                       &    {\scriptsize hello}\\ 
+  \verb1{\footnotesize hello}1                     &    {\footnotesize hello}\\ 
+  \verb1{\small hello}1                            &    {\small hello}\\ 
+  \verb1{\normalsize hello}1                       &    {\normalsize hello}\\ 
+  \verb1{\large hello}1                            &    {\large hello}\\ 
+  \verb1{\Large hello}1                            &    {\Large hello}\\ 
+  \verb1{\LARGE hello}1                            &    {\LARGE hello}\\ 
+  \verb1{\huge hello}1                             &    {\huge hello}\\ 
+  \verb1{\Huge hello}1                             &    {\Huge hello} \\  
+ \hline 
+ \end{tabular}
+\end{center}
+\end{table}
+
+\section{Lists}
+\label{lists}
+
+There are basically three types of lists in \LaTeX\,:
+\begin{itemize}
+   \item    itemization (``bullets'') - \verb1\begin{itemize}1
+   \item    enumeration (1, 2, 3, ...) - \verb1\begin{enumerate}1
+   \item    description - \verb1\begin{description}1
+\end{itemize}
+
+All lists in \LaTeX\, have the same general format:
+\begin{verbatim}
+       \begin{list-type}
+         \item list-entry
+         \item next-list-entry
+       \end{list-type}
+\end{verbatim}
+
+\subsection{The Itemize Environment}
+One can have lists within lists by using the \verb1\subitem1 or nested
+itemize environments.
+
+ \begin{verbatim}
+  \begin{itemize}
+    \item
+     item one
+     \subitem
+      subitem one
+     \subitem
+      subitem two
+   \item  
+     item two
+  \end{itemize}
+  
+  \begin{itemize}
+    \item 
+     item one
+     \begin{itemize}
+      \item
+      subitem 
+    \end{itemize}
+    \item 
+     item two
+  \end{itemize}
+ \end{verbatim}
+
+\subsection{The Enumerate Environment}
+% example: line 85
+ \begin{verbatim}
+  \begin{enumerate}
+    \item 
+     item one
+    \item 
+     item two
+  \end{enumerate}
+ \end{verbatim}
+
+\subsection{The Description Environment}
+Description lists are similar to enumerated or itemized lists.
+In a description list, each item has both a term and a description.
+% example: line 38
+ \begin{verbatim}
+  \begin{description}
+    \item[Step 1]
+      Step 1 of the algorithm
+    \item[Step 2]
+      Step 2 of the algorithm
+  \end{description}
+ \end{verbatim}
+
+
+
+\section{Typing Math in \LaTeX\,}
+\label{math}
+To type math expressions in the running text, use either of the two
+short forms \verb1\(...)\1 or \verb1$...$1,
+e.g.  \verb1$\hat{\beta}$1.
+
+One can also use the {\bf displaymath}, {\bf equation} and {\bf eqnarray}
+environments:
+
+\begin{enumerate}
+
+  \item
+  {\bf displaymath}: \\\\
+  e.g.
+  \begin{displaymath}
+  {\rm logit}(p) = \log(\frac{p}{1-p})  \hspace{0.5in} \mbox{is the definition of logit of $p$}
+  \end{displaymath}
+
+  \item
+  {\bf equation}: \\\\
+  e.g.
+  \begin{equation}
+    \bar{X} = \frac{\sum_{i=1}^n X_i}{n}
+  \end{equation}
+  
+  The {\bf equation*} environment is the same as the {\bf equation} environment except it
+  does not generate equation numbers. \\\\
+  e.g.
+  \begin{equation*}
+  Y_{ij} = \mu + \alpha_i + \beta_j + \epsilon_{ij}, \hspace{0.5in} \epsilon_{ij}\sim N(0,\sigma^2)
+  \end{equation*}
+
+  Big delimiters are most often used with array. \\\\
+  e.g.
+  \begin{equation}
+   \left(\begin{array}{c}
+   y\\
+   z
+   \end{array}\right)
+  \end{equation}
+  
+
+  The \verb1\left1 and \verb1\right1 commands must come in matching pairs, but
+  the matching delimiters need not be the same. \\\\
+  e.g.
+  \begin{equation}
+  \left.\frac{\partial f(x, y)}{\partial x}\right|_{x=x_0}=y
+  \end{equation}
+
+  We can type text in math mode by using the \verb1\mbox1 command. \\\\
+  e.g.
+  \begin{equation}
+   x=\left\{ \begin{array}{ll}
+   y& \mbox{if $y>0$}\\
+   z+y & \mbox{otherwise}
+   \end{array}\right.
+  \end{equation}
+
+\newpage
+  \item
+  {\bf eqnarray}: \\\\
+  The {\bf displaymath} and {\bf equation} environments make one-line
+  formulas. A sequence of equations or inequalities is displayed with the
+  {\bf eqnarray} environment. By default, an equation number is put in
+  every single line. Use the \verb1\nonumber1 command in each of the lines
+  you want to suppress an equation number. \\\\
+  e.g.
+  \begin{eqnarray}
+   x&\ll &y_{1}+\cdots +y_{n}\\
+   &\leq &z \nonumber
+  \end{eqnarray}
+  
+  The {\bf eqnarray*} environment is the same as the {\bf eqnarray}
+  environment except it does not generate equation numbers. \\\\
+  e.g.
+  \begin{eqnarray*}
+   &A\stackrel{a'}{\to}B\stackrel{b'}{\to}C\\
+   &\vec{x}\stackrel{\rm def}{=} (x_1,\ldots, x_n)
+  \end{eqnarray*}
+  
+  For multiline formula, sometimes it is desirable to have one equation number
+  and put the equation number in the middle line of the equations. In this
+  case, we can combine the {\bf equation} environment and the {\bf split}
+  environment. \\\\
+  e.g.
+  \begin{equation}
+   \begin{split}
+    H_0 : \mu_1 &= \mu_2 \\
+    H_1: \mu_1 &\neq \mu_2
+   \end{split}
+  \end{equation}
+  
+  We cannot use the \verb1\bf1 command in math mode. Instead we use
+  \verb1\mathbf1 for English characters and \verb1\boldsymbol1 for both English
+  characters and Greek letters. \\\\
+  e.g.
+  \begin{equation}
+    \Biggl\{
+      \begin{array}{c}
+       {\mathbf Y_i} = {\mathbf X_i} \boldsymbol{\beta} + {\mathbf Z_i} \boldsymbol{b_i} + \boldsymbol{e_i} \\ 
+       \boldsymbol{b_i} \sim {\rm N}(0,{\mathbf D}), \boldsymbol{e_i} \sim {\rm N}(0,{\mathbf R_i}),
+             \boldsymbol{b_i} \perp \boldsymbol{e_i}
+      \end{array}
+  \end{equation}
+  
+  Sometimes it might be useful to use the {\bf align}, {\bf gather} and {\bf multline}
+  environments.
+%\newpage
+\item {\bf align}:
+\begin{align}
+x+y&<2\\
+x+y&>3\\
+x+y&\leq 15\\
+x+y&\geq 20000000000000000000
+\end{align}
+Comparing to the result from using {\bf eqnarray}:
+\begin{eqnarray}
+x+y&<&2\\
+x+y&>&3\\
+x+y&\leq& 15\\
+x+y&\geq& 20000000000000000000
+\end{eqnarray}
+\item {\bf gather}:
+\begin{gather}
+x+y<2\\
+x+y>3\\
+x+y\leq 15\\
+x+y\geq 20000000000000000000
+\end{gather}
+\item {\bf multline}:
+\begin{multline}
+x+y<2\\
+x+y>3\\
+x+y\leq 15\\
+x+y\geq 20000000000000000000
+\end{multline}
+Comparing to the result from using {\bf split}:
+\begin{equation}
+\begin{split}
+x+y&<2\\
+x+y&>3\\
+x+y&\leq 15\\
+x+y&\geq 20000000000000000000
+\end{split}
+\end{equation}
+
+\end{enumerate}
+
+
+
+\section{Tables and Figures}
+\label{tables}
+To create tables, you will need the {\bf table} and the {\bf tabular} environments.
+Table \ref{anova_table} gives the anova table of a 1-way anova, and Table
+\ref{multtable} shows an example of using \verb1\multicolumn1 and
+\verb1\multirow1 commands.
+
+\begin{table}
+\caption{Anova Table.}
+\label{anova_table}
+\begin{center}
+  \begin{tabular}{|c||c|c|c|c|}\hline
+    Source of Variation & SS  & df & MS  & F-ratio \\
+  \hline
+    Treatment           & SST & 2  & MST & $\frac{MST}{MSE}$ \\
+    Error               & SSE & 30 & MSE &  \\
+  \hline
+  \end{tabular}
+\end{center}
+\end{table}
+
+%r - right justify the column 
+%l - left justify the column 
+%c - center the column 
+
+\begin{table}[t]
+\caption{A sample table with the use of multicolumn and
+multirow commands.}
+\label{multtable}
+\begin{center}
+\begin{tabular}{|cl||cc|cc|}
+ \hline
+  \multicolumn{6}{|c|}{$\slope{C}$ = -0.001721} \\
+ \hline
+  &&
+  %\multicolumn{2}{|c||}{Parameter values used for simulation} &
+  \multicolumn{2}{c|}{Method \# 1} &
+  \multicolumn{2}{c|}{Method \# 2} \\
+ \cline{3-6}
+  \multicolumn{2}{|c||}{Parameter values used for simulation} &
+  $\hat{\beta}_{time \times group}$  &  ($SE$)&
+  $\hat{\beta}_4+\hat{\beta}_5$ & ($SE$)\\
+ 
+  $\slopeTone$ & $\slopeTtwo$ &
+   \multicolumn{2}{c|}{(values in $10^{-4}$)} &
+   \multicolumn{2}{c|}{(values in $10^{-4}$)} \\
+ \hline
+ \hspace*{0.25in} \multirow{3}{17mm}{-0.001721}\hspace*{0.25in} & -0.001  & 7.71 & 3.05 & 7.38 & 2.78 \\
+                      & -0.0014  &  3.56 & 2.83 & 3.21 & 2.73\\
+                      & -0.001721 & 0.45 & 2.99 & 0.07 & 2.70\\
+ \hline                                                                                       
+\end{tabular}
+\end{center}
+\end{table}
+
+To insert graphics into \LaTeX, use the {\bf figure} environment.
+Figure \ref{hist} shows the histogram of a random sample of 100 observations
+from the standard normal distribution.
+\begin{figure}
+\caption{Histogram of 100 standard normal random variables.}
+\label{hist}
+  %\includegraphics[width=6.0in]{hist.pdf}
+  \epsfig{file=hist.eps,width=6.0in}
+\end{figure}
+
+
+\section{Centering and ``Flushing"}\label{justification}
+There are several \LaTeX\, environments to control
+the alignment of text.
+\begin{verbatim}
+     Center: \begin{center} ... \end{center}
+     Right Align: \begin{flushright} ... \end{flushright}
+     Left Align: \begin{flushleft} ... \end{flushleft}
+\end{verbatim}
+
+%\begin{flushright}
+The following declarations can be used at the beginning of the body to
+produce alignment effect for the entire document.
+Be sure to put the declaration immediately after the
+\verb1\begin{document}1 command.
+These declarations will be turned off as soon as they
+encounter a \verb1\end{...}1 command.
+%\end{flushright}
+
+\begin{verbatim}
+     \centering
+     \raggedleft
+     \raggedright
+\end{verbatim}
+
+
+
+\section{Errors in Running \LaTeX\,}
+\label{errors}
+When you compile a \LaTeX\, file that contains syntax errors, \LaTeX\, will
+print out error messages, indicate which line contains an error,
+and print a ``?'' prompt. You can either enter letter ``x'' to exit
+(quit the compilation) or enter ``E'' to edit the \LaTeX\, file.
+
+%  $x+y
+
+\vskip 1cm
+\appendix
+\begin{center}
+{\bf\LARGE Appendices}
+\end{center}
+\section{Appendix 1}
+ This is the appendix.
+
+For further information on \LaTeX\,, please refer to 
+(Lamport, 1986)\nocite{Lamport:1986} or
+\cite{Goossens:1994, Lamport:1994}.
+%\nocite{Goossens:1994}
+
+\section{Appendix 2}
+
+Also there are many web sites providing useful information on \LaTeX\,. For
+example
+\begin{enumerate}
+  \item A short math guide for \LaTeX: \\
+        \verb1http://www.ams.org/tex/short-math-guide.html1 
+  \item The \LaTeX\, homepage: \\
+        \verb1http://www.latex-project.org/1
+  \item Hypertext Help with \LaTeX: \\
+        \verb1http://www.giss.nasa.gov/latex/1
+\end{enumerate}
+\bibliographystyle{abbrv}
+\bibliography{ws2}   
+
+\end{document}

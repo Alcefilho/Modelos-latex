@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage[portuges,brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[screen,nopanel]{pdfscreen}
+\margins{.5in}{.5in}{.5in}{.5in}
+\screensize{6.25in}{8in}
+\notesname{Notes:}
+
+\begin{document}
+
+\overlay{textura.png}
+\pagedissolve{/Wipe /D 3}
+
+\begin{slide}
+\tableofcontents
+\end{slide}
+
+%==============================================================
+\begin{slide}
+{\Huge \color{blue} Sumário}
+\vfill
+  \begin{enumerate}
+    \item Funções Básicas
+    \item Gráfico de Funções
+    \begin{itemize}
+       \item Gráficos unidimensionais 
+       \item Gráficos bidimensionais 
+       \item Gráficos de Funções Paramétricas
+       \item Gráficos em coordenadas polares
+    \end{itemize}
+    \item Gráficos de Arquivos % Uma pausa mais longa
+    \begin{itemize}
+       \item Gráficos unidimensionais 
+       \item Gráficos bidimensionais
+    \end{itemize}
+    \item Tipos de Terminais 
+    \item Scripts.
+  \end{enumerate}
+\end{slide}
+
+
+\begin{slide}\Huge\color{orange}\centering
+This is  Slide No. \theslide.\\
+\color{blue}\large Slide overlay No. \theslideoverlay.\\
+\end{slide}
+
+
+\end{document}

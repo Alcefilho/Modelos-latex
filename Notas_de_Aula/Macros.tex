@@ -1,0 +1,159 @@
+%=========================================================
+\newtheorem{theorem}{Teorema}
+\newtheorem{acknowledgement}[theorem]{Agradecimentos}
+\newtheorem{algorithm}[theorem]{Algoritmo}
+\newtheorem{axiom}[theorem]{Axioma}
+\newtheorem{case}[theorem]{Caso}
+\newtheorem{claim}[theorem]{Declara\c{c}\~{a}o}
+\newtheorem{conclusion}[theorem]{Conclu\c{c}\~{a}o}
+\newtheorem{condition}[theorem]{Condi\c{c}\~{a}o}
+\newtheorem{conjecture}[theorem]{Conjectura}
+\newtheorem{corollary}[theorem]{Corol\'{a}rio}
+\newtheorem{criterion}[theorem]{Crit\'{\i}rio}
+\newtheorem{definition}[theorem]{Defini\c{c}ão}
+\newtheorem{postulado}{Postulado}
+\newtheorem{example}{Exemplo}
+\newtheorem{exercise}{Exerc\'{\i}cio}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{notation}[theorem]{Nota\c{c}\~{a}o}
+\newtheorem{problem}{Problema}
+\newtheorem{proposition}[theorem]{Proposi\c{c}\~{a}o}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{solution}{Solu\c{c}\~{a}o}
+\newtheorem{summary}[theorem]{Sum\'{a}rio}
+%
+%\newtheorem{questao}{Quest\~{a}o}
+\newtheorem{definicao}{DEFINI\c{C}\~{A}O}
+%\newtheorem{definicao}{Defini\c{c}\~ao}
+\newtheorem{demonstracao}{Demonstra\c{c}\~{a}o}
+\newtheorem{teorema}{Teorema}
+\newtheorem{prova}{Prova}
+\newtheorem{exemplo}{Exemplo}
+\newtheorem{solucao}{Solu\c{c}\~{a}o}
+\newtheorem{obs}{Nota}
+%\newenvironment{proof}[1][Prova]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%=========================================================
+\definecolor{azul_escuro}{rgb}{0.12,0.26, 0.36}
+\definecolor{azul}{rgb}{0.21,0.55, 0.0}
+\definecolor{Azul}{rgb}{0.21,0.85,0.85}
+\definecolor{gold}{rgb}{0.85,.66, 0}
+\definecolor{laranja}{rgb}{0.95,.65, 0.20}
+\definecolor{Amarelo}{rgb}{0.99,0.99, 0.66}
+\definecolor{amarelo}{rgb}{0.95,.95, 0.55}
+\definecolor{amarelo1}{rgb}{1,0.97, 0.20}
+\definecolor{amarelo2}{rgb}{0.85,0.55, 0.0}
+\definecolor{amarelo3}{rgb}{1.0,1.0, 0.80}
+\definecolor{verde}{rgb}{0.57,0.94, 0.80}
+\definecolor{Cinza50}{gray}{0.50}
+\definecolor{Cinza10}{gray}{0.10}
+\definecolor{Cinza}{gray}{0.80}
+\definecolor{cinza}{rgb}{0.9,0.9,0.9}
+%=========================================================
+%Definições de tabelas
+%-----------------------------------------------------------
+\newlength{\LC}
+\setlength{\LC}{7.0cm}
+\newcolumntype{A}{>{\columncolor[gray]{0.96}\raggedright\color{blue}}l}
+\newcolumntype{B}{>{\columncolor[gray]{0.96}\raggedright\color{blue}}r}
+\newcolumntype{F}{>{\columncolor[gray]{0.95}\raggedright}m{\LC}}
+\newcolumntype{G}{>{\columncolor[gray]{0.9}\raggedright}m{1.70cm}}
+\newcolumntype{K}{>{\columncolor[gray]{0.8}\raggedright}c}
+\newcolumntype{H}{>{\columncolor{yellow}\raggedright}c}
+%=========================================================
+\def\ff#1{\hbox{\rm #1}\,}
+%\def\fff#1{\hbox{\rm #1}\,}
+\def\abs{\ff{abs}}
+%\def\acos{\ff{acos}}
+%\def\acosh{\ff{acosh}}
+%\def\asin{\ff{asin}}
+%\def\asinh{\ff{asinh}}
+%\def\asin{\ff{atan}}
+%\def\atanh{\ff{atanh}}
+%\def\sin{\ff{sin}}
+%\def\sen{\ff{sen}}
+%\def\asen{\ff{asen}}
+\def\asinh{\ff{asinh}}
+%\def\asen{\ff{atg}}
+\def\atanh{\ff{atanh}}
+%\def\sen{\ff{sen}}
+%\def\cos{\ff{cos}}
+%\def\tan{\ff{tan}}
+\def\sinh{\ff{sinh}}
+\def\cosh{\ff{cosh}}
+\def\tanh{\ff{tanh}}
+\def\log{\fff{log}}
+\def\tg{\ff{tg}}
+\def\senh{\ff{senh}}
+\def\tgh{\ff{tgh}}
+\def\arctg{\ff{arc}\; \ff{tg}}
+%=========================================================
+\def\lambdabar{\protect\@lambdabar}
+\def\@lambdabar{\relax
+\bgroup
+\def\@tempa{\hbox{\raise.73\ht0
+\hbox to0pt{\kern.25\wd0\vrule width.5\wd0
+height.1pt depth.1pt\hss}\box0}}\mathchoice{\setbox0\hbox{$\displaystyle\lambda$}\@tempa}{\setbox0\hbox{$\textstyle\lambda$}\@tempa}{\setbox0\hbox{$\scriptstyle\lambda$}\@tempa}{\setbox0\hbox{$\scriptscriptstyle\lambda$}\@tempa}\egroup
+}
+%=========================================================
+
+% Possiveis Campos
+\newcommand{\RR}{\mathbbm{R}}
+\newcommand{\CC}{\mathbbm{C}}
+\newcommand{\FF}{\mathbbm{F}}
+\newcommand{\NN}{\mathbbm{N}}
+\newcommand{\ZZ}{\mathbbm{Z}}
+\newcommand{\PP}{\mathbbm{P}}
+\newcommand{\QQ}{\mathbbm{Q}}
+\newcommand{\UU}{\mathbbm{U}}
+\newcommand{\EE}{\mathbbm{E}}
+
+% Possiveis Espacos
+\def\FF{\mathbb{F}}
+
+
+%\def\limfunc#1{\mathop{\rm #1}}
+\def\func#1{\mathop{\rm #1}\nolimits}
+%\def\ve#1{\hat{\mathbf{e}}_{ #1}}
+%\def\unit#1{\mathop{\rm #1}\nolimits}
+\def\sen{\mathop{\rm sen}\nolimits}
+\def\senh{\mathop{\rm senh}\nolimits}
+\def\tg{\mathop{\rm tg}\nolimits}
+\def\vu#1{\hat{\mathbf{e}}_{#1}}
+\def\dvu#1{\dot{\hat{\mathbf{e}}}_{#1}}
+
+\def\Sop#1{\text{\textlbrackdbl} #1 \text{\textrbrackdbl}}
+\def\Ort#1#2{R_{\hat{\mathbf{ #1 }}}( #2 )}
+\def\Ortd#1#2{R^{\dagger}_{\hat{\mathbf{ #1 }}}( #2 )}
+\def\Rt#1#2{\mathcal{R}_{\hat{\mathbf{ #1 }}}( #2 )}
+\def\PB{\mathcal{P}}
+\def\EF{\mathcal{F}}
+\def\EV{\mathbb{V}}
+\def\ER{\mathcal{E}_{\mathbf{r}}}
+\def\ES{\mathcal{E}_{\mathbf{s}}}
+\def\EE{\mathcal{E}}
+\def\ket#1{{| #1 \rangle}}
+\def\bra#1{{\langle #1 |}}
+\def\proj#1#2{  \vert #1 \rangle \langle #2 \vert }
+\def\PI#1#2{{\langle #1 | #2 \rangle}}
+%\def\PI#1#2{\Braket{ #1 | #2 }}
+\def\pbpi#1#2{{\left\vert \langle #1 \vert #2 \rangle \right\vert^2}}
+\def\EM#1#2#3{{\left\langle #1 \right| #2 \left| #3 \right\rangle}}
+%\def\EM#1#2#3{\Braket{ #1 | #2 | #3 }}
+\def\VM#1{\langle #1 \rangle}
+\def\TP#1{{\wp}_{if}( #1 )}
+\def\dtp#1{\delta {\wp} ( #1 )}
+\def\OverBrace#1#2{ \overset{ #1 }{ \overbrace{ #2 } } }
+\def\Norm#1{\vert #1 \vert }
+\def\Norma#1{\lVert #1 \rVert }
+\def\Compl#1{{| #1 \rangle} \langle #1 |}
+%\def\RP{\mathbf{R}{\limits}_{\perp}}
+
+\def\Tr#1{\operatorname{tr}(#1)}
+
+
+\def\mtext#1{{\qquad  \text{#1} \qquad}}
+\def\implica{{\qquad  \Longrightarrow \qquad}}
+
+%=========================================================
+\newcommand{\eqdef}{\ensuremath{\mathrel{\stackrel{\mathrm{def}}{=}}}}
+\newcommand{\eqincert}{\ensuremath{\mathrel{\stackrel{\mathrm{?}}{=}}}}

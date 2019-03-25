@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE>Producing slides for presentations using the "seminar" document class in LaTeX</TITLE>
+</HEAD>
+
+<BODY >
+An example presentation document using the "seminar" document class
+<br>
+<a href="seminar.tex">original latex file</a>
+&nbsp &nbsp <a href="seminar.pdf">pdf format</a>
+
+<hr>
+<P>
+<h1 ALIGN=CENTER> 
+Presentation using the LaTeX seminar class
+</h1>
+<br>
+<br>
+<ul>
+<li>
+To create a simple presentation document using L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X, we
+can use the <TT>seminar</TT> class.
+The syntax is as follows:
+ 
+<P>
+<PRE>
+\documentclass[landscape]{seminar}
+...
+\begin{document}
+\begin{slide}
+...
+\newslide
+...
+\end{slide}
+\begin{slide}
+...
+\newslide
+...
+\end{slide}
+\end{document}
+</PRE>
+<br>
+Note that we have used the landscape mode for the slides. One can substitute "landscape" by "portrait" if the portrait mode is desired for the entire document.
+Also note the use of slide environment within the document, and the use of the \newslide command to strongly control page
+breaks as it is important to control the specific material on each page.
+<br>
+</li>                                                         
+<br><br>
+<li>
+We can type mathematical formulas and include graphics as in other classes of LaTeX documents.
+For the latter, remember to add <code>\usepackage{graphicx}</code> in the preamble.
+<br><br>  
+For example, to insert a plot named "mypic.ps" or "mypic.pdf" in a framebox, use the command:
+<br><br>
+&nbsp &nbsp
+<code>\fbox{\includegraphics[height=0.8\textheight]{mypic}}</code>
+<br><br>
+Note that in the above command, we need not specify the file extension of the image file.
+If we use <code>latex file.tex</code>, it will automatically search for .ps file to include.
+Likewise, if we use <code>pdflatex file.tex</code>, the .pdf files will be searched.
+<br>
+</li>
+<br><br>
+<li>
+How to temporarily switch between landscape mode and portrait mode? 
+<br><br>  
+<P>
+The syntax is
+ 
+<P>
+<PRE>
+\begin{slide*}
+ :
+\newslide
+ :
+\end{slide*}
+</PRE>                      
+<br> 
+The asterisk is necessary for switching from the predefined mode, say, landscape mode, to the portrait mode, and vice versa.
+<br>
+</li>
+<br><br>
+<li>
+If you have both landscape and portrait slides in your file, there are two ways to print the
+slides:
+<br><br> 
+<ul>
+<li>If your dvi driver supports rotation, then you can print all the slides at once.
+For example, by including the package <TT>semrot</TT> in the preamble, you can directly print all
+the slides at once.
+</li>                             
+<li> 
+You can first print your landscape slides by putting the command
+<PRE>
+  \landscapeonly
+</PRE>
+in the preamble, and then print the portrait slides by inserting instead the command
+<PRE>
+  \portraitonly
+</PRE>
+and switching to the <TT>portrait</TT> style option in the documentclass statement.
+<br>
+</li>                                                                           
+</ul>
+<br><br>
+<li>To create header, footer and ruler in your slides, use the <tt>fancyhdr</tt> package:
+<br><br>
+Add to the preamble
+<br><br> 
+&nbsp &nbsp
+<code>\usepackage{fancyhdr}</code>
+<P>
+Commands available from the package: 
+<UL>
+<LI><code>\pagestyle{fancy}</code>
+</LI>
+<LI><code>\fancyhf{}</code> to delete current setting for header and footer
+</LI>
+<LI><code>\lhead{...}</code> for left header
+</LI>
+<LI><code>\chead{...}</code> for center header
+</LI>
+<LI><code>\rhead{...}</code> for right header
+</LI>
+<LI><code>\renewcommand{\headrulewidth}{0.5pt}</code>
+</LI>
+<LI><code>\lfoot{...}</code> for left footer
+</LI>
+<LI><code>\cfoot{...}</code> for center footer
+</LI>
+<LI><code>\rfoot{...}</code> for right footer
+</LI>
+<LI><code>\renewcommand{\footrulewidth}{0pt}</code>
+</LI>
+</UL>                                                                            
+
+<P>
+Alternatively, we can use
+ 
+<UL>
+<LI><code>\pagestyle{fancy}</code>
+</LI>
+<LI><code>\fancyhf{}</code> 
+</LI>
+<LI><code>\fancyhead[L]{...}</code>
+</LI>
+<LI><code>\fancyhead[C]{...}</code>
+</LI>
+<LI><code>\fancyhead[C]{...}</code>
+</LI>
+<LI><code>\renewcommand{\headrulewidth}{0.5pt}</code>
+</LI>
+<LI><code>\fancyfoot[L]{...}</code>
+</LI>
+<LI><code>\fancyfoot[C]{...}</code>
+</LI>
+<LI><code>\fancyfoot[R]{...}</code>
+</LI>
+<LI><code>\renewcommand{\footrulewidth}{0pt}</code>
+</LI>
+</UL>                                                                   
+</li>
+<br><br>
+<li>
+Here are <a href="seminar.tex">an example tex file </a> using the "seminar" document class and the <a href="seminar.pdf">output file in pdf format</a> from running 
+<code>pdflatex</code>.
+It explains in more detail how to create a presentation document with the "seminar" document class.
+</li>
+
+</ul>
+<br>
+
+
+<hr> 
+<font size=-1>
+Last Updated on February 27, 2003.
+</font>
+<br>
+
+</BODY>
+</HTML>

@@ -1,1 +1,8 @@
-/home/salviano/Modelos/Seminarios/Beamer-caracter.vrb
+\frametitle{Procurando por caractere escondido}
+O comando seguinte comando
+\texttt{Arq.tex}
+\begin{minted}[bgcolor=lightgray!20]{bash}
+sed -n '100,110p' Arq.tex | od -A d -t c
+\end{minted}
+mostra todos os caracteres do arquivo que estão entre as linhas 100 e 110,
+mesmo aqueles  escondido que podem estar gerando um erro estranho

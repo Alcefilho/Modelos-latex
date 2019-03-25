@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Presentation using PDFLATEX, and PPOWER4</TITLE>
+<META NAME="description" CONTENT="Presentation using PDFLATEX, and PPOWER4">
+<META NAME="keywords" CONTENT="ppseminar">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ppseminar.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html2"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html3"
+  HREF="node1.html">About this document ...</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN="CENTER">Presentation using <SMALL>PDF</SMALL>L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X,  and <SMALL>PPOWER4</SMALL></H1>
+<P ALIGN="CENTER"><STRONG>Latex Smart 
+<BR>
+6356 Agricultural Road
+<BR>
+University of British Columbia
+<BR>
+Vancouver BC 
+<BR>
+V6T 1Z2</STRONG></P>
+<P ALIGN="CENTER"><STRONG>February 27, 2003</STRONG></P>
+
+<P>
+What is PPOWER4?
+
+<SMALL>PPOWER4</SMALL> (<SMALL>PDF</SMALL> Presentation Post-Processor)
+is a post-processor for <SMALL>PDF</SMALL> files produced
+with <SMALL>PDF</SMALL>L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X and .
+
+<P>
+The features of PPower4:
+
+<UL>
+<LI>parts of a page can be
+uncovered step by step during a presentation with <TT>Acrobat Reader</TT>.
+</LI>
+<LI>can display parts of a page in any order
+</LI>
+<LI>can remove item from the page
+</LI>
+<LI>can insert fancy transitions or gradient background
+</LI>
+</UL>
+
+<P>
+Using PPower4
+
+<P>
+Using <SMALL>PPOWER4</SMALL>:
+<BR>
+
+<UL>
+<LI>Add <code>\usepackage{pause}</code>, <code>\usepackage{background}</code>,
+<BR>  <code>\usepackage{pp4slide}</code>, <code>\usepackage{hyperref}</code> to the
+  preamble.
+</LI>
+<LI>Produce <SMALL>PDF</SMALL> from L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X source with
+  <TT>pdflatex file.tex</TT>, then post-process with <TT>ppower4
+  file.pdf file.post.pdf</TT>.  This produces a new file,
+  <TT>file.post.pdf</TT>, with the effects. If you want to print out the pdf
+file, <B>print the orginal pdf file file.pdf</B> instead of the file
+<TT>file.post.pdf</TT>.
+</LI>
+<LI>Three different commands for backgrounds
+  
+<UL>
+<LI><code>\pagecolor{color}</code> for solid color.
+</LI>
+<LI><code>\vpagecolor[color1]{color2}</code> for vertical gradient (like
+    this page).
+</LI>
+<LI><code>\hpagecolor[color1]{color2}</code> for horizontal gradient.
+  
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+Using PPower4 (Ct'd)
+
+<P>
+
+<UL>
+<LI>The <code>\pause</code> command produces partial pages.  For example
+  at the end of this line there is a <code>\pause</code> command
+  - it waits for a keypress to display the rest of the page.
+  
+<UL>
+<LI>We can also use transition effects with <code>\pause</code> like Dissolve
+    or Wipe -- <code>\pauseDissolve</code> and <code>\pauseWipe{0}</code>.
+    0  </LI>
+<LI>To Switch off the pause function, use <code>\pauseReplace</code>.
+  
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+We can download the <TT>PPower4</TT> program from the following site:
+
+<P>
+http://www.tex.ac.uk/tex-archive/support/ppower4/download.htmlhttp://www.tex.ac.uk/tex-archive/support/ppower4/download.html
+
+<P>
+Basics of Survival Analysis
+
+pdfpagetransition=Replace
+  Notations: 
+  
+<UL>
+<LI> 1#1 = a random variable representing time to event
+           (e.g. time to death), 2#2  
+</LI>
+<LI> pdf and cdf: 3#3 and 4#4  
+</LI>
+<LI> survivor function: 5#5 = 6#6  
+</LI>
+<LI> hazard function: 7#7, 
+           which is the probability that an individual dies at
+           time t, given that he has survived to time t. 
+</LI>
+<LI> relationship between 7#7, 3#3, 5#5:
+<BR>
+7#7 = <!-- MATH
+ $\frac{f(t)}{s(t)}$
+ -->
+8#8 
+<BR>
+5#5 = exp<!-- MATH
+ $\{- \int^t_0 h(u) du \}$
+ -->
+9#9 
+<BR>
+So 3#3 = 7#7exp<!-- MATH
+ $\{- \int^t_0 h(u) du \}$
+ -->
+9#9 
+  
+</LI>
+</UL>
+
+<P>
+Minipage and Graphics
+
+<TABLE  WIDTH="518">
+<TR><TD>
+  
+  <DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[width=2.8in,height=2in]{whistler}$
+ -->
+10#10
+</DIV>
+  <BR>
+  
+<UL>
+<LI><I>Grad Trip</I>, August 2001 
+  <BR>
+    
+<UL>
+<LI>Destination: Joffre Lake in Whistler 
+</LI>
+<LI>People: UBC stats grads 
+</LI>
+<LI>Activities: BBQ, hiking, canoeing, etc 
+  
+</LI>
+</UL>
+</LI>
+</UL></TD></TR>
+</TABLE>
+
+<TABLE  WIDTH="518">
+<TR><TD>
+  
+  <DIV ALIGN="CENTER">
+<!-- MATH
+ $\includegraphics[width=2.8in,height=2in]{lake1}$
+ -->
+11#11
+</DIV>
+  <BR>
+  
+<UL>
+<LI><I>Grad Trip</I>, July 2002 
+  <BR>
+    
+<UL>
+<LI>Destination: Buntzen Lake in Port Moody 
+</LI>
+<LI>People: UBC and SFU stats grads 
+</LI>
+<LI>Activities: BBQ, hiking, kayaking, etc 
+    
+</LI>
+</UL>
+</LI>
+</UL></TD></TR>
+</TABLE>
+
+<P>
+Partial code for the previous page:
+<PRE>
+\begin{minipage}[t]{4.5in}
+  \raggedright
+  \begin{center}
+    \includegraphics[width=2.8in,height=2in]{whistler}
+  \end{center}
+  \vspace{-0.2in}
+  \begin{itemize}
+  \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{4.5in}
+\end{minipage}
+</PRE>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html4"
+  HREF="node1.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html3"
+  HREF="node1.html">About this document ...</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Department Web Master
+2003-02-27
+</ADDRESS>
+</BODY>
+</HTML>

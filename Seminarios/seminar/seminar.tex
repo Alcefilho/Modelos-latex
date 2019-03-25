@@ -1,0 +1,287 @@
+\documentclass[landscape,titlepage]{seminar}
+\usepackage{semrot}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+
+\title{\shadowbox{Presentation using \LaTeX}} % the document title
+%\title{\shadowbox{Presentation using \LaTeX\, seminar class}} % the document title
+
+% the author
+\author{Latex Smart \\
+         6356 Agricultural Road\\
+         University of British Columbia\\
+         Vancouver BC \\
+         V6T 1Z2}
+
+% the date
+\date{\today}
+
+
+
+\begin{document}
+
+\begin{slide}
+\maketitle
+\end{slide}
+
+\begin{slide}
+\begin{center}
+{\large Outline}
+\end{center}
+\vskip 0.5cm
+\begin{itemize}
+ \item The {\tt seminar} document class and {\tt fancybox} and {\tt fancyhdr} package 
+ \item {\tt Pdflatex} command and {\tt geometry, hyperref} and {\tt color} package
+ \item The {\tt foils} document class with the {\tt FoilTeX} package
+ \item Powerpoint-like flashy effects by using {\tt ppower4}
+\end{itemize}
+
+\end{slide}
+
+\begin{slide}
+
+\newslide
+To create a simple presentation document using \LaTeX, we
+can use the {\tt seminar} class. 
+The syntax is as follows:
+
+{\small
+\begin{verbatim}
+\documentclass[landscape]{seminar}
+...
+\begin{document}
+\begin{slide}
+...
+\newslide
+...
+\end{slide}
+\begin{slide}
+...
+\newslide
+...
+\end{slide}
+\end{document}
+\end{verbatim}
+}
+\end{slide}
+
+
+% a new slide environment
+\begin{slide}
+
+  \begin{center}
+    {\bf Basics of Survival Analysis}
+  \end{center}
+  Notations:
+  \begin{itemize}
+    \item{ $T$ = a random variable representing time to event
+           (e.g. time to death), $T > 0$ }
+    \item{ pdf and cdf: $f(t)$ and $F(t)$ }
+    \item{ survivor function: $s(t)$ = $1-F(t)$ }
+    \item{ hazard function: $h(t)$,
+           which is the probability that an individual dies at
+           time t, given that he has survived to time t.}
+    \item{ relationship between $h(t)$, $f(t)$, $s(t)$:\\
+           $h(t)$ = $\frac{f(t)}{s(t)}$ \\
+           $s(t)$ = exp$\{- \int^t_0 h(u) du \}$ \\
+           So $f(t)$ = $h(t)$exp$\{- \int^t_0 h(u) du \}$
+           }
+  \end{itemize}
+\end{slide}
+
+
+
+\begin{slide}
+{\large Include Graphics in Slides}
+\begin{center}
+\fbox{\includegraphics[height=0.8\textheight]{mypic}}
+\end{center}
+\newslide
+
+The code for the last slide is:
+
+\begin{verbatim}
+\begin{slide}
+{\large Include Graphics in Slides}
+\begin{center}
+\fbox{\includegraphics[height=0.8\textheight]{mypic}}
+\end{center}
+\newslide
+\end{verbatim}
+
+Moreover, we need to add \verb+\usepackage{graphicx}+ in the preamble.
+
+
+\end{slide}
+
+\begin{slide*}
+\begin{center}
+{\large Portrait Slides}
+\end{center}
+
+The syntax is
+
+\begin{verbatim}
+\begin{slide*}
+ :
+\newslide
+ :
+\end{slide*}
+\end{verbatim}
+
+If you have both landscape and portrait slides in your file, there are two ways to print the
+slides:
+\begin{itemize}
+  \item If your dvi driver supports rotation, then you can print all the slides at once.
+For example, by including the package {\tt semrot} in the preamble, you can directly print all
+the slides at once.
+\newslide
+  \item You can first print your landscape slides by putting the command
+\begin{verbatim}
+  \landscapeonly
+\end{verbatim}
+in the preamble, and then print the portrait slides by inserting instead the command
+\begin{verbatim}
+  \portraitonly
+\end{verbatim}
+and including the {\tt portrait} style option.
+
+\end{itemize}
+
+\end{slide*}
+
+\begin{slide}{{\large \verb|\usepackage{fancybox}|}}
+
+\vskip 0.5cm
+\verb|\fbox| \fbox{fbox}
+\vskip 0.5cm
+\verb|\shadowbox| \shadowbox{shadowbox}
+
+\vskip 0.5cm
+\verb|\doublebox| \doublebox{doublebox}
+
+\vskip 0.5cm
+\verb|\ovalbox| \ovalbox{ovalbox}
+
+\vskip 0.5cm
+\verb|\Ovalbox| \Ovalbox{Ovalbox}
+
+\end{slide}
+
+\begin{slide}{{\large \verb+\usepackage{fancyhdr}+}}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{left header}
+\chead{center header $\alpha$}
+\rhead{right header}
+\renewcommand{\headrulewidth}{0.5pt}
+\lfoot{left footer}
+\cfoot{center footer \thepage}
+\rfoot{right footer}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{itemize}
+  \item \verb+\pagestyle{fancy}+
+  \item \verb+\fancyhf{}+ \% delete current setting for header and footer
+  \item \verb+\lhead{left header}+
+  \item \verb+\chead{center header $\alpha$}+
+  \item \verb+\rhead{right header}+
+  \item \verb+\renewcommand{\headrulewidth}{0.5pt}+
+  \item \verb+\lfoot{left footer}+
+  \item \verb+\cfoot{center footer \thepage}+
+  \item \verb+\rfoot{right footer}+
+  \item \verb+\renewcommand{\footrulewidth}{0pt}+
+\end{itemize}
+
+\newslide
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{left header}
+\fancyhead[C]{center header $\alpha$}
+\fancyhead[R]{right header}
+\renewcommand{\headrulewidth}{0.5pt}
+\fancyfoot[L]{left footer}
+\fancyfoot[C]{center footer \thepage}
+\fancyfoot[R]{right footer}
+\renewcommand{\footrulewidth}{0pt}
+
+Alternatively, we can use
+\begin{itemize}
+  \item \verb+\pagestyle{fancy}+
+  \item \verb+\fancyhf{}+ \% delete current setting for header and footer
+  \item \verb+\fancyhead[L]{left header}+
+  \item \verb+\fancyhead[C]{center header $\alpha$}+
+  \item \verb+\fancyhead[C]{right header}+
+  \item \verb+\renewcommand{\headrulewidth}{0.5pt}+
+  \item \verb+\fancyfoot[L]{left footer}+
+  \item \verb+\fancyfoot[C]{center footer \thepage}+
+  \item \verb+\fancyfoot[R]{right footer}+
+  \item \verb+\renewcommand{\footrulewidth}{0pt}+
+\end{itemize}
+
+\newslide
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+For double-sided documents, we can use combined options.
+
+For example, \verb+\fancyhead[RE, LO]{\thepage}+ means to place the page number
+in the right field of the header on even (left) pages and in the right field of the header on
+odd (right) pages.
+
+\begin{tabular}{lll}
+\hline
+\hline
+E & & Even page\\
+O & & Odd page\\
+L & & Left\\
+C & & Center\\
+R & & Right\\
+H & & Header\\
+F & & Footer\\
+\hline
+\hline
+\end{tabular}
+
+\end{slide}
+
+\begin{slide*}
+\begin{itemize}
+  \item We use {\small \verb+\documentclass[landscape,titlepage]{seminar}+}
+  \item syntax
+\begin{verbatim}
+  \begin{slide} 
+     :
+    \newslide
+     :
+  \end{slide} % for landscape slide
+  \begin{slide*} 
+     :
+    \newslide 
+     :
+  \end{slide*} % for portrait slide
+\end{verbatim}
+  \item package we use:
+    \begin{itemize}
+      \item \verb+\usepackage{semrot}+ % rotate slides 
+      \item \verb+\usepackage{fancybox}+  
+      \item \verb+\usepackage{fancyhdr}+ % fancy header and footer
+      \item \verb+\usepackage{graphicx}+
+    \end{itemize}
+\end{itemize}
+\end{slide*}
+
+\begin{slide}{Class and Package}
+
+The difference between {\tt class} and {package} is that
+\begin{itemize}
+  \item Commands in a class usually cannot be used in other class. For example, \verb+\newslide+
+command can only be used in {\tt seminar} class.
+  \item Commands in a package can be used in any class.
+\end{itemize}
+
+\end{slide}
+
+\end{document}

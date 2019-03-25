@@ -1,0 +1,64 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{xspace,colortbl}                                          
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+
+\usepackage[screen,panelleft,gray,paneltoc]{pdfscreen}
+\margins{.75in}{.75in}{.75in}{.75in}                     
+\screensize{6.25in}{8in}
+
+\begin{document}
+
+\begin{screen}
+\title{\color{section0}\Huge Some Title}
+\end{screen}
+
+\begin{print}
+\title{\HugeSome Title}
+\end{print}
+
+\author{\color{section1}\Large Michael Wiedmann\\
+        {\small\href{mailto:mw@miwie.in-berlin.de}
+        {\color{section1}\texttt{mw@miwie.in-berlin.de}}}}
+\maketitle
+\begin{screen}
+\vfill
+\end{screen}
+
+\begin{abstract}
+\noindent
+foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo 
+foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo 
+foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo 
+\lipsum*[1]
+\end{abstract}
+                                                                  
+\begin{print}
+\tableofcontents
+\end{print}
+\begin{screen}
+\vfill                                                                  
+\end{screen}
+
+\begin{slide}
+\lipsum[2]
+
+\begin{itemize}
+\item item 1
+\item item 2
+\item item 3
+\end{itemize}
+
+\end{slide}
+
+
+\begin{slide}
+\lipsum[3]
+\begin{itemize}
+\item  item 1
+\item  item 2
+\item  item 3
+\end{itemize}
+
+\end{slide}
+
+\end{document}

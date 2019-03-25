@@ -1,1 +1,271 @@
-/home/salviano/Modelos/Seminarios/Lord_Kelvin.tex
+\documentclass[xcolor=dvipsnames,compress,aspectratio=169,10pt]{beamer}
+
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamercovered{transparent}
+  \setbeamertemplate{items}[ball]
+  \setbeamertemplate{footline}[frame number]
+}
+
+\usecolortheme[named=Maroon]{structure}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb,amsfonts,amsmath}
+\usepackage{enumerate}
+\usepackage{hyperref}
+%---------------------------------------------------------------------
+\hypersetup{
+   pdfborder={0 0 0},            % Sem caixa em volta da hiperreferência
+   pdftoolbar=true,              % Mostra a barra de ferramentas no Acrobat Reader = true ==> sim
+   pdfmenubar=true,              % Mostra o menu no Acrobat Reader = true ==> sim
+   pdffitwindow=false,           % Ajusta o documento ao tamanho da janela aberta = false==> não
+   pdfstartview={FitH},          % Ajusta a largura da página a da janela aberta 
+   pdfauthor={Salviano A. Leão}, % Autor do documento
+   pdftitle={Linux -- Gerenciamento de pacotes},  % Titulo do documento
+   pdfsubject={Linux, Debian},          % Assunto do documento
+   pdfkeywords={Linux, Debian, Pacotes},  % Palavras chaves do documento
+   pdfproducer={LaTeX},    % O produtor do documento
+   pdfcreator={pdfLaTeX},  % O programa que criou o documento
+   pdfnewwindow=true,      % Abre links em uma nova janela
+   colorlinks=true,       % false: links em uma caixa; true: links coloridos
+   linkcolor=red,          % Cor dos links internos (mude a cor da caixa com linkbordercolor)
+   citecolor=green,        % Cor dos links das referências bibliográficas
+   filecolor=magenta,      % Cor dos links dos arquivos
+   urlcolor=blue            % Cor dos links externos
+}
+\usepackage{url}
+\usepackage{beamerthemesplit}
+%\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{multimedia}
+%\usepackage{verbatim}
+%\usepackage{listings}
+\usepackage{textcomp}
+%\usepackage{alltt}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{colortbl}       % Permitir cores nas tabelas
+%======================================================================
+\usepackage{pifont}
+\newenvironment{meuitem}{\renewcommand\labelitemi
+{\ding{43}} \begin{itemize}}{\end{itemize}}
+%======================================================================
+
+
+\newcounter{commentCount}
+\newcounter{filePrg}
+\newcounter{inputPrg}
+\usepackage{ifthen}
+\usepackage{fontawesome}
+\usepackage{tabularx}
+\newcolumntype{\CeX}{>{\centering\let\newline\\\arraybackslash}X}%
+\newcommand{\TwoSymbolsAndText}[3]{%
+  \begin{tabularx}{\textwidth}{c\CeX c}%
+    #1 & #2 & #3
+  \end{tabularx}%
+}
+
+
+\usepackage{ragged2e}   % Paragrafo justificado
+\usepackage{upquote}
+\usepackage{minted}     % Highlight para codigos de programacao
+\usepackage{etoolbox}
+\usepackage[minted,many]{tcolorbox}
+%\tcbuselibrary{listings}
+\tcbuselibrary{listingsutf8}
+\tcbset{listing utf8=latin1} % optional; ’latin1’ is the default.
+\tcbuselibrary{minted}
+\tcbset{listing engine=minted}
+
+
+%---------------------------------------------------------
+%\BeforeBeginEnvironment{minted}{\begin{tcolorbox}[boxsep=1mm,toprule=3mm] }%
+%\AfterEndEnvironment{minted}{\end{tcolorbox}}%
+%---------------------------------------------------------
+\newtcolorbox{caixa}{colback=red!5!white,colframe=red!75!black,left=1mm,top=1mm,
+bottom=1mm,right=1mm,boxsep=0mm,width=4.5cm,nobeforeafter,
+height from=2cm to 8cm}
+
+\newtcolorbox{Caixaft}[2][]{width=0.8\linewidth, colback=red!5!white,
+colframe=red!75!black,fonttitle=\bfseries, colbacktitle=red!85!black,enhanced, 
+attach boxed title to top center={yshift=-2mm}, title=#2,#1}
+
+\newtcolorbox{caixat}[2][]{colback=red!5!white,
+colframe=red!75!black,fonttitle=\bfseries,
+colbacktitle=red!85!black,enhanced,
+attach boxed title to top center={yshift=-2mm},
+title=#2,#1}
+
+% \newenvironment{fortran}{
+% \begin{tcolorbox}[colback=yellow!70!white,colframe=red!75!black,
+% left=1mm,top=1mm,bottom=1mm,right=1mm,boxsep=0mm,toprule=3mm]
+% \begin{minted}[baselinestretch=1,fontsize=\footnotesize,breaklines]{fortran}
+% }{ 
+% \end{minted}
+% \end{tcolorbox}
+% }
+
+\newtcblisting{commandshell}{colback=black,colupper=white,colframe=yellow!75!black,
+listing only,listing options={style=tcblatex,language=sh},
+every listing line={\textcolor{red}{\small\ttfamily\bfseries root \$> }}}
+
+
+\newtcolorbox[use counter=commentCount, number format=\arabic]{commentBox}[2]{
+  size=title,
+  arc=1.5mm,
+  breakable,
+  enhanced jigsaw,
+  colframe=cyan!80!blue,
+  coltitle=White,
+  boxrule=0.5mm,
+  colback=White,
+  coltext=Black,
+  minted options={breakable,breaklines,lineos,fontsize=\scriptsize},
+  listing inputencoding=utf8x,
+  title=\TwoSymbolsAndText{\faCheck}{%
+    \textbf{Comentário \thetcbcounter}\ifthenelse{\equal{#1}{}}{}{\textbf{:} \textit{#1}}%
+  }{\faCheck},
+  label=comment:#2,
+}
+
+
+\newtcbinputlisting[use counter=filePrg, number format=\arabic]{\codeFromFile}[4]{%
+  listing engine=minted,
+  minted language=#1,
+  listing file={#2},
+  minted options={autogobble,linenos,breaklines,breakable,fontsize=\scriptsize},
+  listing only,
+  size=title,
+  arc=1.5mm,
+  enhanced jigsaw,
+  colframe=brown,
+  coltitle=White,
+  boxrule=0.5mm,
+  colback=white,
+  coltext=Black,
+  listing inputencoding=utf8x,
+  title=\TwoSymbolsAndText{\faCode}{%
+    \textbf{Arquivo de programa \thetcbcounter}\ifthenelse{\equal{#3}{}}{}{\textbf{:} \textit{#3}}%
+  }{\faCode},
+  label=filePrg:#4
+}
+
+\newtcblisting[use counter=inputPrg, number format=\arabic]{code}[3]{
+  listing engine=minted,
+  minted language=#1,
+  minted options={autogobble,linenos,breaklines,breakable,fontsize=\scriptsize},
+  listing only,
+  size=title,
+  arc=1.5mm,
+  enhanced jigsaw,
+  colframe=red!20!brown,
+  coltitle=White,
+  boxrule=0.5mm,
+  colback=yellow!40,
+  coltext=Black,
+  listing inputencoding=utf8x,
+  title=\TwoSymbolsAndText{\faCode}{%
+    \textbf{Entrada de programa \thetcbcounter}\ifthenelse{\equal{#2}{}}{}{\textbf{:} \textit{#2}}%
+  }{\faCode},
+  label=inputPrg:#3
+}
+
+
+\usepackage{cleveref}
+\crefname{commentCount}{comment}{comments}
+\crefname{filePrg}{file program}{file programs}
+\crefname{inputPrg}{input program}{input programs}
+
+
+\newenvironment{packed_itemize}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+\newenvironment{packed_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+%================
+\graphicspath{
+{/home/salviano/Figuras/IF/}
+{/home/salviano/Cursos/Figs_Logotipos/}
+%{/home/salviano/Cursos/Figs_Ensino/}
+{/home/salviano/Cursos/Figs_Ensino/Computacao/}
+%{/home/salviano/Imagens/Cientistas/}
+}
+
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\tg}{tg}
+
+\def\Blu#1{\textcolor{blue}{#1}}
+\def\Red#1{\textcolor{red}{#1}}
+\def\fortran#1{\textcolor{blue}{\textbf{\MakeUppercase{#1}}}}%
+\def\Decfor#1{\textcolor{red}{\textbf{\MakeUppercase{#1}}}}
+
+\definecolor{tcA}{rgb}{1,1,0}
+
+\title
+  [Física Computacional]
+  {Física Computacional}
+\author[Salviano A. Leão]
+{
+    IFI0237:\\
+    Física Computacional I\\
+    Primeiro semestre de 2017\\ \vspace{1.0cm}
+    \ldots\\
+    \textcolor{blue}{Salviano de Araujo Leão}\\
+    Instituto de Física\\
+    Universidade Federal de Goiás
+}
+
+\date{última edição: \today}
+
+\logo{\includegraphics[height=0.90cm]{LogoIF_01.pdf}}
+
+%\tcbset{colback=yellow!70!white,colframe=red!75!black,left=1mm,top=1mm,bottom=1mm,right=1mm,boxsep=0mm}
+
+% \tcbset{colback=red!5!white,colframe=red!75!black,
+% left=1mm,top=1mm,bottom=1mm,right=1mm,boxsep=0mm,
+% width=3cm,nobeforeafter}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%==============================================================
+\begin{frame}[fragile]\frametitle{Medições científicas}
+As medidas são um indicador da boa ciência. O quanto você sabe sobre algo 
+depende de quão bem você pode medi-lo. Isso foi claramente expresso pelo famoso
+físico Lord Kelvin, no século XIX: 
+\begin{center}
+\begin{Caixaft}[colback=yellow!70]{Lord Kelvin}
+\emph{``Digo frequentemente que, quando se pode medir algo e expressá-lo 
+em números, alguma coisa se conhece sobre ele. Quando não se pode medi-lo, 
+quando não se pode expressá-lo em números, o conhecimento que se tem dele 
+é estéril e insatisfatório. Ele pode até ser um início para o conhecimento,
+mas ainda se avançou muito pouco em direção ao estágio da ciência, seja ele 
+qual for.''}\bigskip
+
+%\hfill(Lord Kelvin)
+\end{Caixaft}
+\end{center}
+As medidas científicas não são algo novo, mas remetem aos tempos antigos. No
+terceiro século a.C., por exemplo, foram feitas medidas bastante precisas dos 
+tamanhos da Terra, da Lua e do Sol, bem como das distâncias entre eles.
+\end{frame}
+
+
+
+
+\end{document}

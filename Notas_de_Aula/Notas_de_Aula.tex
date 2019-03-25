@@ -1,0 +1,378 @@
+%\documentclass[12pt,a4paper,oneside]{book}
+\documentclass[12pt,a4paper,twoside,twocolumn]{book} % Modelo com duas colunas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[brazilian]{babel}
+\usepackage[paper=a4paper,text={17.5cm,25.0cm},centering]{geometry}
+%\usepackage[text={17cm,24.7cm},centering]{geometry}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst}       % indenta os primeiros parágrafos
+%------------------------------------------------------------------------------------
+%
+% \usepackage[english,portuguese]{babel}
+% \usepackage[latin9]{inputenc}
+% \usepackage{amsmath,amsfonts,amssymb,amsthm}
+%
+%------------------------------------------------------------------------------------
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{bbm}      % Fontes matemáticas para letras gregas em negrito
+%\usepackage{bm}        % Fontes matemáticas para letras gregas em negrito
+\usepackage{txfonts}   % Gives the lambdabar math symbol
+\usepackage{textcomp}  % Símbolos matemáticos p/ modo texto
+\usepackage{listings}  % Permite incluir códigos fontes
+\usepackage{latexsym}  % Símbolos 
+\usepackage{bbold}     % Fontes matemáticas para matrizes
+\usepackage{xfrac}     % Fracoes modo texo
+%\usepackage{braket}   % introduz bras e kets na mecanica quantica
+%
+\usepackage{relsize}
+%\usepackage{esint}
+%\usepackage{multicol}  % Para inserir ambientes com multiplas colunas
+\usepackage{multirow}
+%\usepackage{supertabular}
+%\usepackage[final]{pdfpages}
+\usepackage{comment} % Permite inserir comentarios
+%\usepackage{chapterbib}  
+%\usepackage{makeidx} % Gera indice remissivo
+%---------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{thumbpdf}
+%\usepackage{color}
+\usepackage{rotating}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{hyperref}
+%---------------------------------------------------------------------
+\hypersetup{
+   pdfborder={0 0 0},            % Sem caixa em volta da hiperreferência
+   pdftoolbar=true,              % Mostra a barra de ferramentas no Acrobat Reader = true ==> sim
+   pdfmenubar=true,              % Mostra o menu no Acrobat Reader = true ==> sim
+   pdffitwindow=false,           % Ajusta o documento ao tamanho da janela aberta = false==> não
+   pdfstartview={FitH},          % Ajusta a largura da página a da janela aberta 
+   pdfauthor={Salviano A. Leão}, % Autor do documento
+   pdftitle={Modelo de notas de aula},  % Titulo do documento
+   pdfsubject={Modelo},          % Assunto do documento
+   pdfkeywords={Modelo,notas},  % Palavras chaves do documento
+   pdfproducer={LaTeX},    % O produtor do documento
+   pdfcreator={pdfLaTeX},  % O programa que criou o documento
+   pdfnewwindow=true,      % Abre links em uma nova janela
+   colorlinks=true,       % false: links em uma caixa; true: links coloridos
+   linkcolor=red,          % Cor dos links internos (mude a cor da caixa com linkbordercolor)
+   citecolor=blue,        % Cor dos links das referências bibliográficas
+   filecolor=magenta,      % Cor dos links dos arquivos
+   urlcolor=cyan           % Cor dos links externos
+}
+%Note que o último item não tem vírgula.
+%--------------------------------------------------------------------
+\pdfinfo{%
+Title={Mec\^{a}nica Qu\^{a}ntica},
+Creator={TeX},
+Author={Salviano A. Le\~{a}o},
+Subject={Mec\^{a}nica Qu\^{a}ntica},
+Keywords={F\'{\i}sica, Mec\^{a}nica Qu\^{a}ntica}
+}
+%-----------------------------------------------------------------------------------
+%\usepackage{breakurl}
+\usepackage[aboveskip=4pt,font=small,labelfont=bf,textfont=sl]{caption}
+\usepackage[shortlabels]{enumitem}  % Comentei 07/02/2012
+%\usepackage{enumerate}               % Descomentei 07/02/2012
+%\usepackage{paralist}
+%\usepackage{enumerate}
+%\usepackage{paralist}
+%\usepackage{xypic}
+\usepackage[all,knot,arc,import,poly]{xy}
+\usepackage{wrapfig}
+%\usepackage[geometry]{ifsym}
+% \rlap{\VBar}\TriangleUp e \rlap{\TriangleUp}\VBar fornece o simbolo dif-divida
+\usepackage{subfig}
+%\usepackage{mathpazo}
+%\usepackage{floatflt}
+%\usepackage{epsf}
+%\usepackage{eepic}
+%\usepackage{epic}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+%===============================================================================
+\graphicspath{
+{Figs/}
+{/home/salviano/Cursos/Figs_Logotipos/}
+{/home/salviano/Cursos/Figs_Ensino/QM/}
+{/home/salviano/Cursos/Figs_Ensino/Mecanica/}
+{/home/salviano/Cursos/Figs_Ensino/Fisica_Moderna/}
+{/home/salviano/Cursos/Figs_Ensino/Optica/}
+{/home/salviano/Cursos/Figs/}
+{/home/salviano/Cursos/Figs/eps/}
+{/home/salviano/Cursos/Figs_Ensino/Math/}
+{/home/salviano/Cursos/Figs_Ensino/Computacao/}
+}
+%-----------------------------------------------------------------------
+\DeclareGraphicsExtensions{.png,.jpg,.pdf,.eps}
+%\DeclareGraphicsRule{.jpg}{eps}{.bb}{`jpeg2ps -h -r 100 #1}
+\DeclareGraphicsRule{.png}{eps}{.bb}{`convert #1 eps:- } % Conversão on the fly
+\DeclareGraphicsRule{.jpg}{eps}{.bb}{`convert #1 eps:- } % Conversão on the fly
+%\DeclareGraphicsRule{.eps}{pdf}{.bb}{`epstopdf #1}       % Conversão on the fly
+%-----------------------------------------------------------------------
+\def\SAL{\bfseries\small \color{red} Prof. Salviano A. Leão}
+%-----------------------------------------------------------------------------------
+% Macro do Lyx
+\DeclareRobustCommand{\lyxmathsym}[1]{\ifmmode\begingroup\def\b@ld{bold}
+  \def\rmorbf##1{\ifx\math@version\b@ld\textbf{##1}\else\textrm{##1}\fi}
+  \mathchoice{\hbox{\rmorbf{#1}}}{\hbox{\rmorbf{#1}}}
+  {\hbox{\smaller[2]\rmorbf{#1}}}{\hbox{\smaller[3]\rmorbf{#1}}}
+  \endgroup\else#1\fi}
+%===================================================================================
+\input{Macros.tex}
+%===================================================================================
+% Redefine os labels dos item
+%
+% \def\labelitemi{\(\Rightarrow\)}
+% \def\labelitemii{\(\rhd\)}
+% \def\labelitemiii{\(\bullet\)}
+% \def\labelitemiv{\(\star\)}
+%=========================================================
+
+%-----------------------------------------------------------------------------------
+
+% \newcommand{\Nota}[1]{%
+% \begin{center}
+%    \colorbox{amarelo}{\parbox{0.8\linewidth}{ #1}}
+% \end{center}}%
+
+% \newcommand{\Nota}[1]{%
+% \begin{center}
+%    \colorbox{amarelo}{\parbox{0.8\linewidth}{ #1}}
+% \end{center}}%
+%
+% \newcommand{\nota}[1]{%
+% \begin{center}
+%    \colorbox{amarelo}{\parbox{1.0\linewidth}{ #1}}
+% \end{center}}%
+
+\newcommand{\Nota}[1]{%
+\begin{center}
+   %\colorbox{Azul}{\parbox{0.8\linewidth}{\textbf{NOTA:~} #1}}
+   %\shadowbox{\parbox{0.8\linewidth}{\textbf{NOTA:~} #1}}
+   \shadowbox{\parbox{0.8\linewidth}{ #1}}
+\end{center}}%
+
+\newcommand{\nota}[1]{%
+\begin{center}
+   %\colorbox{amarelo}{\parbox{1.0\linewidth}{ #1}}
+   \shadowbox{\parbox{1.0\linewidth}{ #1}}
+\end{center}}%
+
+\newcounter{tarefa}
+\newcommand{\Tarefa}[1]{%
+\stepcounter{tarefa}
+\begin{center}
+   \colorbox{Amarelo}{\parbox{0.8\linewidth}{\textbf{TAREFA \arabic{tarefa}:~} #1}}
+\end{center}}%
+
+\newcommand{\Mais}[1]{%
+\begin{center}
+   \colorbox{verde}{\parbox{0.8\linewidth}{\textcolor{red}{\textbf{Para Saber Mais:}}~ #1}}
+\end{center}}%
+
+%\newcounter{nota}
+
+%-----------------------------------------------------------------------------------
+% \lstnewenvironment{code}{%
+% \lstset{frame=single,escapeinside=~~,
+% backgroundcolor=\color{black!50},
+% basicstyle=\footnotesize\ttfamily}
+% }{}
+
+\lstset{%
+        inputencoding=utf8,
+        extendedchars=true,
+        literate=%
+        {é}{{\'{e}}}1
+        {è}{{\`{e}}}1
+        {ê}{{\^{e}}}1
+        {ë}{{\¨{e}}}1
+        {É}{{\'{E}}}1
+        {Ê}{{\^{E}}}1
+        {û}{{\^{u}}}1
+        {ù}{{\`{u}}}1
+        {â}{{\^{a}}}1
+        {à}{{\`{a}}}1
+        {á}{{\'{a}}}1
+        {ã}{{\~{a}}}1
+        {Á}{{\'{A}}}1
+        {Â}{{\^{A}}}1
+        {Ã}{{\~{A}}}1
+        {ç}{{\c{c}}}1
+        {Ç}{{\c{C}}}1
+        {õ}{{\~{o}}}1
+        {ó}{{\'{o}}}1
+        {ô}{{\^{o}}}1
+        {Õ}{{\~{O}}}1
+        {Ó}{{\'{O}}}1
+        {Ô}{{\^{O}}}1
+        {î}{{\^{i}}}1
+        {Î}{{\^{I}}}1
+        {í}{{\'{i}}}1
+        {Í}{{\~{Í}}}1
+}
+
+\lstnewenvironment{maxima}{%
+\lstset{
+frame=single,
+escapeinside=~~,
+%language=maxima,
+inputencoding=utf8x,
+stringstyle=\footnotesize\ttfamily
+showstringspaces=false,
+backgroundcolor=\color{amarelo},
+keywordstyle=\color{black}\bfseries,
+basicstyle=\footnotesize\ttfamily}
+}{}
+
+\lstnewenvironment{code}{%
+\lstset{%
+        backgroundcolor=\color{Cinza},
+        tabsize=3,
+        escapeinside=~~,
+        rulecolor=,
+        language=bash,
+        %basicstyle=\scriptsize,
+        basicstyle=\footnotesize\ttfamily,
+        upquote=true,       % needs package textcomp
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1}\bfseries,
+        %keywordstyle=\color{black}\bfseries,
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        %stringstyle=\color[rgb]{0.627,0.126,0.941},
+        stringstyle=\footnotesize\ttfamily}
+}{}
+
+
+
+%-----------------------------------------------------------------------------------
+%\input{Sal_Def}
+%-----------------------------------------------------------------------------------
+%\pagestyle{fancy}
+%\setlength{\headrulewidth}{0.6pt}
+% \renewcommand{\headrulewidth}{0.6pt}
+% \addtolength{\headwidth}{\marginparsep}
+% \lhead[\fancyplain{}{\bfseries Prof. Salviano A. Leão}]%
+%       {\fancyplain{}{\bfseries Prof. Salviano A. Leão}}
+% \rhead[\fancyplain{}{\bfseries\leftmark}]%
+%       {\fancyplain{}{\bfseries\thepage}}
+% \cfoot{}
+
+
+\pagestyle{fancy}
+%\fancyhfoffset[LE]{1.40cm}
+%\fancyhfoffset[RO]{1.40cm}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\addtolength{\headwidth}{\marginparsep}
+\fancyhead{} % clear all header fields
+\fancyfoot{} % clear all footer fields
+\fancyhead[LE,LO]{\slshape \nouppercase{\rightmark}}
+%\fancyhead[RE,RO]{\slshape Questão \arabic{thequestao}}
+\fancyfoot[LE,LO]{\SAL}
+%\fancyfoot[CE,CO]{\nouppercase{\rightmark}}
+\fancyfoot[RE,RO]{\thepage}
+%-------------------------------------------------------------------------------------
+%\setlength{\textwidth}{17.0cm}
+%\setlength{\textheight}{24.5cm}
+%\setlength{\parindent}{1.0cm}
+%\setlength{\baselineskip}{0.8cm}
+%\voffset=-2.0cm
+%\hoffset=-1.0cm
+\renewcommand{\baselinestretch}{1.25}
+\renewcommand{\textfraction}{0.03}
+\renewcommand{\topfraction}{0.97}
+\renewcommand{\bottomfraction}{0.97}
+\pagestyle{plain}
+%-------------------------------------------------------------------------------------
+
+
+%\makeindex  % Para gerar o indice remissivo
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{-1.0cm}
+
+\begin{center}
+\includegraphics[width=0.90\linewidth]{Cab_IF_PB_01.eps}
+\end{center}
+
+\vspace*{3.0cm}
+\begin{center}
+\textbf{\LARGE NOTAS DE AULAS  }
+\end{center}
+\vspace{5.0cm}
+
+\begin{center}
+\textbf{\Huge MECÂNICA QUÂNTICA}
+\end{center}
+\vspace{\fill}
+
+\begin{center}
+{\LARGE \textbf{Prof.:} Dr. Salviano A. Le{\~{a}}o}
+\vspace*{1.0cm}
+
+{\Large \textbf{Goi\^{a}nia \today} }
+\end{center}
+\end{titlepage}
+
+\pagestyle{empty}
+
+\pagebreak
+\newpage
+
+\hfill
+\newpage
+
+\pagenumbering{roman}
+\pagestyle{fancy}
+%\pagestyle{plain}
+\setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{Cap_01}
+
+\include{Cap_02}
+
+%\printindex   % Coloca o indice remissivo aqui
+
+% Referências bibliograficas
+
+%\bibliographystyle{alpha}
+\bibliographystyle{unsrt}
+% \bibliographystyle{abbrv}
+% \bibliographystyle{apalike}
+% \bibliographystyle{ieeetr}
+% \bibliographystyle{siam}
+% \bibliographystyle{abnt-num}
+% \bibliographystyle{abnt-alf}
+% \bibliographystyle{apsrmp}
+% \bibliographystyle{apsrev}
+% \bibliographystyle{apsrev4-1}
+% \bibliographystyle{MyUnsrt}
+
+\bibliography{bibtex/FisComp_asc,bibtex/EnsinoPapers_asc,bibtex/Shell}
+
+\end{document}
